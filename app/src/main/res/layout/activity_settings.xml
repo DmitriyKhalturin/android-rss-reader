@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_layout"
+    android:id="@+id/map_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".view.activity.FeedActivity">
+    tools:context=".view.activity.SettingsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -26,9 +26,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/feed"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <!-- TODO: content -->
 
 </android.support.design.widget.CoordinatorLayout>

@@ -3,6 +3,7 @@ package com.halturin.dmitry.rssreader.view.activity;
 import android.app.SearchManager;
 import android.app.SearchableInfo;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -88,10 +89,10 @@ public class FeedActivity extends AppCompatActivity implements
         int id = item.getItemId();
 
         switch(id){
-            case android.R.id.home:
-                break;
             case R.id.action_settings:
-                // TODO: open Settings Activity
+                Intent intent = new Intent(this, SettingsActivity.class);
+
+                startActivity(intent);
                 break;
             default:
                 return super.onOptionsItemSelected(item);

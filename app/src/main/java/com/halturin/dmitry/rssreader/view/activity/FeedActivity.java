@@ -5,9 +5,11 @@ import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -25,6 +27,7 @@ import butterknife.ButterKnife;
  */
 
 public class FeedActivity extends AppCompatActivity implements
+    SwipeRefreshLayout.OnRefreshListener,
     MenuItemCompat.OnActionExpandListener,
     SearchView.OnQueryTextListener {
 
@@ -36,6 +39,9 @@ public class FeedActivity extends AppCompatActivity implements
 
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
+
+    @BindView(R.id.refresh)
+    protected SwipeRefreshLayout refresh;
 
     @BindView(R.id.feed)
     protected RecyclerView feed;
@@ -59,6 +65,8 @@ public class FeedActivity extends AppCompatActivity implements
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
+
+        setSwipeRefreshSettings();
     }
 
     @Override
@@ -105,6 +113,11 @@ public class FeedActivity extends AppCompatActivity implements
 //    Class Methods
 //==================================================================================================
 
+    private void setSwipeRefreshSettings(){
+        refresh.setOnRefreshListener(this);
+        refresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
+    }
+
     private void setVisibleMenuItems(@NonNull Menu menu, @NonNull MenuItem exclude, boolean visible){
         for(int i = 0; i < menu.size(); i++){
             MenuItem item = menu.getItem(i);
@@ -113,6 +126,15 @@ public class FeedActivity extends AppCompatActivity implements
                 item.setVisible(visible);
             }
         }
+    }
+
+//==================================================================================================
+//    Class Implementation SwipeRefreshLayout.OnRefreshListener
+//==================================================================================================
+
+    @Override
+    public void onRefresh(){
+        // TODO: request news and update feed
     }
 
 //==================================================================================================

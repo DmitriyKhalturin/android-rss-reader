@@ -3,10 +3,12 @@ package com.halturin.dmitry.rssreader.view.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.halturin.dmitry.rssreader.R;
+import com.halturin.dmitry.rssreader.presenter.NewsPresenter;
+import com.halturin.dmitry.rssreader.presenter.vo.News;
+import com.halturin.dmitry.rssreader.view.NewsView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,7 +17,7 @@ import butterknife.ButterKnife;
  * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 17.02.17 22:00.
  */
 
-public class NewsActivity extends AppCompatActivity {
+public class NewsActivity extends RssActivity implements NewsView {
 
 //==================================================================================================
 //    Class Variables
@@ -29,6 +31,8 @@ public class NewsActivity extends AppCompatActivity {
 //==================================================================================================
 
     public NewsActivity(){
+        activityResId = R.layout.activity_news;
+        rssPresenter = new NewsPresenter(this);
     }
 
 //==================================================================================================
@@ -49,6 +53,15 @@ public class NewsActivity extends AppCompatActivity {
         if(actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+//==================================================================================================
+//    Class Implementation NewsView
+//==================================================================================================
+
+    @Override
+    public void setContent(News news){
+
     }
 
 }

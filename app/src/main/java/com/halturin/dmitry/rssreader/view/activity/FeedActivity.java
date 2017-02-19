@@ -5,12 +5,11 @@ import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -18,15 +17,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.halturin.dmitry.rssreader.R;
+import com.halturin.dmitry.rssreader.presenter.FeedPresenter;
+import com.halturin.dmitry.rssreader.presenter.vo.News;
+import com.halturin.dmitry.rssreader.view.FeedView;
+import com.halturin.dmitry.rssreader.view.adapter.NewsAdapter;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
 
 /**
  * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 17.02.17 20:28.
  */
 
-public class FeedActivity extends AppCompatActivity implements
+public class FeedActivity extends RssActivity implements FeedView,
     SwipeRefreshLayout.OnRefreshListener,
     MenuItemCompat.OnActionExpandListener,
     SearchView.OnQueryTextListener {
@@ -37,20 +43,24 @@ public class FeedActivity extends AppCompatActivity implements
 
     private Menu menu = null;
 
+    private NewsAdapter adapter = null;
+
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
 
-    @BindView(R.id.refresh)
+    @BindView(R.id.news_refresher)
     protected SwipeRefreshLayout refresh;
 
-    @BindView(R.id.feed)
-    protected RecyclerView feed;
+    @BindView(R.id.news_list)
+    protected RecyclerView list;
 
 //==================================================================================================
 //    Class Constructor
 //==================================================================================================
 
     public FeedActivity(){
+        activityResId = R.layout.activity_feed;
+        rssPresenter = new FeedPresenter(this);
     }
 
 //==================================================================================================
@@ -67,6 +77,7 @@ public class FeedActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
 
         setSwipeRefreshSettings();
+        setRecyclerViewSettings();
     }
 
     @Override
@@ -115,7 +126,15 @@ public class FeedActivity extends AppCompatActivity implements
 
     private void setSwipeRefreshSettings(){
         refresh.setOnRefreshListener(this);
-        refresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
+        refresh.setColorSchemeResources(R.color.colorPrimary);
+    }
+
+    private void setRecyclerViewSettings(){
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        adapter = new NewsAdapter();
+
+        list.setLayoutManager(layoutManager);
+        list.setAdapter(adapter);
     }
 
     private void setVisibleMenuItems(@NonNull Menu menu, @NonNull MenuItem exclude, boolean visible){
@@ -126,6 +145,25 @@ public class FeedActivity extends AppCompatActivity implements
                 item.setVisible(visible);
             }
         }
+    }
+
+//==================================================================================================
+//    Class Implementation FeedView
+//==================================================================================================
+
+    @Override
+    public void setList(List<News> list){
+        adapter.setList(list);
+    }
+
+    @Override
+    public Observable<Void> getOnUpdateFeed(){
+        return null;
+    }
+
+    @Override
+    public void setUpdateComplete(){
+        refresh.setRefreshing(false);
     }
 
 //==================================================================================================

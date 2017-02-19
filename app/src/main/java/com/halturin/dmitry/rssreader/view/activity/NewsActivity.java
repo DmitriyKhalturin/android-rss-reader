@@ -31,7 +31,6 @@ public class NewsActivity extends RssActivity implements NewsView {
 //==================================================================================================
 
     public NewsActivity(){
-        activityResId = R.layout.activity_news;
         rssPresenter = new NewsPresenter(this);
     }
 

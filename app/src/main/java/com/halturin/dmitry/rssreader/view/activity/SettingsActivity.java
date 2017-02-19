@@ -31,7 +31,6 @@ public class SettingsActivity extends RssActivity implements SettingsView {
 //==================================================================================================
 
     public SettingsActivity(){
-        activityResId = R.layout.activity_settings;
         rssPresenter = new SettingsPresenter(this);
     }
 

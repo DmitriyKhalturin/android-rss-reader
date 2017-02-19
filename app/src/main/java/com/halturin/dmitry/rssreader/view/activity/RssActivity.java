@@ -17,7 +17,6 @@ public class RssActivity extends AppCompatActivity {
 //==================================================================================================
 
     protected RssPresenter rssPresenter = null;
-    protected Integer activityResId;
 
 //==================================================================================================
 //    Class Callbacks
@@ -25,12 +24,7 @@ public class RssActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
-        if(activityResId == null){
-            throw new Error("NoActivityResourceId");
-        }
-
         super.onCreate(savedInstanceState);
-        setContentView(activityResId);
 
         rssPresenter.onCreate();
     }

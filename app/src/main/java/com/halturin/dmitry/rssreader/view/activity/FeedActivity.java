@@ -34,13 +34,16 @@ public class FeedActivity extends RssActivity implements FeedView,
 //    Class Variables
 //==================================================================================================
 
+    private NewsAdapter adapter = null;
+
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
+
     @BindView(R.id.news_refresh)
     protected SwipeRefreshLayout refresh;
+
     @BindView(R.id.news_list)
     protected RecyclerView list;
-    private NewsAdapter adapter = null;
 
 //==================================================================================================
 //    Class Constructor

@@ -25,12 +25,12 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/refresh"
+        android:id="@+id/news_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/feed"
+            android:id="@+id/news_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

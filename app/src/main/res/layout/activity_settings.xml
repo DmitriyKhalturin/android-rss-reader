@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -23,6 +24,37 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <!-- TODO: content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/horizontal_padding_settings"
+            android:layout_marginEnd="@dimen/horizontal_padding_settings"
+            android:text="@string/label__url_label"/>
+
+        <EditText
+            android:id="@+id/setting_url"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textUri"
+            android:textSize="@dimen/size_url_link"
+            android:hint="@string/label__url_hint"/>
+
+        <Button
+            android:id="@+id/settings_sync"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/horizontal_padding_settings"
+            android:layout_marginEnd="@dimen/horizontal_padding_settings"
+            android:text="@string/label__url_sync"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
 
 </LinearLayout>

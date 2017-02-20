@@ -2,6 +2,9 @@
 <resources>
     <string name="app_name">RSS Reader</string>
 
-    <string name="menu_action__search">Поиск</string>
     <string name="menu_action__settings">Настройки</string>
+
+    <string name="label__url_label">URL:</string>
+    <string name="label__url_hint">Ведите адрес RSS летны</string>
+    <string name="label__url_sync">Загрузить</string>
 </resources>

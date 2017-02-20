@@ -1,27 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/news_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_width="@dimen/width_news_image"
+        android:layout_height="@dimen/height_news_image"
+        android:src="@drawable/ic_rss_feed"
+        android:contentDescription="@null"/>
 
-    <TextView
-        android:id="@+id/news_title"
+    <LinearLayout
+        android:id="@+id/news_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="@dimen/height_news_image"
+        android:paddingStart="@dimen/horizontal_padding_news"
+        android:paddingEnd="@dimen/horizontal_padding_news"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/news_date"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/news_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/vertical_padding_news"
+            android:paddingBottom="@dimen/vertical_padding_news"
+            android:textSize="@dimen/size_news_title"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="marquee"/>
 
-    <TextView
-        android:id="@+id/news_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/news_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/news_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/vertical_padding_news"
+            android:paddingBottom="@dimen/vertical_padding_news"
+            android:maxLines="2"
+            android:ellipsize="marquee"/>
+
+    </LinearLayout>
 
 </LinearLayout>

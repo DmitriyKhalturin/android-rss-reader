@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">RSS Reader</string>
 
-    <string name="menu_action__search">Search</string>
     <string name="menu_action__settings">Settings</string>
+
+    <string name="label__url_label">URL:</string>
+    <string name="label__url_hint">Enter the RSS feed URL here</string>
+    <string name="label__url_sync">Syncing</string>
 </resources>

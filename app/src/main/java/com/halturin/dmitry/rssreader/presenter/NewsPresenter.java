@@ -30,7 +30,9 @@ public class NewsPresenter extends RssPresenterImpl {
     public void onResume(){
         super.onResume();
 
-        // TODO: implementation observer view actions
+        long newsId = view.getNewsId();
+
+        view.setContent(rssModel.getNews(newsId));
     }
 
 }

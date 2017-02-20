@@ -8,6 +8,8 @@ import com.halturin.dmitry.rssreader.presenter.vo.News;
 
 public interface NewsView {
 
+    long getNewsId();
+
     void setContent(News news);
 
 }

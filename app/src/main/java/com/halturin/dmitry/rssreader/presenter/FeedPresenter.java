@@ -30,7 +30,20 @@ public class FeedPresenter extends RssPresenterImpl {
     public void onResume(){
         super.onResume();
 
-        // TODO: implementation observer view actions
+        addSubscription(rssModel.getFeed().subscribe(view::setList));
+        addSubscription(view.getOnUpdateList().subscribe(this::onUpdateList));
+    }
+
+//==================================================================================================
+//    Class Methods
+//==================================================================================================
+
+    private void onUpdateList(Void aVoid){
+        addSubscription(rssModel.updateFeed().subscribe(this::onUpdateComplete));
+    }
+
+    private void onUpdateComplete(Boolean complete){
+        view.setUpdateListComplete();
     }
 
 }

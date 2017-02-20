@@ -30,7 +30,22 @@ public class SettingsPresenter extends RssPresenterImpl {
     public void onResume(){
         super.onResume();
 
-        // TODO: implementation observer view actions
+        view.setUrl(rssModel.getUrl());
+
+        addSubscription(view.getOnChangeUrl().subscribe(this::onChangeUrl));
+    }
+
+//==================================================================================================
+//    Class Methods
+//==================================================================================================
+
+    private void onChangeUrl(String url){
+        rssModel.setUrl(url);
+        addSubscription(rssModel.updateFeed().subscribe(this::onUpdateComplete));
+    }
+
+    private void onUpdateComplete(Boolean complete){
+        view.setChangeUrlComplete();
     }
 
 }

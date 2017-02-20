@@ -4,6 +4,8 @@ import com.halturin.dmitry.rssreader.presenter.vo.News;
 
 import java.util.List;
 
+import rx.Observable;
+
 /**
  * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:03.
  */
@@ -32,12 +34,12 @@ public class RssModelImpl implements RssModel {
     }
 
     @Override
-    public void updateFeed(){
-
+    public Observable<Boolean> updateFeed(){
+        return null;
     }
 
     @Override
-    public List<News> getFeed(){
+    public Observable<List<News>> getFeed(){
         return null;
     }
 

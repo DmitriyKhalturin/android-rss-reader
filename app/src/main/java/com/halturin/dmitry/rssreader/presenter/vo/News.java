@@ -15,7 +15,9 @@ public class News {
     private String title;
     private String date;
     private Bitmap image;
-    private String text;
+    private String message;
+
+    private boolean isReaded;
 
 //==================================================================================================
 //    Class Methods
@@ -45,12 +47,20 @@ public class News {
         this.image = image;
     }
 
-    public String getText(){
-        return text;
+    public String getMessage(){
+        return message;
     }
 
-    public void setText(String text){
-        this.text = text;
+    public void setMessage(String text){
+        this.message = message;
+    }
+
+    public boolean isReaded(){
+        return isReaded;
+    }
+
+    public void setReaded(boolean readed){
+        isReaded = readed;
     }
 
 }

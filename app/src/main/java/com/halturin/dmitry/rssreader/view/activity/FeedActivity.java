@@ -22,6 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Observable;
+import rx.subjects.PublishSubject;
 
 /**
  * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 17.02.17 20:28.
@@ -36,14 +37,16 @@ public class FeedActivity extends RssActivity implements FeedView,
 
     private NewsAdapter adapter = null;
 
+    private PublishSubject<Void> onUpdateList = PublishSubject.create();
+
     @BindView(R.id.toolbar)
-    protected Toolbar toolbar;
+    protected Toolbar toolbarView;
 
     @BindView(R.id.news_refresh)
-    protected SwipeRefreshLayout refresh;
+    protected SwipeRefreshLayout refreshView;
 
     @BindView(R.id.news_list)
-    protected RecyclerView list;
+    protected RecyclerView listView;
 
 //==================================================================================================
 //    Class Constructor
@@ -64,7 +67,7 @@ public class FeedActivity extends RssActivity implements FeedView,
 
         ButterKnife.bind(this);
 
-        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbarView);
 
         setSwipeRefreshSettings();
         setRecyclerViewSettings();
@@ -101,16 +104,16 @@ public class FeedActivity extends RssActivity implements FeedView,
 //==================================================================================================
 
     private void setSwipeRefreshSettings(){
-        refresh.setOnRefreshListener(this);
-        refresh.setColorSchemeResources(R.color.colorPrimary);
+        refreshView.setOnRefreshListener(this);
+        refreshView.setColorSchemeResources(R.color.colorPrimary);
     }
 
     private void setRecyclerViewSettings(){
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         adapter = new NewsAdapter();
 
-        list.setLayoutManager(layoutManager);
-        list.setAdapter(adapter);
+        listView.setLayoutManager(layoutManager);
+        listView.setAdapter(adapter);
     }
 
 //==================================================================================================
@@ -123,13 +126,13 @@ public class FeedActivity extends RssActivity implements FeedView,
     }
 
     @Override
-    public Observable<Void> getOnUpdateFeed(){
-        return null;
+    public Observable<Void> getOnUpdateList(){
+        return onUpdateList.asObservable();
     }
 
     @Override
-    public void setUpdateComplete(){
-        refresh.setRefreshing(false);
+    public void setUpdateListComplete(){
+        refreshView.setRefreshing(false);
     }
 
 //==================================================================================================
@@ -138,7 +141,7 @@ public class FeedActivity extends RssActivity implements FeedView,
 
     @Override
     public void onRefresh(){
-        // TODO: request news and update feed
+        onUpdateList.onNext(null);
     }
 
 }

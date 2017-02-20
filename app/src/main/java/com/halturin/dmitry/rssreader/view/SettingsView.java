@@ -12,4 +12,6 @@ public interface SettingsView {
 
     Observable<String> getOnChangeUrl();
 
+    void setChangeUrlComplete();
+
 }

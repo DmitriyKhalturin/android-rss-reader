@@ -4,6 +4,8 @@ import com.halturin.dmitry.rssreader.presenter.vo.News;
 
 import java.util.List;
 
+import rx.Observable;
+
 /**
  * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:03.
  */
@@ -14,9 +16,9 @@ public interface RssModel {
 
     void setUrl(String url);
 
-    void updateFeed();
+    Observable<Boolean> updateFeed();
 
-    List<News> getFeed();
+    Observable<List<News>> getFeed();
 
     News getNews(long id);
 

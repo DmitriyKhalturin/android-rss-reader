@@ -16,7 +16,7 @@ public class RssPresenterImpl implements RssPresenter {
 //    Class Variables
 //==================================================================================================
 
-    private RssModel rssModel = null;
+    protected RssModel rssModel = null;
 
     private CompositeSubscription compositeSubscription;
 

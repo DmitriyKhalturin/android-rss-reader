@@ -12,10 +12,10 @@ import rx.Observable;
 
 public interface FeedView {
 
-    void setList(List<News> newsList);
+    void setList(List<News> list);
 
-    Observable<Void> getOnUpdateFeed();
+    Observable<Void> getOnUpdateList();
 
-    void setUpdateComplete();
+    void setUpdateListComplete();
 
 }

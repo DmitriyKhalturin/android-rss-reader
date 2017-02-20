@@ -3,6 +3,7 @@ package com.halturin.dmitry.rssreader.view.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.halturin.dmitry.rssreader.R;
@@ -21,17 +22,20 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
 //    Class Variables
 //==================================================================================================
 
+    @BindView(R.id.news_layout)
+    protected LinearLayout layoutView;
+
     @BindView(R.id.news_title)
-    protected TextView title;
+    protected TextView titleView;
 
     @BindView(R.id.news_date)
-    protected TextView date;
+    protected TextView dateView;
 
     @BindView(R.id.news_image)
-    protected ImageView image;
+    protected ImageView imageView;
 
-    @BindView(R.id.news_text)
-    protected TextView text;
+    @BindView(R.id.news_message)
+    protected TextView messageView;
 
 //==================================================================================================
 //    Class Constructor
@@ -48,10 +52,18 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
 //==================================================================================================
 
     public void bind(News news){
-        title.setText(news.getTitle());
-        date.setText(news.getDate());
-        image.setImageBitmap(news.getImage());
-        text.setText(news.getText());
+        titleView.setText(news.getTitle());
+        dateView.setText(news.getDate());
+        imageView.setImageBitmap(news.getImage());
+        messageView.setText(news.getMessage());
+
+        if(news.isReaded()){
+            layoutView.setBackgroundResource(R.drawable.bg_news_readed);
+            imageView.setBackgroundResource(R.drawable.bg_news_readed);
+        }else{
+            layoutView.setBackgroundResource(R.drawable.bg_news_unread);
+            imageView.setBackgroundResource(R.drawable.bg_news_unread);
+        }
     }
 
 }

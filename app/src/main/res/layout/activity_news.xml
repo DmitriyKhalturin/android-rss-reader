@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -36,24 +36,30 @@
 
             <ImageView
                 android:id="@+id/news_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/width_news_image"
+                android:layout_height="@dimen/height_news_image"
+                android:src="@drawable/ic_rss_feed"
                 android:contentDescription="@null"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:padding="@dimen/padding_news_content"
                 android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/news_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
 
                 <TextView
                     android:id="@+id/news_date"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="wrap_content"
+                    android:gravity="end"/>
+
+                <TextView
+                    android:id="@+id/news_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/padding_news_line"
+                    android:textSize="@dimen/size_news_title"
+                    android:maxLines="5"/>
 
             </LinearLayout>
 
@@ -62,7 +68,8 @@
         <TextView
             android:id="@+id/news_message"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_news_content"/>
 
     </LinearLayout>
 

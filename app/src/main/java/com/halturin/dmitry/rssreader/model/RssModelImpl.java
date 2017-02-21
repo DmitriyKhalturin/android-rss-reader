@@ -34,7 +34,7 @@ public class RssModelImpl implements RssModel {
     }
 
     @Override
-    public Observable<Boolean> updateFeed(){
+    public Observable<Void> updateFeed(){
         return null;
     }
 

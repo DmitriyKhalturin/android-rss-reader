@@ -38,12 +38,14 @@ public class FeedPresenter extends RssPresenterImpl {
 //    Class Methods
 //==================================================================================================
 
-    private void onUpdateList(Void aVoid){
-        addSubscription(rssModel.updateFeed().subscribe(this::onUpdateComplete));
-    }
-
-    private void onUpdateComplete(Boolean complete){
-        view.setUpdateListComplete();
+    private void onUpdateList(Void _aVoid){
+        addSubscription(rssModel.updateFeed()
+            .subscribe(aVoid -> {
+                view.setUpdateListComplete();
+            }, error -> {
+                // TODO: processing error
+            })
+        );
     }
 
 }

@@ -41,11 +41,14 @@ public class SettingsPresenter extends RssPresenterImpl {
 
     private void onChangeUrl(String url){
         rssModel.setUrl(url);
-        addSubscription(rssModel.updateFeed().subscribe(this::onUpdateComplete));
-    }
 
-    private void onUpdateComplete(Boolean complete){
-        view.setChangeUrlComplete();
+        addSubscription(rssModel.updateFeed()
+            .subscribe(aVoid -> {
+                view.setChangeUrlComplete();
+            }, error -> {
+                // TODO: processing error
+            })
+        );
     }
 
 }

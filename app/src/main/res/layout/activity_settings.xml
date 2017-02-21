@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="textUri"
-            android:textSize="@dimen/size_url_link"
+            android:textSize="@dimen/size_settings_url"
             android:hint="@string/label__url_hint"/>
 
         <Button

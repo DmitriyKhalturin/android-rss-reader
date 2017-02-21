@@ -65,7 +65,8 @@ public class SettingsActivity extends RssActivity implements SettingsView {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        RxView.clicks(syncView).subscribe(this::onSyncClick);
+        RxView.clicks(syncView)
+            .subscribe(this::onSyncClick);
     }
 
 //==================================================================================================

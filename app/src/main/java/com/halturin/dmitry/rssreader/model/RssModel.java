@@ -16,7 +16,7 @@ public interface RssModel {
 
     void setUrl(String url);
 
-    Observable<Boolean> updateFeed();
+    Observable<Void> updateFeed();
 
     Observable<List<News>> getFeed();
 

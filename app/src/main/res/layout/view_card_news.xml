@@ -7,26 +7,26 @@
 
     <ImageView
         android:id="@+id/news_image"
-        android:layout_width="@dimen/width_news_image"
-        android:layout_height="@dimen/height_news_image"
+        android:layout_width="@dimen/width_card_news_image"
+        android:layout_height="@dimen/height_card_news_image"
         android:src="@drawable/ic_rss_feed"
         android:contentDescription="@null"/>
 
     <LinearLayout
         android:id="@+id/news_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_news_image"
-        android:paddingStart="@dimen/horizontal_padding_news"
-        android:paddingEnd="@dimen/horizontal_padding_news"
+        android:layout_height="@dimen/height_card_news_image"
+        android:paddingStart="@dimen/horizontal_padding_card_news"
+        android:paddingEnd="@dimen/horizontal_padding_card_news"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/news_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/vertical_padding_news"
-            android:paddingBottom="@dimen/vertical_padding_news"
-            android:textSize="@dimen/size_news_title"
+            android:paddingTop="@dimen/vertical_padding_card_news"
+            android:paddingBottom="@dimen/vertical_padding_card_news"
+            android:textSize="@dimen/size_card_news_title"
             android:textStyle="bold"
             android:maxLines="1"
             android:ellipsize="marquee"/>
@@ -40,8 +40,8 @@
             android:id="@+id/news_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/vertical_padding_news"
-            android:paddingBottom="@dimen/vertical_padding_news"
+            android:paddingTop="@dimen/vertical_padding_card_news"
+            android:paddingBottom="@dimen/vertical_padding_card_news"
             android:maxLines="2"
             android:ellipsize="marquee"/>
 

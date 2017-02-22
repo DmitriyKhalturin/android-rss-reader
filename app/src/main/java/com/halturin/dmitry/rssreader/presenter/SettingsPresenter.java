@@ -31,7 +31,6 @@ public class SettingsPresenter extends RssPresenterImpl {
         super.onResume();
 
         view.setUrl(rssModel.getUrl());
-
         addSubscription(view.getOnChangeUrl().subscribe(this::onChangeUrl));
     }
 

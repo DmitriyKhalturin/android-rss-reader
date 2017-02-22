@@ -34,8 +34,8 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.news_image)
     protected ImageView imageView;
 
-    @BindView(R.id.news_message)
-    protected TextView messageView;
+    @BindView(R.id.news_description)
+    protected TextView descriptionView;
 
 //==================================================================================================
 //    Class Constructor
@@ -55,7 +55,7 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
         titleView.setText(news.getTitle());
         dateView.setText(news.getDate());
         imageView.setImageBitmap(news.getImage());
-        messageView.setText(news.getMessage());
+        descriptionView.setText(news.getDescription());
 
         if(news.isReaded()){
             layoutView.setBackgroundResource(R.drawable.bg_news_readed);

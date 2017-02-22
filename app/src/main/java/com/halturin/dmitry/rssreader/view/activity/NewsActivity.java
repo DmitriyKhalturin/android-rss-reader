@@ -43,8 +43,8 @@ public class NewsActivity extends RssActivity implements NewsView {
     @BindView(R.id.news_image)
     protected ImageView imageView;
 
-    @BindView(R.id.news_message)
-    protected TextView messageView;
+    @BindView(R.id.news_description)
+    protected TextView descriptionView;
 
 //==================================================================================================
 //    Class Constructor
@@ -96,10 +96,12 @@ public class NewsActivity extends RssActivity implements NewsView {
 
     @Override
     public void setContent(News news){
-        titleView.setText(news.getTitle());
-        dateView.setText(news.getDate());
-        imageView.setImageBitmap(news.getImage());
-        messageView.setText(news.getMessage());
+        if(news != null){
+            titleView.setText(news.getTitle());
+            dateView.setText(news.getDate());
+            imageView.setImageBitmap(news.getImage());
+            descriptionView.setText(news.getDescription());
+        }
     }
 
 }

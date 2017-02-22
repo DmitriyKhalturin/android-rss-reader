@@ -1,9 +1,8 @@
 package com.halturin.dmitry.rssreader.model;
 
-import com.halturin.dmitry.rssreader.presenter.vo.News;
+import com.halturin.dmitry.rssreader.model.dto.ItemEntity;
 
-import java.util.List;
-
+import io.realm.RealmResults;
 import rx.Observable;
 
 /**
@@ -18,8 +17,8 @@ public interface RssModel {
 
     Observable<Void> updateFeed();
 
-    Observable<List<News>> getFeed();
+    Observable<RealmResults<ItemEntity>> getFeed();
 
-    News getNews(long id);
+    Observable<ItemEntity> getNews(long id);
 
 }

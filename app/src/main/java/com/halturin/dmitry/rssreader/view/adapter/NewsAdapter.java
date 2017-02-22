@@ -64,9 +64,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
     }
 
     public void setList(List<News> list){
-        this.list = list;
+        if(list != null){
+            this.list = list;
 
-        notifyDataSetChanged();
+            notifyDataSetChanged();
+        }
     }
 
 }

@@ -12,6 +12,7 @@ public class News {
 //    Class Variables
 //==================================================================================================
 
+    private long id;
     private String title;
     private String description;
     private String link;
@@ -23,6 +24,14 @@ public class News {
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
+
+    public long getId(){
+        return id;
+    }
+
+    public void setId(long id){
+        this.id = id;
+    }
 
     public String getTitle(){
         return title;

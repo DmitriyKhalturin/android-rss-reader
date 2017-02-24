@@ -3,6 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.halturin.dmitry.rssreader">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".app.RssApplication"
         android:allowBackup="true"

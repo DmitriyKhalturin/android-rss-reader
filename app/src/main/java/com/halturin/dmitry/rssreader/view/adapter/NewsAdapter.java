@@ -6,10 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.halturin.dmitry.rssreader.R;
+import com.halturin.dmitry.rssreader.app.util.SubscribersList;
 import com.halturin.dmitry.rssreader.presenter.vo.News;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Observable;
 
 /**
  * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:31.
@@ -22,6 +25,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 //==================================================================================================
 
     private List<News> list = new ArrayList<>();
+
+    private SubscribersList<Long> onClickCard = new SubscribersList<>();
 
 //==================================================================================================
 //    Class Constructor
@@ -39,6 +44,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
         View view = LayoutInflater.from(parent.getContext())
             .inflate(R.layout.view_card_news, parent, false);
         NewsViewHolder holder = new NewsViewHolder(view);
+
+        holder.getOnClickCard().subscribe(onClickCard::onNext);
 
         return holder;
     }
@@ -69,6 +76,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
             notifyDataSetChanged();
         }
+    }
+
+    public Observable<Long> getOnClickCard(){
+        return onClickCard.getObservable();
     }
 
 }

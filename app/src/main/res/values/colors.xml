@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="colorNewsReaded">#FAFAFA</color>
-    <color name="colorNewsUnread">#E3E3E3</color>
+    <color name="colorLight">#FFFFFFFF</color>
+
+    <color name="colorNewsBorder">#DCDCDC</color>
+    <color name="colorNewsReadedBackground">#F5F5F5</color>
+    <color name="colorNewsUnreadBackground">#EAEAEA</color>
 </resources>

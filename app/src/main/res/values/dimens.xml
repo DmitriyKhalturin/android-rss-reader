@@ -1,6 +1,6 @@
 <resources>
-    <dimen name="width_card_news_image">80dp</dimen>
-    <dimen name="height_card_news_image">80dp</dimen>
+    <dimen name="width_card_news_image">90dp</dimen>
+    <dimen name="height_card_news_image">90dp</dimen>
     <dimen name="size_card_news_title">18sp</dimen>
     <dimen name="vertical_padding_card_news">2dp</dimen>
     <dimen name="horizontal_padding_card_news">5dp</dimen>

@@ -74,7 +74,7 @@ public class SettingsActivity extends RssActivity implements SettingsView {
 //==================================================================================================
 
     private void onSyncClick(Void aVoid){
-        String url = (String) urlView.getText();
+        String url = urlView.getText().toString();
 
         urlView.setEnabled(false);
         syncView.setEnabled(false);

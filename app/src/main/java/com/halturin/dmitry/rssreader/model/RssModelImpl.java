@@ -3,6 +3,7 @@ package com.halturin.dmitry.rssreader.model;
 import com.einmalfel.earl.EarlParser;
 import com.einmalfel.earl.Feed;
 import com.einmalfel.earl.Item;
+import com.halturin.dmitry.rssreader.app.transformer.ObservableTransformer;
 import com.halturin.dmitry.rssreader.model.database.DatabaseModule;
 import com.halturin.dmitry.rssreader.model.dto.FeedEntity;
 import com.halturin.dmitry.rssreader.model.dto.ItemEntity;
@@ -153,6 +154,7 @@ public class RssModelImpl implements RssModel {
 
         feedEntity.setActive(true);
 
+        realm.copyToRealmOrUpdate(feedEntity);
         realm.commitTransaction();
     }
 
@@ -206,10 +208,10 @@ public class RssModelImpl implements RssModel {
 
                 subscriber.onNext(null);
                 subscriber.onCompleted();
-            }catch(IOException | XmlPullParserException | DataFormatException error){
+            }catch(NullPointerException | IOException | XmlPullParserException | DataFormatException error){
                 subscriber.onError(error);
             }
-        });
+        }).compose(ObservableTransformer.applySchedulers());
     }
 
     @Override

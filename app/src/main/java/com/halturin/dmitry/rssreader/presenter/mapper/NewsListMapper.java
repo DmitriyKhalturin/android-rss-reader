@@ -23,6 +23,7 @@ public class NewsListMapper implements Func1<List<ItemEntity>, List<News>> {
                 .map(itemEntity -> {
                     News news = new News();
 
+                    news.setId(itemEntity.getId());
                     news.setTitle(itemEntity.getTitle());
                     news.setDescription(itemEntity.getDescription());
                     news.setLink(itemEntity.getLink());

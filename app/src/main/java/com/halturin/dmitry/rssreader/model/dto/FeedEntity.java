@@ -2,15 +2,22 @@ package com.halturin.dmitry.rssreader.model.dto;
 
 import java.util.Date;
 
+import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 22.02.17 1:26.
  */
 
-public final class FeedEntity extends RealmEntity {
+public class FeedEntity extends RealmObject {
 
 //==================================================================================================
 //    Class Variables
 //==================================================================================================
+
+    @PrimaryKey
+    private long id;
 
     private String url;
 
@@ -27,6 +34,14 @@ public final class FeedEntity extends RealmEntity {
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
+
+    public long getId(){
+        return id;
+    }
+
+    public void setId(long id){
+        this.id = id;
+    }
 
     public String getUrl(){
         return url;
@@ -98,6 +113,16 @@ public final class FeedEntity extends RealmEntity {
 
     public void setActive(boolean active){
         isActive = active;
+    }
+
+//==================================================================================================
+//    Class Specific Methods
+//==================================================================================================
+
+    public void autoIncrementId(Realm realm){
+        Number currentId = realm.where(this.getClass()).max("id");
+        long autoIncrementId = (currentId == null ? 0 : currentId.longValue() + 1);
+        setId(autoIncrementId);
     }
 
 }

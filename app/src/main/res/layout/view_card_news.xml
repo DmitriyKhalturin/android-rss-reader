@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/news_card"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/news_image"
         android:layout_width="@dimen/width_card_news_image"
-        android:layout_height="@dimen/height_card_news_image"
+        android:layout_height="match_parent"
         android:src="@drawable/ic_rss_feed"
-        android:contentDescription="@null"/>
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
-        android:id="@+id/news_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_card_news_image"
+        android:layout_height="wrap_content"
         android:paddingStart="@dimen/horizontal_padding_card_news"
         android:paddingEnd="@dimen/horizontal_padding_card_news"
         android:orientation="vertical">
@@ -28,8 +29,8 @@
             android:paddingBottom="@dimen/vertical_padding_card_news"
             android:textSize="@dimen/size_card_news_title"
             android:textStyle="bold"
-            android:maxLines="1"
-            android:ellipsize="marquee"/>
+            android:lines="2"
+            android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/news_date"
@@ -42,8 +43,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/vertical_padding_card_news"
             android:paddingBottom="@dimen/vertical_padding_card_news"
-            android:maxLines="2"
-            android:ellipsize="marquee"/>
+            android:lines="2"
+            android:ellipsize="end"/>
 
     </LinearLayout>
 

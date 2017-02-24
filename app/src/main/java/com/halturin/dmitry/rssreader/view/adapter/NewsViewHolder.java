@@ -8,9 +8,10 @@ import android.widget.TextView;
 
 import com.halturin.dmitry.rssreader.R;
 import com.halturin.dmitry.rssreader.presenter.vo.News;
+import com.jakewharton.rxbinding.view.RxView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import rx.Observable;
+import rx.subjects.PublishSubject;
 
 /**
  * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:30.
@@ -22,20 +23,15 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
 //    Class Variables
 //==================================================================================================
 
-    @BindView(R.id.news_layout)
-    protected LinearLayout layoutView;
+    private Long id = null;
 
-    @BindView(R.id.news_title)
-    protected TextView titleView;
+    private PublishSubject<Long> onClickCard = PublishSubject.create();
 
-    @BindView(R.id.news_date)
-    protected TextView dateView;
-
-    @BindView(R.id.news_image)
-    protected ImageView imageView;
-
-    @BindView(R.id.news_description)
-    protected TextView descriptionView;
+    private LinearLayout cardView;
+    private TextView titleView;
+    private TextView dateView;
+    private ImageView imageView;
+    private TextView descriptionView;
 
 //==================================================================================================
 //    Class Constructor
@@ -44,7 +40,15 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
     public NewsViewHolder(View view){
         super(view);
 
-        ButterKnife.bind(view);
+        cardView = (LinearLayout) view.findViewById(R.id.news_card);
+        titleView = (TextView) view.findViewById(R.id.news_title);
+        dateView = (TextView) view.findViewById(R.id.news_date);
+        // imageView = (ImageView) view.findViewById(R.id.news_image);
+        descriptionView = (TextView) view.findViewById(R.id.news_description);
+
+        RxView.clicks(cardView).subscribe(aVoid -> {
+            onClickCard.onNext(id);
+        });
     }
 
 //==================================================================================================
@@ -52,18 +56,24 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
 //==================================================================================================
 
     public void bind(News news){
+        id = news.getId();
+
         titleView.setText(news.getTitle());
         dateView.setText(news.getDate());
         imageView.setImageBitmap(news.getImage());
         descriptionView.setText(news.getDescription());
 
         if(news.isReaded()){
-            layoutView.setBackgroundResource(R.drawable.bg_news_readed);
+            cardView.setBackgroundResource(R.drawable.bg_news_readed);
             imageView.setBackgroundResource(R.drawable.bg_news_readed);
         }else{
-            layoutView.setBackgroundResource(R.drawable.bg_news_unread);
+            cardView.setBackgroundResource(R.drawable.bg_news_unread);
             imageView.setBackgroundResource(R.drawable.bg_news_unread);
         }
+    }
+
+    public Observable<Long> getOnClickCard(){
+        return onClickCard.asObservable();
     }
 
 }

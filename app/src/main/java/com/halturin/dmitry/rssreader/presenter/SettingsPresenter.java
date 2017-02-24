@@ -44,7 +44,11 @@ public class SettingsPresenter extends RssPresenterImpl {
         addSubscription(rssModel.updateFeed()
             .subscribe(aVoid -> {
                 view.setChangeUrlComplete();
+
+                // TODO: success info
             }, error -> {
+                view.setChangeUrlComplete();
+
                 // TODO: processing error
             })
         );

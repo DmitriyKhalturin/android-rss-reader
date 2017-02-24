@@ -24,6 +24,8 @@ import butterknife.ButterKnife;
 import rx.Observable;
 import rx.subjects.PublishSubject;
 
+import static com.halturin.dmitry.rssreader.view.activity.NewsActivity.NEWS_ID;
+
 /**
  * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 17.02.17 20:28.
  */
@@ -114,6 +116,13 @@ public class FeedActivity extends RssActivity implements FeedView,
 
         listView.setLayoutManager(layoutManager);
         listView.setAdapter(adapter);
+
+        adapter.getOnClickCard().filter(newsId -> newsId != null).subscribe(newsId -> {
+            Intent intent = new Intent(this, NewsActivity.class);
+            intent.putExtra(NEWS_ID, newsId);
+
+            startActivity(intent);
+        });
     }
 
 //==================================================================================================

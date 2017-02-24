@@ -21,6 +21,8 @@ Butterknife [http://jakewharton.github.io/butterknife/]
 
 Realm [https://realm.io/docs/java/latest/]
 
+For parsing rss feed used library [https://github.com/einmalfel/Earl]
+
 # Uses static code analysis
 
 ```

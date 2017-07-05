@@ -8,7 +8,7 @@
     <dimen name="size_news_title">17sp</dimen>
     <dimen name="width_news_image">120dp</dimen>
     <dimen name="height_news_image">120dp</dimen>
-    <dimen name="padding_news_content">8dp</dimen>
+    <dimen name="padding_news_content">12dp</dimen>
     <dimen name="padding_news_line">4dp</dimen>
 
     <dimen name="size_settings_url">16sp</dimen>

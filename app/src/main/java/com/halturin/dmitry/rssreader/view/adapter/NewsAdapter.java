@@ -26,7 +26,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     private List<News> list = new ArrayList<>();
 
-    private SubscribersList<Long> onClickCard = new SubscribersList<>();
+    private SubscribersList<Long> onClickNews = new SubscribersList<>();
 
 //==================================================================================================
 //    Class Constructor
@@ -45,7 +45,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
             .inflate(R.layout.view_card_news, parent, false);
         NewsViewHolder holder = new NewsViewHolder(view);
 
-        holder.getOnClickCard().subscribe(onClickCard::onNext);
+        holder.getOnClickNews().subscribe(onClickNews::onNext);
 
         return holder;
     }
@@ -78,8 +78,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
         }
     }
 
-    public Observable<Long> getOnClickCard(){
-        return onClickCard.getObservable();
+    public Observable<Long> getOnClickNews(){
+        return onClickNews.getObservable();
     }
 
 }

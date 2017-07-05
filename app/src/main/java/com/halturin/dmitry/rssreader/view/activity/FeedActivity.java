@@ -117,7 +117,7 @@ public class FeedActivity extends RssActivity implements FeedView,
         listView.setLayoutManager(layoutManager);
         listView.setAdapter(adapter);
 
-        adapter.getOnClickCard().filter(newsId -> newsId != null).subscribe(newsId -> {
+        adapter.getOnClickNews().filter(newsId -> newsId != null).subscribe(newsId -> {
             Intent intent = new Intent(this, NewsActivity.class);
             intent.putExtra(NEWS_ID, newsId);
 

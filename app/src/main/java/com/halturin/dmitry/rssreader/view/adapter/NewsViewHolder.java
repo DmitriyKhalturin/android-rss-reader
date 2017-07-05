@@ -25,7 +25,7 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
 
     private Long id = null;
 
-    private PublishSubject<Long> onClickCard = PublishSubject.create();
+    private PublishSubject<Long> onClickNews = PublishSubject.create();
 
     private LinearLayout cardView;
     private TextView titleView;
@@ -43,11 +43,11 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
         cardView = (LinearLayout) view.findViewById(R.id.news_card);
         titleView = (TextView) view.findViewById(R.id.news_title);
         dateView = (TextView) view.findViewById(R.id.news_date);
-        // imageView = (ImageView) view.findViewById(R.id.news_image);
+        imageView = (ImageView) view.findViewById(R.id.news_image);
         descriptionView = (TextView) view.findViewById(R.id.news_description);
 
         RxView.clicks(cardView).subscribe(aVoid -> {
-            onClickCard.onNext(id);
+            onClickNews.onNext(id);
         });
     }
 
@@ -60,7 +60,7 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
 
         titleView.setText(news.getTitle());
         dateView.setText(news.getDate());
-        imageView.setImageBitmap(news.getImage());
+        // imageView.setImageBitmap(news.getImage());
         descriptionView.setText(news.getDescription());
 
         if(news.isReaded()){
@@ -72,8 +72,8 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    public Observable<Long> getOnClickCard(){
-        return onClickCard.asObservable();
+    public Observable<Long> getOnClickNews(){
+        return onClickNews.asObservable();
     }
 
 }

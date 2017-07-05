@@ -48,18 +48,16 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/news_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"/>
-
-                <TextView
                     android:id="@+id/news_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/padding_news_line"
-                    android:textSize="@dimen/size_news_title"
-                    android:maxLines="5"/>
+                    android:paddingBottom="@dimen/padding_news_line"
+                    android:textSize="@dimen/size_news_title"/>
+
+                <TextView
+                    android:id="@+id/news_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 

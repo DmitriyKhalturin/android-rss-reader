@@ -1,8 +1,13 @@
 package com.halturin.dmitry.rssreader.presenter.mapper;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import com.halturin.dmitry.rssreader.model.dto.ItemEntity;
 import com.halturin.dmitry.rssreader.presenter.vo.News;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 import rx.Observable;
@@ -27,9 +32,17 @@ public class NewsListMapper implements Func1<List<ItemEntity>, List<News>> {
                     news.setTitle(itemEntity.getTitle());
                     news.setDescription(itemEntity.getDescription());
                     news.setLink(itemEntity.getLink());
-                    // TODO: set image
                     news.setDate(itemEntity.getDate().toString());
                     news.setReaded(itemEntity.isReaded());
+
+                    try{
+                        URL url = new URL(itemEntity.getImage());
+                        Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+
+                        news.setImage(bitmap);
+                    }catch(IOException error){
+                        // TODO: processing error
+                    }
 
                     return news;
                 })

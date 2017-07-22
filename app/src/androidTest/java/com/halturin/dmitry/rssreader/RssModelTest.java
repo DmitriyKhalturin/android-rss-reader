@@ -276,4 +276,53 @@ public class RssModelTest {
             .assertError(Exception.class);
     }
 
+    @Test
+    public void feedItemChangedIsReaded() throws Exception {
+        String modelName = getEnclosingMethodName(new Object(){});
+
+        RssModel rssModel = new RssModelImpl(modelName);
+
+        setFeedUrlsToModel(rssModel, rssFeedUrls);
+
+        boolean success = getUpdateFeedFromModel(rssModel);
+
+        assertTrue(success);
+
+        List<ItemEntity> items;
+        int itemsSize;
+
+        items = getItemsListFromModel(rssModel);
+        itemsSize = items.size();
+
+        assertNotEquals(0, itemsSize);
+
+        ItemEntity item;
+
+        item = items.get(0);
+
+        assertNotNull(item);
+
+        long itemId = item.getId();
+
+        ItemEntity sameItem = getItemFromModel(rssModel, itemId);
+
+        assertNotNull(sameItem);
+        assertEquals(item, sameItem);
+
+        AssertableSubscriber<ItemEntity> subscriber;
+
+        subscriber = rssModel.getItem(itemId).test();
+
+        subscriber
+            .awaitTerminalEvent()
+            .assertNoErrors()
+            .assertCompleted();
+
+        item = getFirstItem(subscriber);
+
+        boolean itemIsReaded = item.isReaded();
+
+        assertTrue(itemIsReaded);
+    }
+
 }

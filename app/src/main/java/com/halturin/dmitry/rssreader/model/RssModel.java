@@ -1,8 +1,10 @@
 package com.halturin.dmitry.rssreader.model;
 
+import com.halturin.dmitry.rssreader.model.dto.FeedEntity;
 import com.halturin.dmitry.rssreader.model.dto.ItemEntity;
 
-import io.realm.RealmResults;
+import java.util.List;
+
 import rx.Observable;
 
 /**
@@ -11,14 +13,20 @@ import rx.Observable;
 
 public interface RssModel {
 
-    String getUrl();
+    Observable<FeedEntity> getFeed();
 
-    void setUrl(String url);
+    Observable<Void> setFeed(String url);
 
-    Observable<Void> updateFeed();
+    Observable<Boolean> getUpdateFeed();
 
-    Observable<RealmResults<ItemEntity>> getFeed();
+    Observable<List<FeedEntity>> getFeedsList();
 
-    Observable<ItemEntity> getNews(long id);
+    Observable<Void> removeFeed(long id);
+
+    Observable<Void> removeAllFeeds();
+
+    Observable<List<ItemEntity>> getItemsList();
+
+    Observable<ItemEntity> getItem(long id);
 
 }

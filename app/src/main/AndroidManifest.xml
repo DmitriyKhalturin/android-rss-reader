@@ -26,7 +26,7 @@
             android:parentActivityName=".view.activity.FeedActivity"/>
 
         <activity
-            android:name=".view.activity.SettingsActivity"
+            android:name=".view.activity.BookmarksActivity"
             android:parentActivityName=".view.activity.FeedActivity"/>
     </application>
 

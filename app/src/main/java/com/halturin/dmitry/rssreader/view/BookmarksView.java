@@ -8,10 +8,10 @@ import rx.Observable;
 
 public interface SettingsView {
 
-    void setUrl(String url);
-
-    Observable<String> getOnChangeUrl();
-
-    void setChangeUrlComplete();
+//    void setUrl(String url);
+//
+//    Observable<String> getOnChangeUrl();
+//
+//    void setChangeUrlComplete();
 
 }

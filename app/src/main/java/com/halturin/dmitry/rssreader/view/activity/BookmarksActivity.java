@@ -21,7 +21,7 @@ import rx.subjects.PublishSubject;
  * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 17.02.17 22:00.
  */
 
-public class SettingsActivity extends RssActivity implements SettingsView {
+public class HistoryActivity extends BaseActivity implements SettingsView {
 
 //==================================================================================================
 //    Class Variables
@@ -32,17 +32,11 @@ public class SettingsActivity extends RssActivity implements SettingsView {
     @BindView(R.id.toolbar)
     protected Toolbar toolbarView;
 
-    @BindView(R.id.setting_url)
-    protected TextView urlView;
-
-    @BindView(R.id.settings_sync)
-    protected Button syncView;
-
 //==================================================================================================
 //    Class Constructor
 //==================================================================================================
 
-    public SettingsActivity(){
+    public HistoryActivity(){
         rssPresenter = new SettingsPresenter(this);
     }
 

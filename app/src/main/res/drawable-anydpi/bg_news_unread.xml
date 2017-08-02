@@ -11,12 +11,12 @@
         <shape
             android:shape="rectangle">
 
-            <solid
-                android:color="@color/colorNewsUnreadBackground"/>
+            <!--<solid-->
+                <!--android:color="@color/colorNewsUnreadBackground"/>-->
 
-            <stroke
-                android:width="0.5dp"
-                android:color="@color/colorNewsBorder"/>
+            <!--<stroke-->
+                <!--android:width="0.5dp"-->
+                <!--android:color="@color/colorNewsBorder"/>-->
 
             <padding
                 android:left="1dp"

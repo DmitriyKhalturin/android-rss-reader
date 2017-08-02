@@ -18,7 +18,7 @@ import rx.Observable;
  * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:31.
  */
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
+public class FeedAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
 //==================================================================================================
 //    Class Variables
@@ -32,7 +32,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 //    Class Constructor
 //==================================================================================================
 
-    public NewsAdapter(){
+    public FeedAdapter(){
     }
 
 //==================================================================================================

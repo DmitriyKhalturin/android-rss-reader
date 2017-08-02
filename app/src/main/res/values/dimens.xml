@@ -1,16 +1,6 @@
 <resources>
-    <dimen name="width_card_news_image">90dp</dimen>
-    <dimen name="height_card_news_image">90dp</dimen>
-    <dimen name="size_card_news_title">18sp</dimen>
-    <dimen name="vertical_padding_card_news">2dp</dimen>
-    <dimen name="horizontal_padding_card_news">5dp</dimen>
-
-    <dimen name="size_news_title">17sp</dimen>
-    <dimen name="width_news_image">120dp</dimen>
-    <dimen name="height_news_image">120dp</dimen>
-    <dimen name="padding_news_content">12dp</dimen>
-    <dimen name="padding_news_line">4dp</dimen>
-
-    <dimen name="size_settings_url">16sp</dimen>
-    <dimen name="horizontal_padding_settings">7dp</dimen>
+    <dimen name="height__rss_input_url">50dp</dimen>
+    <dimen name="width__rss_input_icon">50dp</dimen>
+    <dimen name="margin__rss_input_url">10dp</dimen>
+    <dimen name="padding__rss_input_icon">10dp</dimen>
 </resources>

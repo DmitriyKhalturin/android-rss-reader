@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base colors -->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#000000</color>
 
-    <color name="colorLight">#FFFFFFFF</color>
+    <!-- For resources -->
+    <color name="colorIcon">#FFFFFF</color>
 
-    <color name="colorNewsBorder">#DCDCDC</color>
-    <color name="colorNewsReadedBackground">#F5F5F5</color>
-    <color name="colorNewsUnreadBackground">#EAEAEA</color>
+    <color name="colorRefreshOne">#183591</color>
+    <color name="colorRefreshTwo">#65A837</color>
+    <color name="colorRefreshThree">#D73435</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+
+    <color name="colorRssInputIcon">#5C5C5C</color>
 </resources>

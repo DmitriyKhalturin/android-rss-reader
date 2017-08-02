@@ -24,16 +24,63 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/news_refresh"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/news_list"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/feed_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/news_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <com.halturin.dmitry.rssreader.view.layout.RssUrlLayout
+            android:id="@+id/rss_url_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height__rss_input_url"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/margin__rss_input_url"
+            android:background="@android:drawable/editbox_dropdown_light_frame">
+
+            <ImageView
+                android:id="@+id/rss_url_icon"
+                android:layout_width="@dimen/width__rss_input_icon"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:padding="@dimen/padding__rss_input_icon"
+                android:src="@drawable/ic_rss_feed"
+                android:tint="@color/colorRssInputIcon"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:clickable="true"/>
+
+            <EditText
+                android:id="@+id/rss_url"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:inputType="textUri"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:id="@+id/rss_url_button"
+                android:layout_width="@dimen/width__rss_input_icon"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:padding="@dimen/padding__rss_input_icon"
+                android:src="@drawable/ic_load"
+                android:tint="@color/colorRssInputIcon"
+                android:background="@color/colorWhite"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"/>
+
+        </com.halturin.dmitry.rssreader.view.layout.RssUrlLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

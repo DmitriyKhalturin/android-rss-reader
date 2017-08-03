@@ -48,6 +48,15 @@
             android:layout_margin="@dimen/margin__rss_input_url"
             android:background="@android:drawable/editbox_dropdown_light_frame">
 
+            <ProgressBar
+                android:id="@+id/rss_url_loader"
+                android:layout_width="@dimen/width__rss_input_icon"
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding__rss_input_icon"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/colorRssInputIcon"
+                android:indeterminateTintMode="src_atop"/>
+
             <ImageView
                 android:id="@+id/rss_url_icon"
                 android:layout_width="@dimen/width__rss_input_icon"
@@ -61,7 +70,7 @@
                 android:clickable="true"/>
 
             <EditText
-                android:id="@+id/rss_url"
+                android:id="@+id/rss_url_input"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:inputType="textUri"

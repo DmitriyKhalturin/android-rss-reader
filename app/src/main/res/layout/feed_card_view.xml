@@ -36,7 +36,7 @@
             android:id="@+id/news_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/padding_card_view_title"
+            android:paddingBottom="@dimen/padding__card_view_title"
             android:textSize="@dimen/text_size__card_view_title"/>
 
         <TextView

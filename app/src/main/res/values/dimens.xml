@@ -3,4 +3,10 @@
     <dimen name="width__rss_input_icon">50dp</dimen>
     <dimen name="margin__rss_input_url">10dp</dimen>
     <dimen name="padding__rss_input_icon">10dp</dimen>
+
+    <dimen name="height__card_view">250dp</dimen>
+    <dimen name="padding__card_view_content">10dp</dimen>
+    <dimen name="padding_card_view_title">5dp</dimen>
+    <dimen name="text_size__card_view_title">17.5sp</dimen>
+    <dimen name="elevation__card_view_content">4dp</dimen>
 </resources>

@@ -18,7 +18,7 @@ import rx.Observable;
  * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:31.
  */
 
-public class FeedAdapter extends RecyclerView.Adapter<NewsViewHolder> {
+public class FeedAdapter extends RecyclerView.Adapter<FeedCardViewHolder> {
 
 //==================================================================================================
 //    Class Variables
@@ -40,10 +40,10 @@ public class FeedAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 //==================================================================================================
 
     @Override
-    public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public FeedCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.view_card_news, parent, false);
-        NewsViewHolder holder = new NewsViewHolder(view);
+            .inflate(R.layout.feed_card_view, parent, false);
+        FeedCardViewHolder holder = new FeedCardViewHolder(view);
 
         holder.getOnClickNews().subscribe(onClickNews::onNext);
 
@@ -51,7 +51,7 @@ public class FeedAdapter extends RecyclerView.Adapter<NewsViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(NewsViewHolder holder, int position){
+    public void onBindViewHolder(FeedCardViewHolder holder, int position){
         News news = list.get(position);
 
         holder.bind(news);

@@ -26,34 +26,40 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/horizontal_padding_settings"
-            android:layout_marginEnd="@dimen/horizontal_padding_settings"
-            android:text="@string/label__url_label"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height__input_block"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/margin__input_block">
 
-        <EditText
-            android:id="@+id/setting_url"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="textUri"
-            android:textSize="@dimen/size_settings_url"
-            android:hint="@string/label__url_hint"/>
+            <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="@dimen/width__input_block_control"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:padding="@dimen/padding__input_block_control"
+                android:src="@drawable/ic_search"
+                android:tint="@color/colorInputIcon"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:clickable="true"/>
 
-        <Button
-            android:id="@+id/settings_sync"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/horizontal_padding_settings"
-            android:layout_marginEnd="@dimen/horizontal_padding_settings"
-            android:text="@string/label__url_sync"
-            android:textAllCaps="false"/>
+            <EditText
+                android:id="@+id/search_input"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:inputType="text"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/bookmarks_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 

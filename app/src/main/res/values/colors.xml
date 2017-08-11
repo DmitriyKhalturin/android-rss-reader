@@ -14,7 +14,9 @@
 
     <color name="colorWhite">#FFFFFF</color>
 
-    <color name="colorRssInputIcon">#5C5C5C</color>
+    <color name="colorTransparent">transparetnt</color>
+
+    <color name="colorInputIcon">#5C5C5C</color>
 
     <color name="colorCardViewContent">#EEFFFFFF</color>
     <color name="colorCardViewFog">#C3FFFFFF</color>

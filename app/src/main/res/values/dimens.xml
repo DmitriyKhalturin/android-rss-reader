@@ -1,8 +1,8 @@
 <resources>
-    <dimen name="height__rss_input_url">50dp</dimen>
-    <dimen name="width__rss_input_icon">50dp</dimen>
-    <dimen name="margin__rss_input_url">10dp</dimen>
-    <dimen name="padding__rss_input_icon">10dp</dimen>
+    <dimen name="height__input_block">50dp</dimen>
+    <dimen name="margin__input_block">10dp</dimen>
+    <dimen name="width__input_block_control">50dp</dimen>
+    <dimen name="padding__input_block_control">10dp</dimen>
 
     <dimen name="height__card_view">250dp</dimen>
     <dimen name="padding__card_view_content">10dp</dimen>

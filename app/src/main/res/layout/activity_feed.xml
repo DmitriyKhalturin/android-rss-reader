@@ -43,28 +43,28 @@
         <com.halturin.dmitry.rssreader.view.layout.RssUrlLayout
             android:id="@+id/rss_url_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height__rss_input_url"
+            android:layout_height="@dimen/height__input_block"
             android:orientation="horizontal"
-            android:layout_margin="@dimen/margin__rss_input_url"
+            android:layout_margin="@dimen/margin__input_block"
             android:background="@android:drawable/editbox_dropdown_light_frame">
 
             <ProgressBar
                 android:id="@+id/rss_url_loader"
-                android:layout_width="@dimen/width__rss_input_icon"
+                android:layout_width="@dimen/width__input_block_control"
                 android:layout_height="match_parent"
-                android:padding="@dimen/padding__rss_input_icon"
+                android:padding="@dimen/padding__input_block_control"
                 android:indeterminate="true"
-                android:indeterminateTint="@color/colorRssInputIcon"
+                android:indeterminateTint="@color/colorInputIcon"
                 android:indeterminateTintMode="src_atop"/>
 
             <ImageView
                 android:id="@+id/rss_url_icon"
-                android:layout_width="@dimen/width__rss_input_icon"
+                android:layout_width="@dimen/width__input_block_control"
                 android:layout_height="match_parent"
                 android:contentDescription="@null"
-                android:padding="@dimen/padding__rss_input_icon"
+                android:padding="@dimen/padding__input_block_control"
                 android:src="@drawable/ic_rss_feed"
-                android:tint="@color/colorRssInputIcon"
+                android:tint="@color/colorInputIcon"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:clickable="true"/>
@@ -73,18 +73,18 @@
                 android:id="@+id/rss_url_input"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:inputType="textUri"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:inputType="textUri"/>
 
             <ImageButton
                 android:id="@+id/rss_url_button"
-                android:layout_width="@dimen/width__rss_input_icon"
+                android:layout_width="@dimen/width__input_block_control"
                 android:layout_height="match_parent"
                 android:contentDescription="@null"
-                android:padding="@dimen/padding__rss_input_icon"
+                android:padding="@dimen/padding__input_block_control"
                 android:src="@drawable/ic_load"
-                android:tint="@color/colorRssInputIcon"
-                android:background="@color/colorWhite"
+                android:tint="@color/colorInputIcon"
+                android:background="@color/colorTransparent"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"/>
 

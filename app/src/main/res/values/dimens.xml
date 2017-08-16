@@ -5,8 +5,14 @@
     <dimen name="padding__input_block_control">10dp</dimen>
 
     <dimen name="height__card_view">250dp</dimen>
-    <dimen name="padding__card_view_content">10dp</dimen>
-    <dimen name="padding__card_view_title">5dp</dimen>
-    <dimen name="text_size__card_view_title">17.5sp</dimen>
+    <dimen name="size__card_view_image">80dp</dimen>
+    <dimen name="height__card_view_description">90dp</dimen>
+    <dimen name="padding_high__card_view_content">10dp</dimen>
+    <dimen name="padding_middle__card_view_content">5dp</dimen>
+    <dimen name="padding_low__card_view_content">2.5dp</dimen>
+    <dimen name="text_size__card_view_big_title">17.5sp</dimen>
+    <dimen name="text_size__card_view_small_title">15sp</dimen>
+    <dimen name="text_size__card_view_url">15sp</dimen>
     <dimen name="elevation__card_view_content">4dp</dimen>
+    <dimen name="size__card_view_button">40dp</dimen>
 </resources>

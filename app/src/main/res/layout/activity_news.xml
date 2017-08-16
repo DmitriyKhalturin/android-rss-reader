@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:padding="@dimen/padding__card_view_content"
+                android:padding="@dimen/padding_high__card_view_content"
                 android:elevation="@dimen/elevation__card_view_content"
                 android:background="@drawable/bg_card_view_date"/>
 
@@ -56,14 +56,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/padding__card_view_content">
+            android:padding="@dimen/padding_high__card_view_content">
 
             <TextView
                 android:id="@+id/news_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/padding__card_view_title"
-                android:textSize="@dimen/text_size__card_view_title"/>
+                android:paddingBottom="@dimen/padding_middle__card_view_content"
+                android:textSize="@dimen/text_size__card_view_big_title"/>
 
             <TextView
                 android:id="@+id/news_description"

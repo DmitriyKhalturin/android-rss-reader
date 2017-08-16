@@ -20,4 +20,5 @@
 
     <color name="colorCardViewContent">#EEFFFFFF</color>
     <color name="colorCardViewFog">#C3FFFFFF</color>
+    <color name="colorCardViewUrl">#A5A5A5</color>
 </resources>

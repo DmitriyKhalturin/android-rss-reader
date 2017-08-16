@@ -3,4 +3,7 @@
 
     <string name="menu_action__add_news">Add RSS feed</string>
     <string name="menu_action__bookmarks">Bookmarks</string>
+
+    <string name="label__author">Author:</string>
+    <string name="label__last_update">Last update:</string>
 </resources>

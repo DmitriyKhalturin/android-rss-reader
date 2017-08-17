@@ -143,6 +143,7 @@ public class RssModelImpl implements RssModel {
             feedEntity.setImage(feed.getImageLink());
             feedEntity.setDate(feed.getPublicationDate());
             feedEntity.setCopyright(feed.getCopyright());
+            feedEntity.setCurrentUpdateDate();
 
             realm.copyToRealmOrUpdate(feedEntity);
             realm.commitTransaction();
@@ -342,7 +343,7 @@ public class RssModelImpl implements RssModel {
                     subscriber.onNext(false);
                 }
 
-                feedEntity = getActiveFeedEntity();
+//                feedEntity = getActiveFeedEntity();
 
                 subscriber.onCompleted();
             }catch(IOException | XmlPullParserException | DataFormatException error){

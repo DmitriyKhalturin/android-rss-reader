@@ -31,6 +31,21 @@ public class FeedEntity extends RealmObject {
 
     private boolean isActive = false;
 
+    private boolean isFavorite = false;
+
+    private Date createDate;
+    private Date updateDate;
+
+//==================================================================================================
+//    Class Constructor
+//==================================================================================================
+
+    public FeedEntity(){
+        Date date = getCurrentDate();
+
+        setCreateDate(date);
+    }
+
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
@@ -39,7 +54,7 @@ public class FeedEntity extends RealmObject {
         return id;
     }
 
-    public void setId(long id){
+    private void setId(long id){
         this.id = id;
     }
 
@@ -115,6 +130,30 @@ public class FeedEntity extends RealmObject {
         isActive = active;
     }
 
+    public boolean isFavorite(){
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite){
+        isFavorite = favorite;
+    }
+
+    public Date getCreateDate(){
+        return createDate;
+    }
+
+    private void setCreateDate(Date createDate){
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate(){
+        return updateDate;
+    }
+
+    private void setUpdateDate(Date updateDate){
+        this.updateDate = updateDate;
+    }
+
 //==================================================================================================
 //    Class Specific Methods
 //==================================================================================================
@@ -123,6 +162,21 @@ public class FeedEntity extends RealmObject {
         Number currentId = realm.where(this.getClass()).max("id");
         long autoIncrementId = (currentId == null ? 0 : currentId.longValue() + 1);
         setId(autoIncrementId);
+    }
+
+    public void setCurrentUpdateDate(){
+        Date date = getCurrentDate();
+
+        setUpdateDate(date);
+    }
+
+    private Date getCurrentDate(){
+        Date date = new Date();
+        long time = System.currentTimeMillis();
+
+        date.setTime(time);
+
+        return date;
     }
 
 }

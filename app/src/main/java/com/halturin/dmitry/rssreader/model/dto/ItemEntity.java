@@ -31,6 +31,8 @@ public class ItemEntity extends RealmObject {
 
     private boolean isReaded = false;
 
+    private boolean isFavorite = false;
+
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
@@ -39,7 +41,7 @@ public class ItemEntity extends RealmObject {
         return id;
     }
 
-    public void setId(long id){
+    private void setId(long id){
         this.id = id;
     }
 
@@ -113,6 +115,14 @@ public class ItemEntity extends RealmObject {
 
     public void setReaded(boolean readed){
         isReaded = readed;
+    }
+
+    public boolean isFavorite(){
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite){
+        isFavorite = favorite;
     }
 
 //==================================================================================================

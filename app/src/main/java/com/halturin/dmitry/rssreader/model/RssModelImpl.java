@@ -343,8 +343,6 @@ public class RssModelImpl implements RssModel {
                     subscriber.onNext(false);
                 }
 
-//                feedEntity = getActiveFeedEntity();
-
                 subscriber.onCompleted();
             }catch(IOException | XmlPullParserException | DataFormatException error){
                 subscriber.onError(error);

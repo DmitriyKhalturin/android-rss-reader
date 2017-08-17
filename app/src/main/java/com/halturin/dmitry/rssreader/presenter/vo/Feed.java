@@ -3,26 +3,31 @@ package com.halturin.dmitry.rssreader.presenter.vo;
 import java.util.Date;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 13:40.
+ * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 11.08.17 14:48.
  */
 
-public class News {
+public class Feed {
 
 //==================================================================================================
 //    Class Variables
 //==================================================================================================
 
     private long id;
+    private String url;
     private String author;
     private String title;
     private String description;
     private String link;
     private String image;
     private String date;
+    private String copyright;
 
-    private boolean isReaded;
+    private boolean isActive;
 
     private boolean isFavorite;
+
+    private String createDate;
+    private String updateDate;
 
 //==================================================================================================
 //    Class Methods
@@ -34,6 +39,14 @@ public class News {
 
     public void setId(long id){
         this.id = id;
+    }
+
+    public String getUrl(){
+        return url;
+    }
+
+    public void setUrl(String url){
+        this.url = url;
     }
 
     public String getAuthor(){
@@ -88,12 +101,20 @@ public class News {
         this.date = date;
     }
 
-    public boolean isReaded(){
-        return isReaded;
+    public String getCopyright(){
+        return copyright;
     }
 
-    public void setReaded(boolean readed){
-        isReaded = readed;
+    public void setCopyright(String copyright){
+        this.copyright = copyright;
+    }
+
+    public boolean isActive(){
+        return isActive;
+    }
+
+    public void setActive(boolean active){
+        isActive = active;
     }
 
     public boolean isFavorite(){
@@ -102,6 +123,30 @@ public class News {
 
     public void setFavorite(boolean favorite){
         isFavorite = favorite;
+    }
+
+    public String getCreateDate(){
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate){
+        this.createDate = createDate.toString();
+    }
+
+    public void setCreateDate(String createDate){
+        this.createDate = createDate;
+    }
+
+    public String getUpdateDate(){
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate){
+        this.updateDate = updateDate.toString();
+    }
+
+    public void setUpdateDate(String updateDate){
+        this.updateDate = updateDate;
     }
 
 }

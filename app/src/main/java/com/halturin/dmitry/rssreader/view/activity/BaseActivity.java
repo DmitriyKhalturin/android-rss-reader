@@ -10,7 +10,7 @@ import com.halturin.dmitry.rssreader.presenter.RssPresenter;
  * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:20.
  */
 
-public class RssActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity {
 
 //==================================================================================================
 //    Class Variables

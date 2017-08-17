@@ -6,10 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.halturin.dmitry.rssreader.R;
+import com.halturin.dmitry.rssreader.app.util.SubscribersList;
 import com.halturin.dmitry.rssreader.presenter.vo.Feed;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Observable;
 
 /**
  * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:31.
@@ -22,6 +25,9 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksCardViewHold
 //==================================================================================================
 
     private List<Feed> list = new ArrayList<>();
+
+    private SubscribersList<Long> onLoadFeed = new SubscribersList<>();
+    private SubscribersList<Long> onDeleteFeed = new SubscribersList<>();
 
 //==================================================================================================
 //    Class Constructor
@@ -39,6 +45,9 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksCardViewHold
         View view = LayoutInflater.from(parent.getContext())
             .inflate(R.layout.feed_card_view, parent, false);
         BookmarksCardViewHolder holder = new BookmarksCardViewHolder(view);
+
+        holder.getOnLoadFeed().subscribe(onLoadFeed::onNext);
+        holder.getOnDeleteFeed().subscribe(onDeleteFeed::onNext);
 
         return holder;
     }
@@ -69,6 +78,14 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksCardViewHold
 
             notifyDataSetChanged();
         }
+    }
+
+    public Observable<Long> getOnLoadFeed(){
+        return onLoadFeed.getObservable();
+    }
+
+    public Observable<Long> getOnDeleteFeed(){
+        return onDeleteFeed.getObservable();
     }
 
 }

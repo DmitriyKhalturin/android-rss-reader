@@ -22,6 +22,8 @@ public class News {
 
     private boolean isReaded;
 
+    private boolean isFavorite;
+
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
@@ -92,6 +94,14 @@ public class News {
 
     public void setReaded(boolean readed){
         isReaded = readed;
+    }
+
+    public boolean isFavorite(){
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite){
+        isFavorite = favorite;
     }
 
 }

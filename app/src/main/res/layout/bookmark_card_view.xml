@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bookmark_card"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -18,7 +19,6 @@
         android:elevation="@dimen/elevation__card_view_content"/>
 
     <LinearLayout
-        android:id="@+id/bookmark_main_block"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -90,7 +90,7 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/bookmark_collapsed_block"
+        android:id="@+id/bookmark_collapsed"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height__card_view_description">
 

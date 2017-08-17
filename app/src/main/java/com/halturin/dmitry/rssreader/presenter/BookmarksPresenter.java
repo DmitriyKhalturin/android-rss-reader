@@ -1,24 +1,24 @@
 package com.halturin.dmitry.rssreader.presenter;
 
-import com.halturin.dmitry.rssreader.view.SettingsView;
+import com.halturin.dmitry.rssreader.view.BookmarksView;
 
 /**
  * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:01.
  */
 
-public class SettingsPresenter extends RssPresenterImpl {
+public class BookmarksPresenter extends RssPresenterImpl {
 
 //==================================================================================================
 //    Class Variables
 //==================================================================================================
 
-    private SettingsView view = null;
+    private BookmarksView view = null;
 
 //==================================================================================================
 //    Class Constructor
 //==================================================================================================
 
-    public SettingsPresenter(SettingsView view){
+    public BookmarksPresenter(BookmarksView view){
         this.view = view;
     }
 
@@ -29,29 +29,12 @@ public class SettingsPresenter extends RssPresenterImpl {
     @Override
     public void onResume(){
         super.onResume();
-
-        view.setUrl(rssModel.getUrl());
-        addSubscription(view.getOnChangeUrl().subscribe(this::onChangeUrl));
     }
 
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
 
-    private void onChangeUrl(String url){
-        rssModel.setUrl(url);
 
-        addSubscription(rssModel.updateFeed()
-            .subscribe(aVoid -> {
-                view.setChangeUrlComplete();
-
-                // TODO: success info
-            }, error -> {
-                view.setChangeUrlComplete();
-
-                // TODO: processing error
-            })
-        );
-    }
 
 }

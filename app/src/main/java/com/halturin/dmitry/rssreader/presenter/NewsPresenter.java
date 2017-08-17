@@ -1,6 +1,5 @@
 package com.halturin.dmitry.rssreader.presenter;
 
-import com.halturin.dmitry.rssreader.presenter.mapper.NewsMapper;
 import com.halturin.dmitry.rssreader.view.NewsView;
 
 /**
@@ -14,8 +13,6 @@ public class NewsPresenter extends RssPresenterImpl {
 //==================================================================================================
 
     private NewsView view = null;
-
-    private NewsMapper mapper = new NewsMapper();
 
 //==================================================================================================
 //    Class Constructor
@@ -32,15 +29,12 @@ public class NewsPresenter extends RssPresenterImpl {
     @Override
     public void onResume(){
         super.onResume();
-
-        long newsId = view.getNewsId();
-
-        addSubscription(rssModel.getNews(newsId)
-            .map(mapper)
-            .subscribe(view::setContent, error -> {
-                // TODO: processing error
-            })
-        );
     }
+
+//==================================================================================================
+//    Class Callbacks
+//==================================================================================================
+
+
 
 }

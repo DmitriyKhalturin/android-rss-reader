@@ -1,5 +1,8 @@
 package com.halturin.dmitry.rssreader.presenter.vo;
 
+import com.halturin.dmitry.rssreader.app.transformer.DateToStringTransformer;
+import com.halturin.dmitry.rssreader.model.dto.FeedEntity;
+
 import java.util.Date;
 
 /**
@@ -94,7 +97,7 @@ public class Feed {
     }
 
     public void setDate(Date date){
-        this.date = date.toString();
+        this.date = DateToStringTransformer.simple(date);
     }
 
     public void setDate(String date){
@@ -130,7 +133,7 @@ public class Feed {
     }
 
     public void setCreateDate(Date createDate){
-        this.createDate = createDate.toString();
+        this.createDate = DateToStringTransformer.simple(createDate);
     }
 
     public void setCreateDate(String createDate){
@@ -142,11 +145,31 @@ public class Feed {
     }
 
     public void setUpdateDate(Date updateDate){
-        this.updateDate = updateDate.toString();
+        this.updateDate = DateToStringTransformer.simple(updateDate);
     }
 
     public void setUpdateDate(String updateDate){
         this.updateDate = updateDate;
+    }
+
+//==================================================================================================
+//    Class Specific Methods
+//==================================================================================================
+
+    public void set(FeedEntity entity){
+        setId(entity.getId());
+        setUrl(entity.getUrl());
+        setAuthor(entity.getAuthor());
+        setTitle(entity.getTitle());
+        setDescription(entity.getDescription());
+        setLink(entity.getLink());
+        setImage(entity.getImage());
+        setDate(entity.getDate());
+        setCopyright(entity.getCopyright());
+        setActive(entity.isActive());
+        setFavorite(entity.isFavorite());
+        setCreateDate(entity.getCreateDate());
+        setUpdateDate(entity.getUpdateDate());
     }
 
 }

@@ -18,6 +18,10 @@ public interface BookmarksView {
 
     Observable<Long> getOnLoadFeed();
 
+    void setLoadFeedComplete();
+
     Observable<Long> getOnDeleteFeed();
+
+    void setDeleteFeedComplete();
 
 }

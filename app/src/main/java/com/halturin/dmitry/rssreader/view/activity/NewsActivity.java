@@ -99,7 +99,7 @@ public class NewsActivity extends BaseActivity implements NewsView {
         if(news != null){
             titleView.setText(news.getTitle());
             dateView.setText(news.getDate());
-            imageView.setImageBitmap(news.getImage());
+            // imageView.setImageBitmap(news.getImage());
             descriptionView.setText(news.getDescription());
         }
     }

@@ -50,11 +50,14 @@ public class BookmarksPresenter extends RssPresenterImpl {
     private void setActionListeners(){
         addSubscription(view.getOnSearchChange()
             .subscribe(searchText -> {
-                // TODO: add implementation to model
+                rssModel.getFeedsListWithSearch(searchText.toString())
+                    .map(mapper)
+                    .subscribe(view::setList);
             }));
         addSubscription(view.getOnLoadFeed()
             .subscribe(feedId -> {
-                // TODO: add implementation to model
+                rssModel.setFeed(feedId)
+                    .subscribe(this::onLoadFeedComplete);
             }));
         addSubscription(view.getOnDeleteFeed()
             .subscribe(feedId -> {
@@ -63,7 +66,7 @@ public class BookmarksPresenter extends RssPresenterImpl {
             }));
     }
 
-    private void onLoadFeedComplete(){
+    private void onLoadFeedComplete(Void aVoid){
         view.setLoadFeedComplete();
     }
 

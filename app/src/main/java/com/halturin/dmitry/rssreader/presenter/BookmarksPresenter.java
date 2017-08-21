@@ -58,8 +58,17 @@ public class BookmarksPresenter extends RssPresenterImpl {
             }));
         addSubscription(view.getOnDeleteFeed()
             .subscribe(feedId -> {
-                rssModel.removeFeed(feedId);
+                rssModel.removeFeed(feedId)
+                    .subscribe(this::onDeleteFeedComplete);
             }));
+    }
+
+    private void onLoadFeedComplete(){
+        view.setLoadFeedComplete();
+    }
+
+    private void onDeleteFeedComplete(Void aVoid){
+        view.setDeleteFeedComplete();
     }
 
 }

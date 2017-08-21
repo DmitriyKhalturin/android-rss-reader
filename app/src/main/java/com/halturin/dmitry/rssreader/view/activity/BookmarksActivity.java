@@ -94,7 +94,6 @@ public class BookmarksActivity extends BaseActivity implements BookmarksView {
             onLoadFeed.onNext(feedId);
         });
         adapter.getOnDeleteFeed().filter(feedId -> feedId != null).subscribe(feedId -> {
-            // TODO: implementation animation deleting from list
             onDeleteFeed.onNext(feedId);
         });
     }
@@ -124,8 +123,18 @@ public class BookmarksActivity extends BaseActivity implements BookmarksView {
     }
 
     @Override
+    public void setLoadFeedComplete(){
+        // TODO: implementation later. stop loader. finish this activity. show feed activity
+    }
+
+    @Override
     public Observable<Long> getOnDeleteFeed(){
         return onDeleteFeed.getObservable();
+    }
+
+    @Override
+    public void setDeleteFeedComplete(){
+        // TODO: implementation animation deleting from list
     }
 
 }

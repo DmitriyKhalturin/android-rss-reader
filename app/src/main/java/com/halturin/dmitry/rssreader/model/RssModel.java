@@ -17,9 +17,13 @@ public interface RssModel {
 
     Observable<Void> setFeed(String url);
 
+    Observable<Void> setFeed(long id);
+
     Observable<Boolean> getUpdateFeed();
 
     Observable<List<FeedEntity>> getFeedsList();
+
+    Observable<List<FeedEntity>> getFeedsListWithSearch(String searchText);
 
     Observable<Void> removeFeed(long id);
 

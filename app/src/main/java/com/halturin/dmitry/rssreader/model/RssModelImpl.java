@@ -326,6 +326,12 @@ public class RssModelImpl implements RssModel {
     }
 
     @Override
+    public Observable<Void> setFeed(long id){
+        // TODO: implementation later
+        return null;
+    }
+
+    @Override
     public Observable<Boolean> getUpdateFeed(){
         return Observable.create(subscriber -> {
             try{
@@ -362,6 +368,12 @@ public class RssModelImpl implements RssModel {
                 subscriber.onError(error);
             }
         });
+    }
+
+    @Override
+    public Observable<List<FeedEntity>> getFeedsListWithSearch(String searchText){
+        // TODO: implementation later
+        return null;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.halturin.dmitry.rssreader.presenter;
 
-import com.halturin.dmitry.rssreader.presenter.mapper.NewsListMapper;
+import com.halturin.dmitry.rssreader.presenter.mapper.FeedMapper;
 import com.halturin.dmitry.rssreader.view.FeedView;
 
 /**
@@ -14,8 +14,7 @@ public class FeedPresenter extends RssPresenterImpl {
 //==================================================================================================
 
     private FeedView view = null;
-
-    private NewsListMapper mapper = new NewsListMapper();
+    private FeedMapper mapper = null;
 
 //==================================================================================================
 //    Class Constructor
@@ -23,6 +22,7 @@ public class FeedPresenter extends RssPresenterImpl {
 
     public FeedPresenter(FeedView view){
         this.view = view;
+        this.mapper = new FeedMapper();
     }
 
 //==================================================================================================
@@ -33,31 +33,49 @@ public class FeedPresenter extends RssPresenterImpl {
     public void onResume(){
         super.onResume();
 
-        addSubscription(rssModel.getFeed()
-            .map(mapper)
-            .subscribe(view::setList, error -> {
-                // TODO: processing error
-            })
-        );
-        addSubscription(view.getOnUpdateList().subscribe(this::onUpdateList));
+        setFeedList();
+        setActionListeners();
     }
 
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
 
-    private void onUpdateList(Void _aVoid){
-        addSubscription(rssModel.updateFeed()
-            .subscribe(aVoid -> {
-                view.setUpdateListComplete();
+    private void setFeedList(){
+        addSubscription(rssModel.getItemsList()
+            .map(mapper)
+            .subscribe(view::setList, throwable -> {
+                // TODO: processing exception
+            }));
+    }
 
-                // TODO: success info
-            }, error -> {
-                view.setUpdateListComplete();
+    private void setActionListeners(){
+        addSubscription(view.getOnUpdateList()
+            .subscribe(this::onUpdateFeed));
+        addSubscription(view.getOnUpdateUrl()
+            .subscribe(this::onChangeFeedUrl));
+    }
 
-                // TODO: processing error
-            })
-        );
+    private void onUpdateFeed(Void aVoid){
+        addSubscription(rssModel.getUpdateFeed()
+            .subscribe(aBoolean -> {
+                view.setUpdateListComplete();
+                setFeedList();
+            }, throwable -> {
+                // TODO: processing exception
+            }));
+    }
+
+    private void onChangeFeedUrl(String url){
+        rssModel.setFeed(url);
+
+        addSubscription(rssModel.getUpdateFeed()
+            .subscribe(aBoolean -> {
+                view.setUpdateUrlComplete();
+                setFeedList();
+            }, throwable -> {
+                // TODO: processing exception
+            }));
     }
 
 }

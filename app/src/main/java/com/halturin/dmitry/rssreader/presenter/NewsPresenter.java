@@ -14,8 +14,7 @@ public class NewsPresenter extends RssPresenterImpl {
 //==================================================================================================
 
     private NewsView view = null;
-
-    private NewsMapper mapper = new NewsMapper();
+    private NewsMapper mapper = null;
 
 //==================================================================================================
 //    Class Constructor
@@ -23,6 +22,7 @@ public class NewsPresenter extends RssPresenterImpl {
 
     public NewsPresenter(NewsView view){
         this.view = view;
+        this.mapper = new NewsMapper();
     }
 
 //==================================================================================================
@@ -33,14 +33,21 @@ public class NewsPresenter extends RssPresenterImpl {
     public void onResume(){
         super.onResume();
 
+        setNews();
+    }
+
+//==================================================================================================
+//    Class Callbacks
+//==================================================================================================
+
+    private void setNews(){
         long newsId = view.getNewsId();
 
-        addSubscription(rssModel.getNews(newsId)
+        addSubscription(rssModel.getItem(newsId)
             .map(mapper)
-            .subscribe(view::setContent, error -> {
-                // TODO: processing error
-            })
-        );
+            .subscribe(view::setContent, throwable -> {
+                // TODO: processing exception
+            }));
     }
 
 }

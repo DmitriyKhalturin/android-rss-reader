@@ -1,5 +1,8 @@
 package com.halturin.dmitry.rssreader.presenter.vo;
 
+import com.halturin.dmitry.rssreader.app.transformer.DateToStringTransformer;
+import com.halturin.dmitry.rssreader.model.dto.ItemEntity;
+
 import java.util.Date;
 
 /**
@@ -81,7 +84,7 @@ public class News {
     }
 
     public void setDate(Date date){
-        this.date = date.toString();
+        this.date = DateToStringTransformer.simple(date);
     }
 
     public void setDate(String date){
@@ -102,6 +105,22 @@ public class News {
 
     public void setFavorite(boolean favorite){
         isFavorite = favorite;
+    }
+
+//==================================================================================================
+//    Class Specific Methods
+//==================================================================================================
+
+    public void set(ItemEntity entity){
+        setId(entity.getId());
+        setAuthor(entity.getAuthor());
+        setTitle(entity.getTitle());
+        setDescription(entity.getDescription());
+        setLink(entity.getLink());
+        setImage(entity.getImage());
+        setDate(entity.getDate());
+        setReaded(entity.isReaded());
+        setFavorite(entity.isFavorite());
     }
 
 }

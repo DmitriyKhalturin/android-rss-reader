@@ -44,7 +44,9 @@ public class BookmarksPresenter extends RssPresenterImpl {
     private void setBookmarksList(){
         addSubscription(rssModel.getFeedsList()
             .map(mapper)
-            .subscribe(view::setList));
+            .subscribe(view::setList, throwable -> {
+                // TODO: processing exception
+            }));
     }
 
     private void setActionListeners(){
@@ -52,17 +54,23 @@ public class BookmarksPresenter extends RssPresenterImpl {
             .subscribe(searchText -> {
                 rssModel.getFeedsListWithSearch(searchText.toString())
                     .map(mapper)
-                    .subscribe(view::setList);
+                    .subscribe(view::setList, throwable -> {
+                        // TODO: processing exception
+                    });
             }));
         addSubscription(view.getOnLoadFeed()
             .subscribe(feedId -> {
                 rssModel.setFeed(feedId)
-                    .subscribe(this::onLoadFeedComplete);
+                    .subscribe(this::onLoadFeedComplete, throwable -> {
+                        // TODO: processing exception
+                    });
             }));
         addSubscription(view.getOnDeleteFeed()
             .subscribe(feedId -> {
                 rssModel.removeFeed(feedId)
-                    .subscribe(this::onDeleteFeedComplete);
+                    .subscribe(this::onDeleteFeedComplete, throwable -> {
+                        // TODO: processing exception
+                    });
             }));
     }
 

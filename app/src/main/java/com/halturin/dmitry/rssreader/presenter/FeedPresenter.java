@@ -44,9 +44,10 @@ public class FeedPresenter extends RssPresenterImpl {
     private void setFeedList(){
         addSubscription(rssModel.getItemsList()
             .map(mapper)
-            .subscribe(view::setList, throwable -> {
-                // TODO: processing exception
-            }));
+            .subscribe(view::setList,
+                throwable -> {
+                    // TODO: processing exception
+                }));
     }
 
     private void setActionListeners(){

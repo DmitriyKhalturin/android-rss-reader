@@ -45,9 +45,10 @@ public class NewsPresenter extends RssPresenterImpl {
 
         addSubscription(rssModel.getItem(newsId)
             .map(mapper)
-            .subscribe(view::setContent, throwable -> {
-                // TODO: processing exception
-            }));
+            .subscribe(view::setContent,
+                throwable -> {
+                    // TODO: processing exception
+                }));
     }
 
 }

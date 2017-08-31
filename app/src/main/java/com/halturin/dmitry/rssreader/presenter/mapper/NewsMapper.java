@@ -13,7 +13,11 @@ public class NewsMapper implements Func1<ItemEntity, News> {
 
     @Override
     public News call(ItemEntity entity){
-        return null;
+        News news = new News();
+
+        news.set(entity);
+
+        return news;
     }
 
 }

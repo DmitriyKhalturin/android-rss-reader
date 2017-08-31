@@ -328,8 +328,12 @@ public class RssModelImpl implements RssModel {
 
     @Override
     public Observable<Void> setFeed(long id){
-        // TODO: implementation later
-        return null;
+        return Observable.create(subscriber -> {
+            // TODO: implementation later
+
+            subscriber.onNext(null);
+            subscriber.onCompleted();
+        });
     }
 
     @Override
@@ -373,8 +377,14 @@ public class RssModelImpl implements RssModel {
 
     @Override
     public Observable<List<FeedEntity>> getFeedsListWithSearch(String searchText){
-        // TODO: implementation later
-        return null;
+        return Observable.create(subscriber -> {
+            // TODO: implementation later
+
+            List<FeedEntity> list = new ArrayList<>();
+
+            subscriber.onNext(list);
+            subscriber.onCompleted();
+        });
     }
 
     @Override

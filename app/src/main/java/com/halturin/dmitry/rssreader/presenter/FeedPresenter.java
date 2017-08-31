@@ -67,10 +67,10 @@ public class FeedPresenter extends RssPresenterImpl {
     }
 
     private void onChangeFeedUrl(String url){
-        rssModel.setFeed(url);
-
-        addSubscription(rssModel.getUpdateFeed()
-            .subscribe(aBoolean -> {
+        addSubscription(rssModel.setFeed(url)
+            .flatMap(aVoid -> {
+                return rssModel.getUpdateFeed();
+            }).subscribe(aBoolean -> {
                 view.setUpdateUrlComplete();
                 setFeedList();
             }, throwable -> {

@@ -318,6 +318,7 @@ public class RssModelImpl implements RssModel {
                 clearActiveFlagFromAllFeedEntities();
                 setActiveFlagForFeedEntity(url);
 
+                subscriber.onNext(null);
                 subscriber.onCompleted();
             }catch(Throwable error){
                 subscriber.onError(error);
@@ -382,6 +383,7 @@ public class RssModelImpl implements RssModel {
             try{
                 removeFeedEntity(id);
 
+                subscriber.onNext(null);
                 subscriber.onCompleted();
             }catch(Throwable error){
                 subscriber.onError(error);
@@ -395,6 +397,7 @@ public class RssModelImpl implements RssModel {
             try{
                 removeAllFeedEntities();
 
+                subscriber.onNext(null);
                 subscriber.onCompleted();
             }catch(Throwable error){
                 subscriber.onError(error);

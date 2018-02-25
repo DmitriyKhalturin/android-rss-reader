@@ -23,6 +23,7 @@ import com.halturin.dmitry.rssreader.presenter.vo.News;
 import com.halturin.dmitry.rssreader.view.FeedView;
 import com.halturin.dmitry.rssreader.view.FloatingLayout;
 import com.halturin.dmitry.rssreader.view.adapter.FeedAdapter;
+import com.halturin.dmitry.rssreader.view.layout.RssUrlSetter;
 import com.jakewharton.rxbinding.view.RxView;
 
 import java.util.List;
@@ -50,11 +51,9 @@ public class FeedActivity extends BaseActivity implements FeedView,
     private FeedAdapter adapter = null;
 
     private PublishSubject<Void> onUpdateList = PublishSubject.create();
-    private PublishSubject<String> onUpdateUrl = PublishSubject.create();
 
     private FloatingLayout floatingLayout;
-
-    private boolean isUpdateUrlReady = true;
+    private RssUrlSetter rssUrlSetter = null;
 
     @BindView(R.id.toolbar)
     protected Toolbar toolbarView;
@@ -104,7 +103,7 @@ public class FeedActivity extends BaseActivity implements FeedView,
         setSwipeRefreshSettings();
         setRecyclerViewSettings();
         setRssUrlLayoutSettings();
-        setProgressBarVisible(false);
+        setRssUrlSetterSettings();
     }
 
     @Override
@@ -178,26 +177,10 @@ public class FeedActivity extends BaseActivity implements FeedView,
             }
         }, delay);
 
-        RxView.clicks(rssUrlButton).subscribe(aVoid -> {
-            if(isUpdateUrlReady){
-                isUpdateUrlReady = false;
-                setProgressBarVisible(true);
-
-                String url = rssUrlInput.getText().toString();
-
-                onUpdateUrl.onNext(url);
-            }
-        });
     }
 
-    private void setProgressBarVisible(boolean visible){
-        if(visible){
-            rssUrlLoader.setVisibility(VISIBLE);
-            rssUrlIcon.setVisibility(GONE);
-        }else{
-            rssUrlLoader.setVisibility(GONE);
-            rssUrlIcon.setVisibility(VISIBLE);
-        }
+    private void setRssUrlSetterSettings(){
+        rssUrlSetter = new RssUrlSetter(rssUrlButton, rssUrlInput, rssUrlLoader, rssUrlIcon);
     }
 
 //==================================================================================================
@@ -206,13 +189,12 @@ public class FeedActivity extends BaseActivity implements FeedView,
 
     @Override
     public Observable<String> getOnUpdateUrl(){
-        return onUpdateUrl.asObservable();
+        return rssUrlSetter.getOnUpdateRssUrl();
     }
 
     @Override
     public void setUpdateUrlComplete(){
-        setProgressBarVisible(false);
-        isUpdateUrlReady = true;
+        rssUrlSetter.setUpdateRssUrlComplete();
     }
 
     @Override
@@ -236,6 +218,7 @@ public class FeedActivity extends BaseActivity implements FeedView,
 
     @Override
     public void onRefresh(){
+        floatingLayout.setInvisible();
         onUpdateList.onNext(null);
     }
 

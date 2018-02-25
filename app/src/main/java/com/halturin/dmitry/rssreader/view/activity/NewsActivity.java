@@ -12,6 +12,7 @@ import com.halturin.dmitry.rssreader.R;
 import com.halturin.dmitry.rssreader.presenter.NewsPresenter;
 import com.halturin.dmitry.rssreader.presenter.vo.News;
 import com.halturin.dmitry.rssreader.view.NewsView;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -99,7 +100,9 @@ public class NewsActivity extends BaseActivity implements NewsView {
         if(news != null){
             titleView.setText(news.getTitle());
             dateView.setText(news.getDate());
-            // imageView.setImageBitmap(news.getImage());
+            Picasso.with(this)
+                .load(news.getImage())
+                .into(imageView);
             descriptionView.setText(news.getDescription());
         }
     }

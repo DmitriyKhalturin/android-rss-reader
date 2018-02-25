@@ -8,8 +8,10 @@ import java.util.Date;
 
 public final class DateToStringTransformer {
 
+    private static final String emptyString = "";
+
     public static String simple(Date date){
-        return date.toString();
+        return (date != null ? date.toString() : emptyString);
     }
 
 }

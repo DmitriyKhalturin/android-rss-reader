@@ -44,9 +44,10 @@ public class FeedPresenter extends RssPresenterImpl {
     private void setFeedList(){
         addSubscription(rssModel.getItemsList()
             .map(mapper)
-            .subscribe(view::setList, throwable -> {
-                // TODO: processing exception
-            }));
+            .subscribe(view::setList,
+                throwable -> {
+                    // TODO: processing exception
+                }));
     }
 
     private void setActionListeners(){
@@ -67,10 +68,10 @@ public class FeedPresenter extends RssPresenterImpl {
     }
 
     private void onChangeFeedUrl(String url){
-        rssModel.setFeed(url);
-
-        addSubscription(rssModel.getUpdateFeed()
-            .subscribe(aBoolean -> {
+        addSubscription(rssModel.setFeed(url)
+            .flatMap(aVoid -> {
+                return rssModel.getUpdateFeed();
+            }).subscribe(aBoolean -> {
                 view.setUpdateUrlComplete();
                 setFeedList();
             }, throwable -> {

@@ -44,34 +44,44 @@ public class BookmarksPresenter extends RssPresenterImpl {
     private void setBookmarksList(){
         addSubscription(rssModel.getFeedsList()
             .map(mapper)
-            .subscribe(view::setList, throwable -> {
-                // TODO: processing exception
-            }));
+            .subscribe(view::setList,
+                throwable -> {
+                    // TODO: processing exception
+                }));
+    }
+
+    private void onSearchInFeed(CharSequence searchText){
+        addSubscription(rssModel.getFeedsListWithSearch(searchText.toString())
+            .map(mapper)
+            .subscribe(view::setList,
+                throwable -> {
+                    // TODO: processing exception
+                }));
+    }
+
+    private void onLoadFeed(long feedId){
+        addSubscription(rssModel.setFeed(feedId)
+            .subscribe(this::onLoadFeedComplete,
+                throwable -> {
+                    // TODO: processing exception
+                }));
+    }
+
+    private void onDeleteFeed(long feedId){
+        addSubscription(rssModel.removeFeed(feedId)
+            .subscribe(this::onDeleteFeedComplete,
+                throwable -> {
+                    // TODO: processing exception
+                }));
     }
 
     private void setActionListeners(){
         addSubscription(view.getOnSearchChange()
-            .subscribe(searchText -> {
-                rssModel.getFeedsListWithSearch(searchText.toString())
-                    .map(mapper)
-                    .subscribe(view::setList, throwable -> {
-                        // TODO: processing exception
-                    });
-            }));
+            .subscribe(this::onSearchInFeed));
         addSubscription(view.getOnLoadFeed()
-            .subscribe(feedId -> {
-                rssModel.setFeed(feedId)
-                    .subscribe(this::onLoadFeedComplete, throwable -> {
-                        // TODO: processing exception
-                    });
-            }));
+            .subscribe(this::onLoadFeed));
         addSubscription(view.getOnDeleteFeed()
-            .subscribe(feedId -> {
-                rssModel.removeFeed(feedId)
-                    .subscribe(this::onDeleteFeedComplete, throwable -> {
-                        // TODO: processing exception
-                    });
-            }));
+            .subscribe(this::onDeleteFeed));
     }
 
     private void onLoadFeedComplete(Void aVoid){

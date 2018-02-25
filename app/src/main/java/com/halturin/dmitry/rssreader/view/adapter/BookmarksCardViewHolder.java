@@ -1,5 +1,6 @@
 package com.halturin.dmitry.rssreader.view.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.halturin.dmitry.rssreader.R;
 import com.halturin.dmitry.rssreader.presenter.vo.Feed;
 import com.jakewharton.rxbinding.view.RxView;
+import com.squareup.picasso.Picasso;
 
 import rx.Observable;
 import rx.subjects.PublishSubject;
@@ -30,6 +32,8 @@ public class BookmarksCardViewHolder extends RecyclerView.ViewHolder {
     private PublishSubject<Long> onLoadFeed = PublishSubject.create();
     private PublishSubject<Long> onDeleteFeed = PublishSubject.create();
 
+    private Context context;
+
     private LinearLayout cardView;
     private RelativeLayout collapsedView;
     private TextView urlView;
@@ -47,6 +51,8 @@ public class BookmarksCardViewHolder extends RecyclerView.ViewHolder {
 
     public BookmarksCardViewHolder(View view){
         super(view);
+
+        context = view.getContext();
 
         cardView = (LinearLayout) view.findViewById(R.id.bookmark_card);
         collapsedView = (RelativeLayout) view.findViewById(R.id.bookmark_collapsed);
@@ -75,11 +81,17 @@ public class BookmarksCardViewHolder extends RecyclerView.ViewHolder {
     public void bind(Feed feed){
         id = feed.getId();
 
+        Picasso.with(context).cancelRequest(imageView);
+
         urlView.setText(feed.getUrl());
         titleView.setText(feed.getTitle());
         authorView.setText(feed.getAuthor());
         lastUpdateView.setText(feed.getUpdateDate());
-        // imageView.setImageBitmap(feed.getImage());
+
+        Picasso.with(context)
+            .load(feed.getImage())
+            .into(imageView);
+
         descriptionView.setText(feed.getDescription());
     }
 

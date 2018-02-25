@@ -1,5 +1,6 @@
 package com.halturin.dmitry.rssreader.view.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import com.halturin.dmitry.rssreader.R;
 import com.halturin.dmitry.rssreader.presenter.vo.News;
 import com.jakewharton.rxbinding.view.RxView;
+import com.squareup.picasso.Picasso;
 
 import rx.Observable;
 import rx.subjects.PublishSubject;
@@ -30,6 +32,8 @@ public class FeedCardViewHolder extends RecyclerView.ViewHolder {
 
     private PublishSubject<Long> onClickNews = PublishSubject.create();
 
+    private Context context;
+
     private RelativeLayout cardView;
     private TextView titleView;
     private TextView dateView;
@@ -43,6 +47,8 @@ public class FeedCardViewHolder extends RecyclerView.ViewHolder {
 
     public FeedCardViewHolder(View view){
         super(view);
+
+        context = view.getContext();
 
         cardView = (RelativeLayout) view.findViewById(R.id.news_card);
         titleView = (TextView) view.findViewById(R.id.news_title);
@@ -63,9 +69,15 @@ public class FeedCardViewHolder extends RecyclerView.ViewHolder {
     public void bind(News news){
         id = news.getId();
 
+        Picasso.with(context).cancelRequest(imageView);
+
         titleView.setText(news.getTitle());
         dateView.setText(news.getDate());
-        // imageView.setImageBitmap(news.getImage());
+
+        Picasso.with(context)
+            .load(news.getImage())
+            .into(imageView);
+
         descriptionView.setText(news.getDescription());
 
         boolean isReaded = news.isReaded();

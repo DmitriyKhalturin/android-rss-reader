@@ -355,7 +355,7 @@ public class RssModelImpl implements RssModel {
                 }
 
                 subscriber.onCompleted();
-            }catch(IOException | XmlPullParserException | DataFormatException error){
+            }catch(Throwable error){
                 subscriber.onError(error);
             }
         }).compose(ObservableTransformer.applyMainThreadScheduler());

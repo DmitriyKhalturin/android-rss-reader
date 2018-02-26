@@ -12,15 +12,17 @@ import com.halturin.dmitry.rssreader.R;
 import com.halturin.dmitry.rssreader.presenter.NewsPresenter;
 import com.halturin.dmitry.rssreader.presenter.vo.News;
 import com.halturin.dmitry.rssreader.view.NewsView;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 17.02.17 22:00.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 17.02.17 22:00.
  */
 
-public class NewsActivity extends RssActivity implements NewsView {
+public class NewsActivity extends BaseActivity implements NewsView {
 
 //==================================================================================================
 //    Class Variables
@@ -99,7 +101,9 @@ public class NewsActivity extends RssActivity implements NewsView {
         if(news != null){
             titleView.setText(news.getTitle());
             dateView.setText(news.getDate());
-            imageView.setImageBitmap(news.getImage());
+            Picasso.with(this)
+                .load(news.getImage())
+                .into(imageView);
             descriptionView.setText(news.getDescription());
         }
     }

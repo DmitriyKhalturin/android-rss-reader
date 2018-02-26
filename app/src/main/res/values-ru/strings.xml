@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">RSS Reader</string>
 
-    <string name="menu_action__settings">Настройки</string>
+    <string name="menu_action__add_news">Добавить RSS ленту</string>
+    <string name="menu_action__bookmarks">Закладки</string>
 
-    <string name="label__url_label">URL:</string>
-    <string name="label__url_hint">Ведите адрес RSS летны</string>
-    <string name="label__url_sync">Загрузить</string>
+    <string name="label__author">Автор:</string>
+    <string name="label__last_update">Последнее обновление:</string>
 </resources>

@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme.NoActionBar">
 
         <activity
-            android:name=".view.activity.FeedActivity">
+            android:name=".view.activity.FeedActivity"
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -23,11 +24,13 @@
 
         <activity
             android:name=".view.activity.NewsActivity"
-            android:parentActivityName=".view.activity.FeedActivity"/>
+            android:parentActivityName=".view.activity.FeedActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <activity
-            android:name=".view.activity.SettingsActivity"
-            android:parentActivityName=".view.activity.FeedActivity"/>
+            android:name=".view.activity.BookmarksActivity"
+            android:parentActivityName=".view.activity.FeedActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
     </application>
 
 </manifest>

@@ -1,51 +1,37 @@
-package com.halturin.dmitry.rssreader.model.dto;
+package com.halturin.dmitry.rssreader.presenter.vo;
+
+import com.halturin.dmitry.rssreader.app.transformer.DateToStringTransformer;
+import com.halturin.dmitry.rssreader.model.dto.FeedEntity;
 
 import java.util.Date;
 
-import io.realm.Realm;
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
- * for android-rss-reader on 22.02.17 1:26.
+ * for android-rss-reader on 11.08.17 14:48.
  */
 
-public class FeedEntity extends RealmObject {
+public class Feed {
 
 //==================================================================================================
 //    Class Variables
 //==================================================================================================
 
-    @PrimaryKey
     private long id;
-
     private String url;
-
     private String author;
     private String title;
     private String description;
     private String link;
     private String image;
-    private Date date;
+    private String date;
     private String copyright;
 
-    private boolean isActive = false;
+    private boolean isActive;
 
-    private boolean isFavorite = false;
+    private boolean isFavorite;
 
-    private Date createDate;
-    private Date updateDate;
-
-//==================================================================================================
-//    Class Constructor
-//==================================================================================================
-
-    public FeedEntity(){
-        Date date = getCurrentDate();
-
-        setCreateDate(date);
-    }
+    private String createDate;
+    private String updateDate;
 
 //==================================================================================================
 //    Class Methods
@@ -55,7 +41,7 @@ public class FeedEntity extends RealmObject {
         return id;
     }
 
-    private void setId(long id){
+    public void setId(long id){
         this.id = id;
     }
 
@@ -107,11 +93,15 @@ public class FeedEntity extends RealmObject {
         this.image = image;
     }
 
-    public Date getDate(){
+    public String getDate(){
         return date;
     }
 
     public void setDate(Date date){
+        this.date = DateToStringTransformer.simple(date);
+    }
+
+    public void setDate(String date){
         this.date = date;
     }
 
@@ -139,19 +129,27 @@ public class FeedEntity extends RealmObject {
         isFavorite = favorite;
     }
 
-    public Date getCreateDate(){
+    public String getCreateDate(){
         return createDate;
     }
 
-    private void setCreateDate(Date createDate){
+    public void setCreateDate(Date createDate){
+        this.createDate = DateToStringTransformer.simple(createDate);
+    }
+
+    public void setCreateDate(String createDate){
         this.createDate = createDate;
     }
 
-    public Date getUpdateDate(){
+    public String getUpdateDate(){
         return updateDate;
     }
 
-    private void setUpdateDate(Date updateDate){
+    public void setUpdateDate(Date updateDate){
+        this.updateDate = DateToStringTransformer.simple(updateDate);
+    }
+
+    public void setUpdateDate(String updateDate){
         this.updateDate = updateDate;
     }
 
@@ -159,25 +157,20 @@ public class FeedEntity extends RealmObject {
 //    Class Specific Methods
 //==================================================================================================
 
-    public void autoIncrementId(Realm realm){
-        Number currentId = realm.where(this.getClass()).max("id");
-        long autoIncrementId = (currentId == null ? 0 : currentId.longValue() + 1);
-        setId(autoIncrementId);
-    }
-
-    public void setCurrentUpdateDate(){
-        Date date = getCurrentDate();
-
-        setUpdateDate(date);
-    }
-
-    private Date getCurrentDate(){
-        Date date = new Date();
-        long time = System.currentTimeMillis();
-
-        date.setTime(time);
-
-        return date;
+    public void set(FeedEntity entity){
+        setId(entity.getId());
+        setUrl(entity.getUrl());
+        setAuthor(entity.getAuthor());
+        setTitle(entity.getTitle());
+        setDescription(entity.getDescription());
+        setLink(entity.getLink());
+        setImage(entity.getImage());
+        setDate(entity.getDate());
+        setCopyright(entity.getCopyright());
+        setActive(entity.isActive());
+        setFavorite(entity.isFavorite());
+        setCreateDate(entity.getCreateDate());
+        setUpdateDate(entity.getUpdateDate());
     }
 
 }

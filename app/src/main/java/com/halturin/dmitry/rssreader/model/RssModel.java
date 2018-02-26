@@ -1,24 +1,37 @@
 package com.halturin.dmitry.rssreader.model;
 
+import com.halturin.dmitry.rssreader.model.dto.FeedEntity;
 import com.halturin.dmitry.rssreader.model.dto.ItemEntity;
 
-import io.realm.RealmResults;
+import java.util.List;
+
 import rx.Observable;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:03.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 19.02.17 14:03.
  */
 
 public interface RssModel {
 
-    String getUrl();
+    Observable<FeedEntity> getFeed();
 
-    void setUrl(String url);
+    Observable<Void> setFeed(String url);
 
-    Observable<Void> updateFeed();
+    Observable<Void> setFeed(long id);
 
-    Observable<RealmResults<ItemEntity>> getFeed();
+    Observable<Boolean> getUpdateFeed();
 
-    Observable<ItemEntity> getNews(long id);
+    Observable<List<FeedEntity>> getFeedsList();
+
+    Observable<List<FeedEntity>> getFeedsListWithSearch(String searchText);
+
+    Observable<Void> removeFeed(long id);
+
+    Observable<Void> removeAllFeeds();
+
+    Observable<List<ItemEntity>> getItemsList();
+
+    Observable<ItemEntity> getItem(long id);
 
 }

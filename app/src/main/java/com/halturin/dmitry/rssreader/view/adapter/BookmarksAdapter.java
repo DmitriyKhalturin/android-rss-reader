@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.halturin.dmitry.rssreader.R;
 import com.halturin.dmitry.rssreader.app.util.SubscribersList;
-import com.halturin.dmitry.rssreader.presenter.vo.News;
+import com.halturin.dmitry.rssreader.presenter.vo.Feed;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,24 +15,26 @@ import java.util.List;
 import rx.Observable;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:31.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 19.02.17 14:31.
  */
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
+public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksCardViewHolder> {
 
 //==================================================================================================
 //    Class Variables
 //==================================================================================================
 
-    private List<News> list = new ArrayList<>();
+    private List<Feed> list = new ArrayList<>();
 
-    private SubscribersList<Long> onClickNews = new SubscribersList<>();
+    private SubscribersList<Long> onLoadFeed = new SubscribersList<>();
+    private SubscribersList<Long> onDeleteFeed = new SubscribersList<>();
 
 //==================================================================================================
 //    Class Constructor
 //==================================================================================================
 
-    public NewsAdapter(){
+    public BookmarksAdapter(){
     }
 
 //==================================================================================================
@@ -40,21 +42,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 //==================================================================================================
 
     @Override
-    public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public BookmarksCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.view_card_news, parent, false);
-        NewsViewHolder holder = new NewsViewHolder(view);
+            .inflate(R.layout.bookmark_card_view, parent, false);
+        BookmarksCardViewHolder holder = new BookmarksCardViewHolder(view);
 
-        holder.getOnClickNews().subscribe(onClickNews::onNext);
+        holder.getOnLoadFeed().subscribe(onLoadFeed::onNext);
+        holder.getOnDeleteFeed().subscribe(onDeleteFeed::onNext);
 
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(NewsViewHolder holder, int position){
-        News news = list.get(position);
+    public void onBindViewHolder(BookmarksCardViewHolder holder, int position){
+        Feed feed = list.get(position);
 
-        holder.bind(news);
+        holder.bind(feed);
     }
 
     @Override
@@ -66,11 +69,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 //    Class Methods
 //==================================================================================================
 
-    public List<News> getList(){
+    public List<Feed> getList(){
         return list;
     }
 
-    public void setList(List<News> list){
+    public void setList(List<Feed> list){
         if(list != null){
             this.list = list;
 
@@ -78,8 +81,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
         }
     }
 
-    public Observable<Long> getOnClickNews(){
-        return onClickNews.getObservable();
+    public Observable<Long> getOnLoadFeed(){
+        return onLoadFeed.getObservable();
+    }
+
+    public Observable<Long> getOnDeleteFeed(){
+        return onDeleteFeed.getObservable();
     }
 
 }

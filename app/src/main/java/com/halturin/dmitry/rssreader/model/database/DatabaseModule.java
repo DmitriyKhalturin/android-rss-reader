@@ -6,7 +6,8 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 21.02.17 23:43.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 21.02.17 23:43.
  */
 
 public final class DatabaseModule {

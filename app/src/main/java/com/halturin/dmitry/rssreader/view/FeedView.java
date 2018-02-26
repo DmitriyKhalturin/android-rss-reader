@@ -7,12 +7,17 @@ import java.util.List;
 import rx.Observable;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:18.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 19.02.17 14:18.
  */
 
 public interface FeedView {
 
     void setList(List<News> list);
+
+    Observable<String> getOnUpdateUrl();
+
+    void setUpdateUrlComplete();
 
     Observable<Void> getOnUpdateList();
 

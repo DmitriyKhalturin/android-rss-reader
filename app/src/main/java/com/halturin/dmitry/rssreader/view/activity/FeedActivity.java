@@ -2,6 +2,7 @@ package com.halturin.dmitry.rssreader.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,12 +11,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.halturin.dmitry.rssreader.R;
 import com.halturin.dmitry.rssreader.presenter.FeedPresenter;
 import com.halturin.dmitry.rssreader.presenter.vo.News;
 import com.halturin.dmitry.rssreader.view.FeedView;
-import com.halturin.dmitry.rssreader.view.adapter.NewsAdapter;
+import com.halturin.dmitry.rssreader.view.FloatingLayout;
+import com.halturin.dmitry.rssreader.view.adapter.FeedAdapter;
+import com.halturin.dmitry.rssreader.view.layout.RssUrlGetter;
 
 import java.util.List;
 
@@ -24,27 +32,47 @@ import butterknife.ButterKnife;
 import rx.Observable;
 import rx.subjects.PublishSubject;
 
+import static android.view.View.GONE;
 import static com.halturin.dmitry.rssreader.view.activity.NewsActivity.NEWS_ID;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 17.02.17 20:28.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 17.02.17 20:28.
  */
 
-public class FeedActivity extends RssActivity implements FeedView,
+public class FeedActivity extends BaseActivity implements FeedView,
     SwipeRefreshLayout.OnRefreshListener {
 
 //==================================================================================================
 //    Class Variables
 //==================================================================================================
 
-    private NewsAdapter adapter = null;
+    private FeedAdapter adapter = null;
 
     private PublishSubject<Void> onUpdateList = PublishSubject.create();
+
+    private FloatingLayout floatingLayout;
+    private RssUrlGetter rssUrlGetter = null;
 
     @BindView(R.id.toolbar)
     protected Toolbar toolbarView;
 
-    @BindView(R.id.news_refresh)
+    @BindView(R.id.rss_url_layout)
+    protected LinearLayout rssUrlLayout;
+
+    @BindView(R.id.rss_url_icon)
+    protected ImageView rssUrlIcon;
+
+    @BindView(R.id.rss_url_loader)
+    protected ProgressBar rssUrlLoader;
+
+    @BindView(R.id.rss_url_input)
+    protected EditText rssUrlInput;
+
+    @BindView(R.id.rss_url_button)
+    protected ImageButton rssUrlButton;
+
+    @BindView(R.id.feed_refresh)
     protected SwipeRefreshLayout refreshView;
 
     @BindView(R.id.news_list)
@@ -73,6 +101,8 @@ public class FeedActivity extends RssActivity implements FeedView,
 
         setSwipeRefreshSettings();
         setRecyclerViewSettings();
+        setRssUrlLayoutSettings();
+        setRssUrlSetterSettings();
     }
 
     @Override
@@ -89,8 +119,11 @@ public class FeedActivity extends RssActivity implements FeedView,
         int id = item.getItemId();
 
         switch(id){
-            case R.id.action_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
+            case  R.id.action_add_news:
+                floatingLayout.changeVisibility();
+                break;
+            case R.id.action_bookmarks:
+                Intent intent = new Intent(this, BookmarksActivity.class);
 
                 startActivity(intent);
                 break;
@@ -107,12 +140,13 @@ public class FeedActivity extends RssActivity implements FeedView,
 
     private void setSwipeRefreshSettings(){
         refreshView.setOnRefreshListener(this);
-        refreshView.setColorSchemeResources(R.color.colorPrimary);
+        refreshView.setColorSchemeResources(R.color.colorRefreshOne,
+            R.color.colorRefreshTwo, R.color.colorRefreshThree);
     }
 
     private void setRecyclerViewSettings(){
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        adapter = new NewsAdapter();
+        adapter = new FeedAdapter();
 
         listView.setLayoutManager(layoutManager);
         listView.setAdapter(adapter);
@@ -125,9 +159,41 @@ public class FeedActivity extends RssActivity implements FeedView,
         });
     }
 
+    private void setRssUrlLayoutSettings(){
+        floatingLayout = (FloatingLayout) rssUrlLayout;
+
+        int delay = 1000;
+        Handler handler = new Handler();
+
+        rssUrlLayout.setVisibility(GONE);
+
+        handler.postDelayed(() -> {
+            List<News> list = adapter.getList();
+            int size = list.size();
+
+            if(size == 0){
+                floatingLayout.setVisible();
+            }
+        }, delay);
+    }
+
+    private void setRssUrlSetterSettings(){
+        rssUrlGetter = new RssUrlGetter(this, rssUrlButton, rssUrlInput, rssUrlLoader, rssUrlIcon);
+    }
+
 //==================================================================================================
 //    Class Implementation FeedView
 //==================================================================================================
+
+    @Override
+    public Observable<String> getOnUpdateUrl(){
+        return rssUrlGetter.getOnUpdate();
+    }
+
+    @Override
+    public void setUpdateUrlComplete(){
+        rssUrlGetter.setUpdateComplete();
+    }
 
     @Override
     public void setList(List<News> list){
@@ -150,6 +216,7 @@ public class FeedActivity extends RssActivity implements FeedView,
 
     @Override
     public void onRefresh(){
+        floatingLayout.setInvisible();
         onUpdateList.onNext(null);
     }
 

@@ -10,7 +10,8 @@ import rx.Observable;
 import rx.Subscriber;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 25.02.17 1:33.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 25.02.17 1:33.
  */
 
 public final class SubscribersList<T> {

@@ -1,46 +1,22 @@
 package com.halturin.dmitry.rssreader.presenter.mapper;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 import com.halturin.dmitry.rssreader.model.dto.ItemEntity;
 import com.halturin.dmitry.rssreader.presenter.vo.News;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import butterknife.BindView;
 import rx.functions.Func1;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 22.02.17 3:28.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 18.08.17 11:06.
  */
 
 public class NewsMapper implements Func1<ItemEntity, News> {
 
     @Override
-    public News call(ItemEntity itemEntity){
-        News news = null;
+    public News call(ItemEntity entity){
+        News news = new News();
 
-        if(itemEntity != null){
-            news = new News();
-
-            news.setTitle(itemEntity.getTitle());
-            news.setDescription(itemEntity.getDescription());
-            news.setLink(itemEntity.getLink());
-            news.setDate(itemEntity.getDate().toString());
-            news.setReaded(itemEntity.isReaded());
-
-            try{
-                URL url = new URL(itemEntity.getImage());
-                Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-
-                news.setImage(bitmap);
-            }catch(IOException error){
-                // TODO: processing error
-            }
-        }
+        news.set(entity);
 
         return news;
     }

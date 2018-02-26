@@ -100,8 +100,10 @@ public class BookmarksActivity extends BaseActivity implements BookmarksView {
     }
 
     private void setSearchViewSettings(){
+        int timeout = 1000;
+
         RxTextView.textChanges(searchInput)
-            .debounce(500, TimeUnit.MILLISECONDS)
+            .debounce(timeout, TimeUnit.MILLISECONDS)
             .subscribe(onSearchChange::onNext);
     }
 

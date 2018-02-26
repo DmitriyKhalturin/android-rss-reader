@@ -48,7 +48,9 @@ public class FeedPresenter extends RssPresenterImpl {
 
     private void updateFeedList(boolean success){
         if(success){
-            addSubscription(rssModel.getItemsList().map(mapper).subscribe(view::setList, this::onErrorUpdateFeedList));
+            addSubscription(rssModel.getItemsList()
+                .map(mapper)
+                .subscribe(view::setList, this::onErrorUpdateFeedList));
         }
     }
 
@@ -76,9 +78,8 @@ public class FeedPresenter extends RssPresenterImpl {
 
     private void onChangeFeedUrl(String url){
         addSubscription(rssModel.setFeed(url)
-            .flatMap(aVoid -> {
-                return rssModel.getUpdateFeed();
-            }).subscribe(this::updateFeedList, this::onErrorChangeFeedUrl, view::setUpdateUrlComplete));
+            .flatMap(aVoid -> rssModel.getUpdateFeed())
+            .subscribe(this::updateFeedList, this::onErrorChangeFeedUrl, view::setUpdateUrlComplete));
     }
 
 }

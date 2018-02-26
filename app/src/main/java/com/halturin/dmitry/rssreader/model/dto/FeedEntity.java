@@ -7,7 +7,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 22.02.17 1:26.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 22.02.17 1:26.
  */
 
 public class FeedEntity extends RealmObject {

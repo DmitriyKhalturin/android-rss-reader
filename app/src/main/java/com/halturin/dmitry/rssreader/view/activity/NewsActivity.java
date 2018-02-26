@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 17.02.17 22:00.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 17.02.17 22:00.
  */
 
 public class NewsActivity extends BaseActivity implements NewsView {

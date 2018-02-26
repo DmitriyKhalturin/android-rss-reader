@@ -4,7 +4,7 @@ import com.halturin.dmitry.rssreader.presenter.mapper.FeedMapper;
 import com.halturin.dmitry.rssreader.view.FeedView;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:01.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:01.
  */
 
 public class FeedPresenter extends RssPresenterImpl {
@@ -33,7 +33,7 @@ public class FeedPresenter extends RssPresenterImpl {
     public void onResume(){
         super.onResume();
 
-        setFeedList();
+        updateFeedList(true);
         setActionListeners();
     }
 
@@ -41,13 +41,14 @@ public class FeedPresenter extends RssPresenterImpl {
 //    Class Methods
 //==================================================================================================
 
-    private void setFeedList(){
-        addSubscription(rssModel.getItemsList()
-            .map(mapper)
-            .subscribe(view::setList,
-                throwable -> {
-                    // TODO: processing exception
-                }));
+    private void onErrorUpdateFeedList(Throwable error){
+        // TODO: show error message
+    }
+
+    private void updateFeedList(boolean success){
+        if(success){
+            addSubscription(rssModel.getItemsList().map(mapper).subscribe(view::setList, this::onErrorUpdateFeedList));
+        }
     }
 
     private void setActionListeners(){
@@ -57,26 +58,26 @@ public class FeedPresenter extends RssPresenterImpl {
             .subscribe(this::onChangeFeedUrl));
     }
 
+    private void onErrorUpdateFeed(Throwable error){
+        view.setUpdateListComplete();
+        // TODO: show error message
+    }
+
     private void onUpdateFeed(Void aVoid){
         addSubscription(rssModel.getUpdateFeed()
-            .subscribe(aBoolean -> {
-                view.setUpdateListComplete();
-                setFeedList();
-            }, throwable -> {
-                // TODO: processing exception
-            }));
+            .subscribe(this::updateFeedList, this::onErrorUpdateFeed, view::setUpdateListComplete));
+    }
+
+    private void onErrorChangeFeedUrl(Throwable error){
+        view.setUpdateUrlComplete();
+        // TODO: show error message
     }
 
     private void onChangeFeedUrl(String url){
         addSubscription(rssModel.setFeed(url)
             .flatMap(aVoid -> {
                 return rssModel.getUpdateFeed();
-            }).subscribe(aBoolean -> {
-                view.setUpdateUrlComplete();
-                setFeedList();
-            }, throwable -> {
-                // TODO: processing exception
-            }));
+            }).subscribe(this::updateFeedList, this::onErrorChangeFeedUrl, view::setUpdateUrlComplete));
     }
 
 }

@@ -6,7 +6,7 @@ import com.halturin.dmitry.rssreader.model.dto.ItemEntity;
 import java.util.Date;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 13:40.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 19.02.17 13:40.
  */
 
 public class News {

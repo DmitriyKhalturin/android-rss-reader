@@ -9,7 +9,8 @@ import java.util.List;
 import rx.functions.Func1;
 
 /**
- * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 19.08.17 5:55.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 19.08.17 5:55.
  */
 
 public class BookmarksMapper implements Func1<List<FeedEntity>, List<Feed>> {

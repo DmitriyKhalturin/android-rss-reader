@@ -10,7 +10,8 @@ import android.widget.LinearLayout;
 import com.halturin.dmitry.rssreader.view.FloatingLayout;
 
 /**
- * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 01.08.17 17:27.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 01.08.17 17:27.
  */
 
 public class RssUrlLayout extends LinearLayout implements FloatingLayout {

@@ -36,7 +36,8 @@ import static android.view.View.GONE;
 import static com.halturin.dmitry.rssreader.view.activity.NewsActivity.NEWS_ID;
 
 /**
- * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 17.02.17 20:28.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 17.02.17 20:28.
  */
 
 public class FeedActivity extends BaseActivity implements FeedView,

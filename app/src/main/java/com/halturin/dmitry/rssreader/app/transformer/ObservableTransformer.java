@@ -7,7 +7,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 22.02.17 2:23.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 22.02.17 2:23.
  */
 
 public final class ObservableTransformer {

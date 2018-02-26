@@ -4,7 +4,8 @@ import com.halturin.dmitry.rssreader.presenter.mapper.BookmarksMapper;
 import com.halturin.dmitry.rssreader.view.BookmarksView;
 
 /**
- * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:01.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 19.02.17 14:01.
  */
 
 public class BookmarksPresenter extends RssPresenterImpl {
@@ -41,38 +42,40 @@ public class BookmarksPresenter extends RssPresenterImpl {
 //    Class Methods
 //==================================================================================================
 
+    private void onErrorBookmarksList(Throwable error){}
+
     private void setBookmarksList(){
         addSubscription(rssModel.getFeedsList()
             .map(mapper)
-            .subscribe(view::setList,
-                throwable -> {
-                    // TODO: processing exception
-                }));
+            .subscribe(view::setList, this::onErrorBookmarksList));
     }
 
-    private void onSearchInFeed(CharSequence searchText){
-        addSubscription(rssModel.getFeedsListWithSearch(searchText.toString())
-            .map(mapper)
-            .subscribe(view::setList,
-                throwable -> {
-                    // TODO: processing exception
-                }));
+    private void onErrorSearchInFeed(Throwable error){}
+
+    private void onSearchInFeed(CharSequence text){
+        String searchText = text.toString();
+
+        if(searchText.isEmpty()){
+            setBookmarksList();
+        }else{
+            addSubscription(rssModel.getFeedsListWithSearch(searchText)
+                .map(mapper)
+                .subscribe(view::setList, this::onErrorSearchInFeed));
+        }
     }
+
+    private void onErrorLoadFeed(Throwable error){}
 
     private void onLoadFeed(long feedId){
         addSubscription(rssModel.setFeed(feedId)
-            .subscribe(this::onLoadFeedComplete,
-                throwable -> {
-                    // TODO: processing exception
-                }));
+            .subscribe(this::onLoadFeedComplete, this::onErrorLoadFeed));
     }
+
+    private void onErrorDeleteFeed(Throwable error){}
 
     private void onDeleteFeed(long feedId){
         addSubscription(rssModel.removeFeed(feedId)
-            .subscribe(this::onDeleteFeedComplete,
-                throwable -> {
-                    // TODO: processing exception
-                }));
+            .subscribe(this::onDeleteFeedComplete, this::onErrorDeleteFeed));
     }
 
     private void setActionListeners(){

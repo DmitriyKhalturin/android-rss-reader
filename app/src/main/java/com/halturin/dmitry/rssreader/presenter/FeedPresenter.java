@@ -4,7 +4,8 @@ import com.halturin.dmitry.rssreader.presenter.mapper.FeedMapper;
 import com.halturin.dmitry.rssreader.view.FeedView;
 
 /**
- * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:01.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 19.02.17 14:01.
  */
 
 public class FeedPresenter extends RssPresenterImpl {
@@ -47,7 +48,9 @@ public class FeedPresenter extends RssPresenterImpl {
 
     private void updateFeedList(boolean success){
         if(success){
-            addSubscription(rssModel.getItemsList().map(mapper).subscribe(view::setList, this::onErrorUpdateFeedList));
+            addSubscription(rssModel.getItemsList()
+                .map(mapper)
+                .subscribe(view::setList, this::onErrorUpdateFeedList));
         }
     }
 
@@ -75,9 +78,8 @@ public class FeedPresenter extends RssPresenterImpl {
 
     private void onChangeFeedUrl(String url){
         addSubscription(rssModel.setFeed(url)
-            .flatMap(aVoid -> {
-                return rssModel.getUpdateFeed();
-            }).subscribe(this::updateFeedList, this::onErrorChangeFeedUrl, view::setUpdateUrlComplete));
+            .flatMap(aVoid -> rssModel.getUpdateFeed())
+            .subscribe(this::updateFeedList, this::onErrorChangeFeedUrl, view::setUpdateUrlComplete));
     }
 
 }

@@ -27,7 +27,7 @@ import okhttp3.Response;
 import rx.Observable;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:03.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:03.
  */
 
 public class RssModelImpl implements RssModel {

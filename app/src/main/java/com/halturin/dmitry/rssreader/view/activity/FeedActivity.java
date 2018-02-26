@@ -23,8 +23,7 @@ import com.halturin.dmitry.rssreader.presenter.vo.News;
 import com.halturin.dmitry.rssreader.view.FeedView;
 import com.halturin.dmitry.rssreader.view.FloatingLayout;
 import com.halturin.dmitry.rssreader.view.adapter.FeedAdapter;
-import com.halturin.dmitry.rssreader.view.layout.RssUrlSetter;
-import com.jakewharton.rxbinding.view.RxView;
+import com.halturin.dmitry.rssreader.view.layout.RssUrlGetter;
 
 import java.util.List;
 
@@ -34,11 +33,10 @@ import rx.Observable;
 import rx.subjects.PublishSubject;
 
 import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 import static com.halturin.dmitry.rssreader.view.activity.NewsActivity.NEWS_ID;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 17.02.17 20:28.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 17.02.17 20:28.
  */
 
 public class FeedActivity extends BaseActivity implements FeedView,
@@ -53,7 +51,7 @@ public class FeedActivity extends BaseActivity implements FeedView,
     private PublishSubject<Void> onUpdateList = PublishSubject.create();
 
     private FloatingLayout floatingLayout;
-    private RssUrlSetter rssUrlSetter = null;
+    private RssUrlGetter rssUrlGetter = null;
 
     @BindView(R.id.toolbar)
     protected Toolbar toolbarView;
@@ -176,11 +174,10 @@ public class FeedActivity extends BaseActivity implements FeedView,
                 floatingLayout.setVisible();
             }
         }, delay);
-
     }
 
     private void setRssUrlSetterSettings(){
-        rssUrlSetter = new RssUrlSetter(rssUrlButton, rssUrlInput, rssUrlLoader, rssUrlIcon);
+        rssUrlGetter = new RssUrlGetter(rssUrlButton, rssUrlInput, rssUrlLoader, rssUrlIcon);
     }
 
 //==================================================================================================
@@ -189,12 +186,12 @@ public class FeedActivity extends BaseActivity implements FeedView,
 
     @Override
     public Observable<String> getOnUpdateUrl(){
-        return rssUrlSetter.getOnUpdateRssUrl();
+        return rssUrlGetter.getOnUpdate();
     }
 
     @Override
     public void setUpdateUrlComplete(){
-        rssUrlSetter.setUpdateRssUrlComplete();
+        rssUrlGetter.setUpdateComplete();
     }
 
     @Override

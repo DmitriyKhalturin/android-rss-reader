@@ -4,7 +4,7 @@ import com.halturin.dmitry.rssreader.presenter.mapper.BookmarksMapper;
 import com.halturin.dmitry.rssreader.view.BookmarksView;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:01.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:01.
  */
 
 public class BookmarksPresenter extends RssPresenterImpl {

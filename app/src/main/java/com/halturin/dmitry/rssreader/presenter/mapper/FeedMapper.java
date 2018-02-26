@@ -9,7 +9,7 @@ import java.util.List;
 import rx.functions.Func1;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 18.08.17 10:53.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 18.08.17 10:53.
  */
 
 public class FeedMapper implements Func1<List<ItemEntity>, List<News>> {

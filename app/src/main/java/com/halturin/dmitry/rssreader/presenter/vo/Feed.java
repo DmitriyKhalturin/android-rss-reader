@@ -6,7 +6,7 @@ import com.halturin.dmitry.rssreader.model.dto.FeedEntity;
 import java.util.Date;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 11.08.17 14:48.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 11.08.17 14:48.
  */
 
 public class Feed {

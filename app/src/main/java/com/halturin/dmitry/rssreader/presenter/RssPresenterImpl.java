@@ -7,7 +7,7 @@ import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:09.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:09.
  */
 
 public class RssPresenterImpl implements RssPresenter {

@@ -12,10 +12,10 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 /**
- * Created by Dmitry Halturin <dmitry.halturin.86@gmail.com> on 26.02.18 1:15.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 26.02.18 1:15.
  */
 
-public class RssUrlSetter {
+public class RssUrlGetter {
 
 //==================================================================================================
 //    Class Variables
@@ -34,7 +34,7 @@ public class RssUrlSetter {
 //    Class Constructor
 //==================================================================================================
 
-    public RssUrlSetter(View button, View input, View loader, View icon){
+    public RssUrlGetter(View button, View input, View loader, View icon){
         this.button = button;
         this.input = input;
         this.loader = loader;
@@ -76,11 +76,11 @@ public class RssUrlSetter {
         }
     }
 
-    public Observable<String> getOnUpdateRssUrl(){
+    public Observable<String> getOnUpdate(){
         return onUpdateUrl.asObservable();
     }
 
-    public void setUpdateRssUrlComplete(){
+    public void setUpdateComplete(){
         setLoaderVisible(false);
         ready = true;
     }

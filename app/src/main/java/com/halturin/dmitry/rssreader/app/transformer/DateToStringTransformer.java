@@ -3,7 +3,8 @@ package com.halturin.dmitry.rssreader.app.transformer;
 import java.util.Date;
 
 /**
- * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 18.08.17 11:13.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 18.08.17 11:13.
  */
 
 public final class DateToStringTransformer {

@@ -18,7 +18,8 @@ import rx.Observable;
 import rx.subjects.PublishSubject;
 
 /**
- * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 19.02.17 14:30.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 19.02.17 14:30.
  */
 
 public class BookmarksCardViewHolder extends RecyclerView.ViewHolder {

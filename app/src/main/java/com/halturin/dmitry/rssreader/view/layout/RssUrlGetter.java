@@ -14,7 +14,8 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 /**
- * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com> on 26.02.18 1:15.
+ * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
+ * for android-rss-reader on 26.02.18 1:15.
  */
 
 public class RssUrlGetter {

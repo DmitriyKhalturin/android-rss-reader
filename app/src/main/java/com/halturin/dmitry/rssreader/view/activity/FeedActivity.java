@@ -177,7 +177,7 @@ public class FeedActivity extends BaseActivity implements FeedView,
     }
 
     private void setRssUrlSetterSettings(){
-        rssUrlGetter = new RssUrlGetter(rssUrlButton, rssUrlInput, rssUrlLoader, rssUrlIcon);
+        rssUrlGetter = new RssUrlGetter(this, rssUrlButton, rssUrlInput, rssUrlLoader, rssUrlIcon);
     }
 
 //==================================================================================================

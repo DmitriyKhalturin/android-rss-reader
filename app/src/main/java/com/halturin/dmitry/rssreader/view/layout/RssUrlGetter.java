@@ -1,6 +1,8 @@
 package com.halturin.dmitry.rssreader.view.layout;
 
+import android.content.Context;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.jakewharton.rxbinding.view.RxView;
@@ -34,7 +36,7 @@ public class RssUrlGetter {
 //    Class Constructor
 //==================================================================================================
 
-    public RssUrlGetter(View button, View input, View loader, View icon){
+    public RssUrlGetter(Context context, View button, View input, View loader, View icon){
         this.button = button;
         this.input = input;
         this.loader = loader;
@@ -42,6 +44,7 @@ public class RssUrlGetter {
 
         setButtonListener();
         setLoaderVisible(false);
+        setInputListener(context);
     }
 
 //==================================================================================================
@@ -60,6 +63,18 @@ public class RssUrlGetter {
             loader.setVisibility(GONE);
             icon.setVisibility(VISIBLE);
         }
+    }
+
+    private void setInputListener(Context context){
+        ((EditText) input).setOnFocusChangeListener((View v, boolean hasFocus) -> {
+            if(!hasFocus){
+                InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                if(inputMethodManager != null){
+                    inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        });
     }
 
     private boolean urlValidation(String url){

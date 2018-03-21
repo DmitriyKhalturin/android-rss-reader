@@ -5,6 +5,7 @@ buildscript {
         jcenter()
         google()
     }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
 
@@ -14,6 +15,17 @@ buildscript {
 }
 
 allprojects {
+    ext {
+        androidApplicationId = 'com.khalturin.dmitriy.presentation'
+        androidVersionCode = 0
+        androidVersionName = '0.0.0'
+
+        androidBuildToolsVersion = '27.0.3'
+        androidMinSdkVersion = 19
+        androidTargetSdkVersion = 27
+        androidCompileSdkVersion = 27
+    }
+
     repositories {
         jcenter()
         google()

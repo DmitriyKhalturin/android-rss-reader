@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.khalturin.dmitriy.presentation.R;
-import com.khalturin.dmitriy.presentation.SubscribersList;
+import com.khalturin.dmitriy.presentation.util.SubscribersList;
 import com.khalturin.dmitriy.presentation.model.NewsModel;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.khalturin.dmitriy.presentation;
+package com.khalturin.dmitriy.presentation.util;
 
 import android.support.annotation.Nullable;
 

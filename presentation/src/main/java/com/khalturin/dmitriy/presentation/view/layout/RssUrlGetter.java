@@ -24,81 +24,81 @@ public class RssUrlGetter {
 //    Class Variables
 //==================================================================================================
 
-    private PublishSubject<String> onUpdateUrl = PublishSubject.create();
+  private PublishSubject<String> onUpdateUrl = PublishSubject.create();
 
-    private boolean ready = true;
+  private boolean mReady = true;
 
-    private View button;
-    private View input;
-    private View loader;
-    private View icon;
+  private View mButton;
+  private View mInput;
+  private View mLoader;
+  private View mIcon;
 
 //==================================================================================================
 //    Class Constructor
 //==================================================================================================
 
-    public RssUrlGetter(Context context, View button, View input, View loader, View icon){
-        this.button = button;
-        this.input = input;
-        this.loader = loader;
-        this.icon = icon;
+  public RssUrlGetter(Context context, View mButton, View mInput, View mLoader, View mIcon){
+    this.mButton = mButton;
+    this.mInput = mInput;
+    this.mLoader = mLoader;
+    this.mIcon = mIcon;
 
-        setButtonListener();
-        setLoaderVisible(false);
-        setInputListener(context);
-    }
+    setButtonListener();
+    setLoaderVisible(false);
+    setInputListener(context);
+  }
 
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
 
-    private void setButtonListener(){
-        RxView.clicks(button).subscribe(this::onClickButton);
-    }
+  private void setButtonListener(){
+    RxView.clicks(mButton).subscribe(this::onClickButton);
+  }
 
-    private void setLoaderVisible(boolean visible){
-        if(visible){
-            loader.setVisibility(VISIBLE);
-            icon.setVisibility(GONE);
-        }else{
-            loader.setVisibility(GONE);
-            icon.setVisibility(VISIBLE);
+  private void setLoaderVisible(boolean visible){
+    if(visible){
+      mLoader.setVisibility(VISIBLE);
+      mIcon.setVisibility(GONE);
+    }else{
+      mLoader.setVisibility(GONE);
+      mIcon.setVisibility(VISIBLE);
+    }
+  }
+
+  private void setInputListener(Context context){
+    ((EditText) mInput).setOnFocusChangeListener((View v, boolean hasFocus) -> {
+      if(!hasFocus){
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        if(inputMethodManager != null){
+          inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
+      }
+    });
+  }
+
+  private boolean urlValidation(String url){
+    return !url.isEmpty();
+  }
+
+  private void onClickButton(Void aVoid){
+    String url = ((EditText) mInput).getText().toString();
+
+    if(mReady && urlValidation(url)){
+      mReady = false;
+      setLoaderVisible(true);
+      onUpdateUrl.onNext(url);
     }
+  }
 
-    private void setInputListener(Context context){
-        ((EditText) input).setOnFocusChangeListener((View v, boolean hasFocus) -> {
-            if(!hasFocus){
-                InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+  public Observable<String> getOnUpdate(){
+    return onUpdateUrl.asObservable();
+  }
 
-                if(inputMethodManager != null){
-                    inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                }
-            }
-        });
-    }
-
-    private boolean urlValidation(String url){
-        return !url.isEmpty();
-    }
-
-    private void onClickButton(Void aVoid){
-        String url = ((EditText) input).getText().toString();
-
-        if(ready && urlValidation(url)){
-            ready = false;
-            setLoaderVisible(true);
-            onUpdateUrl.onNext(url);
-        }
-    }
-
-    public Observable<String> getOnUpdate(){
-        return onUpdateUrl.asObservable();
-    }
-
-    public void setUpdateComplete(){
-        setLoaderVisible(false);
-        ready = true;
-    }
+  public void setUpdateComplete(){
+    setLoaderVisible(false);
+    mReady = true;
+  }
 
 }

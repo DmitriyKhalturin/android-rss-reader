@@ -80,9 +80,9 @@ public class FeedCardViewHolder extends RecyclerView.ViewHolder {
 
         descriptionView.setText(news.getDescription());
 
-        boolean isReaded = news.isReaded();
+        boolean isWasRead = news.isWasRead();
 
-        if(isReaded){
+        if(isWasRead){
             fogView.setVisibility(GONE);
         }else{
             fogView.setVisibility(VISIBLE);

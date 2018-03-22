@@ -12,97 +12,97 @@ import android.widget.LinearLayout;
  * for android-rss-reader on 01.08.17 17:27.
  */
 
-public class RssUrlLayout extends LinearLayout {
+public class RssUrlLayout extends LinearLayout implements FloatingLayout {
 
 //==================================================================================================
 //    Class Variables
 //==================================================================================================
 
-    private static final int duration = 300;
+  private static final int sDuration = 300;
 
-    private boolean ready = true;
-    private boolean visible = true;
+  private boolean mReady = true;
+  private boolean mVisible = true;
 
 //==================================================================================================
 //    Class Constructor
 //==================================================================================================
 
-    public RssUrlLayout(Context context){
-        super(context);
-    }
+  public RssUrlLayout(Context context){
+    super(context);
+  }
 
-    public RssUrlLayout(Context context, @Nullable AttributeSet attrs){
-        super(context, attrs);
-    }
+  public RssUrlLayout(Context context, @Nullable AttributeSet attrs){
+    super(context, attrs);
+  }
 
 //==================================================================================================
 //    Class Callbacks
 //==================================================================================================
 
-    @Override
-    public void setVisibility(int visibility){
-        super.setVisibility(visibility);
+  @Override
+  public void setVisibility(int visibility){
+    super.setVisibility(visibility);
 
-        visible = (visibility == VISIBLE);
-    }
+    mVisible = (visibility == VISIBLE);
+  }
 
 //==================================================================================================
 //    Class Implementation FloatingLayout
 //==================================================================================================
 
 
-    public void setVisible(){
-        if(ready){
-            ready = false;
+  public void setVisible(){
+    if(mReady){
+      mReady = false;
 
-            setVisibility(VISIBLE);
-            setAlpha(0f);
+      setVisibility(VISIBLE);
+      setAlpha(0f);
 
-            int height = getHeight();
+      int height = getHeight();
 
-            setTop(-height);
+      setTop(-height);
 
-            animate()
-                .translationY(0)
-                .alpha(1f)
-                .setDuration(duration)
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation){
-                        visible = true;
-                        ready = true;
-                    }
-                });
-        }
+      animate()
+        .translationY(0)
+        .alpha(1f)
+        .setDuration(sDuration)
+        .setListener(new AnimatorListenerAdapter() {
+          @Override
+          public void onAnimationEnd(Animator animation){
+            mVisible = true;
+            mReady = true;
+          }
+        });
     }
+  }
 
-    public void setInvisible(){
-        if(ready){
-            ready = false;
+  public void setInvisible(){
+    if(mReady){
+      mReady = false;
 
-            int height = getHeight();
+      int height = getHeight();
 
-            animate()
-                .translationY(-height)
-                .alpha(0)
-                .setDuration(duration)
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation){
-                        setVisibility(GONE);
-                        visible = false;
-                        ready = true;
-                    }
-                });
-        }
+      animate()
+        .translationY(-height)
+        .alpha(0)
+        .setDuration(sDuration)
+        .setListener(new AnimatorListenerAdapter() {
+          @Override
+          public void onAnimationEnd(Animator animation){
+            setVisibility(GONE);
+            mVisible = false;
+            mReady = true;
+          }
+        });
     }
+  }
 
-    public void changeVisibility(){
-        if(visible){
-            setInvisible();
-        }else{
-            setVisible();
-        }
+  public void changeVisibility(){
+    if(mVisible){
+      setInvisible();
+    }else{
+      setVisible();
     }
+  }
 
 }

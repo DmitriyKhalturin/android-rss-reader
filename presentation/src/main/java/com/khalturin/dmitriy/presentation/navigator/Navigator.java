@@ -6,4 +6,7 @@ package com.khalturin.dmitriy.presentation.navigator;
  */
 
 public class Navigator {
+
+  // TODO: implement routing here
+
 }

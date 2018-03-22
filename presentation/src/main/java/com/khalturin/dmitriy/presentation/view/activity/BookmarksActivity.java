@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.khalturin.dmitriy.presentation.R;
-import com.khalturin.dmitriy.presentation.SubscribersList;
+import com.khalturin.dmitriy.presentation.util.SubscribersList;
 import com.khalturin.dmitriy.presentation.model.FeedModel;
 import com.khalturin.dmitriy.presentation.presenter.BookmarksPresenter;
 import com.khalturin.dmitriy.presentation.view.BookmarksView;

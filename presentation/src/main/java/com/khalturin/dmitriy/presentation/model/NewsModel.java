@@ -15,96 +15,95 @@ public class NewsModel {
 //    Class Variables
 //==================================================================================================
 
-    private long id;
-    private String author;
-    private String title;
-    private String description;
-    private String link;
-    private String image;
-    private String date;
+  private long mId;
+  private String mAuthor;
+  private String mTitle;
+  private String mDescription;
+  private String mLink;
+  private String mImage;
+  private String mDate;
 
-    private boolean isReaded;
-
-    private boolean isFavorite;
+  private boolean mIsWasRead;
+  private boolean mIsFavorite;
 
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
 
-    public long getId(){
-        return id;
-    }
+  public long getId(){
+    return mId;
+  }
 
-    public void setId(long id){
-        this.id = id;
-    }
+  public void setId(long mId){
+    this.mId = mId;
+  }
 
-    public String getAuthor(){
-        return author;
-    }
+  public String getAuthor(){
+    return mAuthor;
+  }
 
-    public void setAuthor(String author){
-        this.author = author;
-    }
+  public void setAuthor(String mAuthor){
+    this.mAuthor = mAuthor;
+  }
 
-    public String getTitle(){
-        return title;
-    }
+  public String getTitle(){
+    return mTitle;
+  }
 
-    public void setTitle(String title){
-        this.title = title;
-    }
+  public void setTitle(String mTitle){
+    this.mTitle = mTitle;
+  }
 
-    public String getDescription(){
-        return description;
-    }
+  public String getDescription(){
+    return mDescription;
+  }
 
-    public void setDescription(String description){
-        this.description = description;
-    }
+  public void setDescription(String mDescription){
+    this.mDescription = mDescription;
+  }
 
-    public String getLink(){
-        return link;
-    }
+  public String getLink(){
+    return mLink;
+  }
 
-    public void setLink(String link){
-        this.link = link;
-    }
+  public void setLink(String mLink){
+    this.mLink = mLink;
+  }
 
-    public String getImage(){
-        return image;
-    }
+  public String getImage(){
+    return mImage;
+  }
 
-    public void setImage(String image){
-        this.image = image;
-    }
+  public void setImage(String mImage){
+    this.mImage = mImage;
+  }
 
-    public String getDate(){
-        return date;
-    }
+  public String getDate(){
+    return mDate;
+  }
 
-    public void setDate(Date date){
-        this.date = DateToStringTransformer.simple(date);
-    }
+  public void setDate(Date mDate){
+    this.mDate = DateToStringTransformer.simple(mDate);
+  }
 
-    public void setDate(String date){
-        this.date = date;
-    }
+  public void setDate(String mDate){
+    this.mDate = mDate;
+  }
 
-    public boolean isReaded(){
-        return isReaded;
-    }
+  public boolean isWasRead(){
+    return mIsWasRead;
+  }
 
-    public void setReaded(boolean readed){
-        isReaded = readed;
-    }
+  public void setWasRead(boolean mIsWasRead){
+    mIsWasRead = mIsWasRead;
+  }
 
-    public boolean isFavorite(){
-        return isFavorite;
-    }
+  public boolean isFavorite(){
+    return mIsFavorite;
+  }
 
-    public void setFavorite(boolean favorite){
-        isFavorite = favorite;
-    }
+  public void setFavorite(boolean favorite){
+    mIsFavorite = favorite;
+  }
 
 }

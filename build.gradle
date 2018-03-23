@@ -16,7 +16,7 @@ buildscript {
 
 allprojects {
     ext {
-        androidApplicationId = 'com.khalturin.dmitriy.presentation'
+        androidApplicationId = 'com.khalturin.dmitriy'
         androidVersionCode = 0
         androidVersionName = '0.0.0'
 

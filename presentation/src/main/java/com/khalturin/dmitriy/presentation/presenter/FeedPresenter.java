@@ -1,6 +1,5 @@
 package com.khalturin.dmitriy.presentation.presenter;
 
-import com.khalturin.dmitriy.presentation.mapper.FeedMapper;
 import com.khalturin.dmitriy.presentation.view.FeedView;
 
 /**
@@ -15,7 +14,7 @@ public class FeedPresenter extends RssPresenterImpl {
 //==================================================================================================
 
     private FeedView view = null;
-    private FeedMapper mapper = null;
+//    private FeedMapper mapper = null;
 
 //==================================================================================================
 //    Class Constructor
@@ -23,7 +22,7 @@ public class FeedPresenter extends RssPresenterImpl {
 
     public FeedPresenter(FeedView view){
         this.view = view;
-        this.mapper = new FeedMapper();
+//        this.mapper = new FeedMapper();
     }
 
 //==================================================================================================

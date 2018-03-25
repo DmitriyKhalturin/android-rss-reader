@@ -1,6 +1,5 @@
 package com.khalturin.dmitriy.presentation.presenter;
 
-import com.khalturin.dmitriy.presentation.mapper.NewsMapper;
 import com.khalturin.dmitriy.presentation.view.NewsView;
 
 /**
@@ -15,7 +14,7 @@ public class NewsPresenter extends RssPresenterImpl {
 //==================================================================================================
 
     private NewsView view = null;
-    private NewsMapper mapper = null;
+//    private NewsMapper mapper = null;
 
 //==================================================================================================
 //    Class Constructor
@@ -23,7 +22,7 @@ public class NewsPresenter extends RssPresenterImpl {
 
     public NewsPresenter(NewsView view){
         this.view = view;
-        this.mapper = new NewsMapper();
+//        this.mapper = new NewsMapper();
     }
 
 //==================================================================================================

@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<layout
+  xmlns:bind="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+      name="feedState"
+      type="com.khalturin.dmitriy.presentation.view.state.FeedState"
+      />
+
+  </data>
+
+  <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -8,89 +20,97 @@
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+      android:id="@+id/appbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-        </android.support.v7.widget.Toolbar>
+      </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/feed_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/feed_refresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/news_list"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          bind:recyclerConfiguration="@{feedState.list}"
+          />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/news_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+      </android.support.v4.widget.SwipeRefreshLayout>
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+      <com.khalturin.dmitriy.presentation.view.layout.RssUrlLayout
+        android:id="@+id/rss_url_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height__input_block"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/margin__input_block"
+        android:background="@android:drawable/editbox_dropdown_light_frame">
 
-        <com.khalturin.dmitriy.presentation.view.layout.RssUrlLayout
-            android:id="@+id/rss_url_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height__input_block"
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/margin__input_block"
-            android:background="@android:drawable/editbox_dropdown_light_frame">
+        <ProgressBar
+          android:id="@+id/rss_url_loader"
+          android:layout_width="@dimen/width__input_block_control"
+          android:layout_height="match_parent"
+          android:padding="@dimen/padding__input_block_control"
+          android:indeterminate="true"
+          android:indeterminateTint="@color/colorInputIcon"
+          android:indeterminateTintMode="src_atop"
+          />
 
-            <ProgressBar
-                android:id="@+id/rss_url_loader"
-                android:layout_width="@dimen/width__input_block_control"
-                android:layout_height="match_parent"
-                android:padding="@dimen/padding__input_block_control"
-                android:indeterminate="true"
-                android:indeterminateTint="@color/colorInputIcon"
-                android:indeterminateTintMode="src_atop"/>
+        <ImageView
+          android:id="@+id/rss_url_icon"
+          android:layout_width="@dimen/width__input_block_control"
+          android:layout_height="match_parent"
+          android:contentDescription="@null"
+          android:padding="@dimen/padding__input_block_control"
+          android:src="@drawable/ic_rss_feed"
+          android:tint="@color/colorInputIcon"
+          android:adjustViewBounds="true"
+          android:scaleType="fitCenter"
+          android:clickable="true"
+          android:focusable="true"
+          />
 
-            <ImageView
-                android:id="@+id/rss_url_icon"
-                android:layout_width="@dimen/width__input_block_control"
-                android:layout_height="match_parent"
-                android:contentDescription="@null"
-                android:padding="@dimen/padding__input_block_control"
-                android:src="@drawable/ic_rss_feed"
-                android:tint="@color/colorInputIcon"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:clickable="true"
-                android:focusable="true"/>
+        <EditText
+          android:id="@+id/rss_url_input"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:inputType="textUri"
+          />
 
-            <EditText
-                android:id="@+id/rss_url_input"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:inputType="textUri"/>
+        <ImageButton
+          android:id="@+id/rss_url_button"
+          android:layout_width="@dimen/width__input_block_control"
+          android:layout_height="match_parent"
+          android:contentDescription="@null"
+          android:padding="@dimen/padding__input_block_control"
+          android:src="@drawable/ic_load"
+          android:tint="@color/colorInputIcon"
+          android:background="@color/colorTransparent"
+          android:adjustViewBounds="true"
+          android:scaleType="fitCenter"
+          />
 
-            <ImageButton
-                android:id="@+id/rss_url_button"
-                android:layout_width="@dimen/width__input_block_control"
-                android:layout_height="match_parent"
-                android:contentDescription="@null"
-                android:padding="@dimen/padding__input_block_control"
-                android:src="@drawable/ic_load"
-                android:tint="@color/colorInputIcon"
-                android:background="@color/colorTransparent"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"/>
-
-        </com.khalturin.dmitriy.presentation.view.layout.RssUrlLayout>
+      </com.khalturin.dmitriy.presentation.view.layout.RssUrlLayout>
 
     </RelativeLayout>
 
-</LinearLayout>
+  </LinearLayout>
+
+</layout>

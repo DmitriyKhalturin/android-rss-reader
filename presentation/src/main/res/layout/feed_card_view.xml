@@ -1,57 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:bind="http://schemas.android.com/tools">
+
+  <data>
+
+    <import type="android.view.View"/>
+
+    <variable
+      name="newsState"
+      type="com.khalturin.dmitriy.presentation.view.state.NewsState"
+      />
+
+  </data>
+
+  <RelativeLayout
     android:id="@+id/news_card"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height__card_view"
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/news_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@null"
-        android:scaleType="centerCrop"/>
+      android:id="@+id/news_image"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:contentDescription="@null"
+      android:scaleType="centerCrop"
+      android:src="@{newsState.image}"
+      />
 
     <TextView
-        android:id="@+id/news_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:padding="@dimen/padding_high__card_view_content"
-        android:elevation="@dimen/elevation__card_view_content"
-        android:background="@drawable/bg_card_view_date"/>
+      android:id="@+id/news_date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentEnd="true"
+      android:padding="@dimen/padding_high__card_view_content"
+      android:elevation="@dimen/elevation__card_view_content"
+      android:background="@drawable/bg_card_view_date"
+      android:text="@{newsState.date}"
+      />
 
     <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:layout_alignParentBottom="true"
+      android:padding="@dimen/padding_high__card_view_content"
+      android:elevation="@dimen/elevation__card_view_content"
+      android:background="@drawable/bg_card_view_content">
+
+      <TextView
+        android:id="@+id/news_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:padding="@dimen/padding_high__card_view_content"
-        android:elevation="@dimen/elevation__card_view_content"
-        android:background="@drawable/bg_card_view_content">
+        android:paddingBottom="@dimen/padding_middle__card_view_content"
+        android:textSize="@dimen/text_size__card_view_big_title"
+        android:text="@{newsState.title}"
+        />
 
-        <TextView
-            android:id="@+id/news_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/padding_middle__card_view_content"
-            android:textSize="@dimen/text_size__card_view_big_title"/>
-
-        <TextView
-            android:id="@+id/news_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:ellipsize="end"/>
+      <TextView
+        android:id="@+id/news_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:text="@{newsState.description}"
+        />
 
     </LinearLayout>
 
     <View
-        android:id="@+id/news_fog"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_card_view_fog"/>
+      android:id="@+id/news_fog"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@drawable/bg_card_view_fog"
+      bind:viewVisibility="@{newsState.isWasRead}"
+      />
 
-</RelativeLayout>
+  </RelativeLayout>
+
+</layout>

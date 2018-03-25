@@ -1,6 +1,5 @@
 package com.khalturin.dmitriy.presentation.presenter;
 
-import com.khalturin.dmitriy.presentation.mapper.BookmarksMapper;
 import com.khalturin.dmitriy.presentation.view.BookmarksView;
 
 /**
@@ -15,7 +14,7 @@ public class BookmarksPresenter extends RssPresenterImpl {
 //==================================================================================================
 
     private BookmarksView view = null;
-    private BookmarksMapper mapper = null;
+//    private BookmarksMapper mapper = null;
 
 //==================================================================================================
 //    Class Constructor
@@ -23,7 +22,7 @@ public class BookmarksPresenter extends RssPresenterImpl {
 
     public BookmarksPresenter(BookmarksView view){
         this.view = view;
-        this.mapper = new BookmarksMapper();
+//        this.mapper = new BookmarksMapper();
     }
 
 //==================================================================================================

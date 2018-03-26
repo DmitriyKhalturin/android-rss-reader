@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,14 +19,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.khalturin.dmitriy.presentation.BR;
 import com.khalturin.dmitriy.presentation.R;
+import com.khalturin.dmitriy.presentation.databinding.ActivityFeedBinding;
 import com.khalturin.dmitriy.presentation.model.NewsModel;
 import com.khalturin.dmitriy.presentation.presenter.FeedPresenter;
 import com.khalturin.dmitriy.presentation.view.FeedView;
+import com.khalturin.dmitriy.presentation.view.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.view.adapter.FeedAdapter;
 import com.khalturin.dmitriy.presentation.view.layout.FloatingLayout;
 import com.khalturin.dmitriy.presentation.view.layout.RssUrlGetter;
+import com.khalturin.dmitriy.presentation.view.state.FeedState;
+import com.khalturin.dmitriy.presentation.view.state.NewsState;
+import com.khalturin.dmitriy.presentation.view.state.RecyclerConfigurator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,184 +49,187 @@ import static android.view.View.GONE;
  */
 
 public class FeedActivity extends BaseActivity implements FeedView,
-    SwipeRefreshLayout.OnRefreshListener {
+  SwipeRefreshLayout.OnRefreshListener {
 
 //==================================================================================================
 //    Class Variables
 //==================================================================================================
 
-    private FeedAdapter adapter = null;
+  private FeedState feedState = new FeedState();
 
-    private FloatingLayout floatingLayout;
+  private FeedAdapter adapter = null;
 
-    private PublishSubject<Void> onUpdateList = PublishSubject.create();
+  private FloatingLayout floatingLayout;
 
-    private RssUrlGetter rssUrlGetter = null;
+  private PublishSubject<Void> onUpdateList = PublishSubject.create();
 
-    @BindView(R.id.toolbar)
-    protected Toolbar toolbarView;
+  private RssUrlGetter rssUrlGetter = null;
 
-    @BindView(R.id.rss_url_layout)
-    protected LinearLayout rssUrlLayout;
+  @BindView(R.id.toolbar)
+  protected Toolbar toolbarView;
 
-    @BindView(R.id.rss_url_icon)
-    protected ImageView rssUrlIcon;
+  @BindView(R.id.rss_url_layout)
+  protected LinearLayout rssUrlLayout;
 
-    @BindView(R.id.rss_url_loader)
-    protected ProgressBar rssUrlLoader;
+  @BindView(R.id.rss_url_icon)
+  protected ImageView rssUrlIcon;
 
-    @BindView(R.id.rss_url_input)
-    protected EditText rssUrlInput;
+  @BindView(R.id.rss_url_loader)
+  protected ProgressBar rssUrlLoader;
 
-    @BindView(R.id.rss_url_button)
-    protected ImageButton rssUrlButton;
+  @BindView(R.id.rss_url_input)
+  protected EditText rssUrlInput;
 
-    @BindView(R.id.feed_refresh)
-    protected SwipeRefreshLayout refreshView;
+  @BindView(R.id.rss_url_button)
+  protected ImageButton rssUrlButton;
 
-    @BindView(R.id.news_list)
-    protected RecyclerView listView;
+  @BindView(R.id.feed_refresh)
+  protected SwipeRefreshLayout refreshView;
+
+  @BindView(R.id.news_list)
+  protected RecyclerView listView;
 
 //==================================================================================================
 //    Class Constructor
 //==================================================================================================
 
-    public FeedActivity(){
-        rssPresenter = new FeedPresenter(this);
-    }
+  public FeedActivity(){
+    rssPresenter = new FeedPresenter(this);
+  }
 
 //==================================================================================================
 //    Class Callbacks
 //==================================================================================================
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        DataBindingUtil.setContentView(this, R.layout.activity_feed);
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState){
+    super.onCreate(savedInstanceState);
+    ActivityFeedBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_feed);
 
-        ButterKnife.bind(this);
+    feedState.recyclerConfigurator.set(getRecyclerConfigurator());
 
-        setSupportActionBar(toolbarView);
+    binding.setFeedViewModel(feedState);
 
-        setSwipeRefreshSettings();
-        setRecyclerViewSettings();
-        setRssUrlLayoutSettings();
-        setRssUrlSetterSettings();
+    ButterKnife.bind(this);
+
+    setSupportActionBar(toolbarView);
+
+    setSwipeRefreshSettings();
+    setRssUrlLayoutSettings();
+    setRssUrlSetterSettings();
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu){
+    MenuInflater inflater = getMenuInflater();
+
+    inflater.inflate(R.menu.action_bar_menu, menu);
+
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item){
+    int id = item.getItemId();
+
+    switch(id){
+      case  R.id.action_add_news:
+        floatingLayout.changeVisibility();
+        break;
+      case R.id.action_bookmarks:
+        Intent intent = new Intent(this, BookmarksActivity.class);
+
+        startActivity(intent);
+        break;
+      default:
+        return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-
-        inflater.inflate(R.menu.action_bar_menu, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-
-        switch(id){
-            case  R.id.action_add_news:
-                floatingLayout.changeVisibility();
-                break;
-            case R.id.action_bookmarks:
-                Intent intent = new Intent(this, BookmarksActivity.class);
-
-                startActivity(intent);
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
-        return true;
-    }
+    return true;
+  }
 
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
 
-    private void setSwipeRefreshSettings(){
-        refreshView.setOnRefreshListener(this);
-        refreshView.setColorSchemeResources(R.color.colorRefreshOne,
-            R.color.colorRefreshTwo, R.color.colorRefreshThree);
-    }
+  private RecyclerConfigurator getRecyclerConfigurator(){
+    RecyclerConfigurator configurator = new RecyclerConfigurator();
+    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+    List<NewsState> list = new ArrayList<>();
+    BindingRecyclerAdapter<NewsState> adapter = new BindingRecyclerAdapter(R.layout.feed_card_view, list, BR.newsViewModel);
 
-    private void setRecyclerViewSettings(){
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        adapter = new FeedAdapter();
+    configurator.layoutManager = layoutManager;
+    configurator.itemAnimator = new DefaultItemAnimator();
+    configurator.adapter = adapter;
 
-        listView.setLayoutManager(layoutManager);
-        listView.setAdapter(adapter);
+    return configurator;
+  }
 
-        adapter.getOnClickNews().filter(newsId -> newsId != null).subscribe(newsId -> {
-            Intent intent = new Intent(this, NewsActivity.class);
-            intent.putExtra(NewsActivity.NEWS_ID, newsId);
+  private void setSwipeRefreshSettings(){
+    refreshView.setOnRefreshListener(this);
+    refreshView.setColorSchemeResources(R.color.colorRefreshOne,
+      R.color.colorRefreshTwo, R.color.colorRefreshThree);
+  }
 
-            startActivity(intent);
-        });
-    }
+  private void setRssUrlLayoutSettings(){
+    floatingLayout = (FloatingLayout) rssUrlLayout;
 
-    private void setRssUrlLayoutSettings(){
-        floatingLayout = (FloatingLayout) rssUrlLayout;
+    int delay = 1000;
+    Handler handler = new Handler();
 
-        int delay = 1000;
-        Handler handler = new Handler();
+    rssUrlLayout.setVisibility(GONE);
 
-        rssUrlLayout.setVisibility(GONE);
+    handler.postDelayed(() -> {
+      List<NewsModel> list = adapter.getList();
+      int size = list.size();
 
-        handler.postDelayed(() -> {
-            List<NewsModel> list = adapter.getList();
-            int size = list.size();
+      if(size == 0){
+        floatingLayout.setVisible();
+      }
+    }, delay);
+  }
 
-            if(size == 0){
-                floatingLayout.setVisible();
-            }
-        }, delay);
-    }
-
-    private void setRssUrlSetterSettings(){
-        rssUrlGetter = new RssUrlGetter(this, rssUrlButton, rssUrlInput, rssUrlLoader, rssUrlIcon);
-    }
+  private void setRssUrlSetterSettings(){
+    rssUrlGetter = new RssUrlGetter(this, rssUrlButton, rssUrlInput, rssUrlLoader, rssUrlIcon);
+  }
 
 //==================================================================================================
 //    Class Implementation FeedView
 //==================================================================================================
 
-    @Override
-    public Observable<String> getOnUpdateUrl(){
-        return rssUrlGetter.getOnUpdate();
-    }
+  @Override
+  public Observable<String> getOnUpdateUrl(){
+    return rssUrlGetter.getOnUpdate();
+  }
 
-    @Override
-    public void setUpdateUrlComplete(){
-        rssUrlGetter.setUpdateComplete();
-    }
+  @Override
+  public void setUpdateUrlComplete(){
+    rssUrlGetter.setUpdateComplete();
+  }
 
-    @Override
-    public void setList(List<NewsModel> list){
-        adapter.setList(list);
-    }
+  @Override
+  public void setList(List<NewsModel> list){
+    adapter.setList(list);
+  }
 
-    @Override
-    public Observable<Void> getOnUpdateList(){
-        return onUpdateList.asObservable();
-    }
+  @Override
+  public Observable<Void> getOnUpdateList(){
+    return onUpdateList.asObservable();
+  }
 
-    @Override
-    public void setUpdateListComplete(){
-        refreshView.setRefreshing(false);
-    }
+  @Override
+  public void setUpdateListComplete(){
+    refreshView.setRefreshing(false);
+  }
 
 //==================================================================================================
 //    Class Implementation SwipeRefreshLayout.OnRefreshListener
 //==================================================================================================
 
-    @Override
-    public void onRefresh(){
-        floatingLayout.setInvisible();
-        onUpdateList.onNext(null);
-    }
+  @Override
+  public void onRefresh(){
+    floatingLayout.setInvisible();
+    onUpdateList.onNext(null);
+  }
 
 }

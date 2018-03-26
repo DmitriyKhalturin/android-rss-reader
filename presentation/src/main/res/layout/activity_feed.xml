@@ -5,7 +5,7 @@
   <data>
 
     <variable
-      name="feedState"
+      name="feedViewModel"
       type="com.khalturin.dmitriy.presentation.view.state.FeedState"
       />
 
@@ -49,7 +49,7 @@
           android:id="@+id/news_list"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          bind:recyclerConfiguration="@{feedState.list}"
+          bind:recyclerConfigurator="@{feedViewModel.recyclerConfigurator}"
           />
 
       </android.support.v4.widget.SwipeRefreshLayout>

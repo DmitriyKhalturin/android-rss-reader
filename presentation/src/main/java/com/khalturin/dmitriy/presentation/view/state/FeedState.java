@@ -1,7 +1,8 @@
 package com.khalturin.dmitriy.presentation.view.state;
 
-import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
+
+import com.khalturin.dmitriy.presentation.view.adapter.BindingRecyclerAdapter;
 
 import java.util.List;
 
@@ -10,8 +11,12 @@ import java.util.List;
  * for android-rss-reader on 25.03.18 21:19.
  */
 
-public class FeedState extends ViewModel {
+public class FeedState {
 
-  public ObservableField<List<NewsState>> list = new ObservableField<>();
+  public ObservableField<RecyclerConfigurator> recyclerConfigurator = new ObservableField<>();
+
+  public void setNewsList(List<NewsState> collection){
+    ((BindingRecyclerAdapter<NewsState>) recyclerConfigurator.get().adapter).setList(collection);
+  }
 
 }

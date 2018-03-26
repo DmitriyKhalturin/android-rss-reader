@@ -8,7 +8,7 @@
     <import type="android.view.View"/>
 
     <variable
-      name="newsState"
+      name="newsViewModel"
       type="com.khalturin.dmitriy.presentation.view.state.NewsState"
       />
 
@@ -26,7 +26,7 @@
       android:layout_height="match_parent"
       android:contentDescription="@null"
       android:scaleType="centerCrop"
-      android:src="@{newsState.image}"
+      android:src="@{newsViewModel.image}"
       />
 
     <TextView
@@ -38,7 +38,7 @@
       android:padding="@dimen/padding_high__card_view_content"
       android:elevation="@dimen/elevation__card_view_content"
       android:background="@drawable/bg_card_view_date"
-      android:text="@{newsState.date}"
+      android:text="@{newsViewModel.date}"
       />
 
     <LinearLayout
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/padding_middle__card_view_content"
         android:textSize="@dimen/text_size__card_view_big_title"
-        android:text="@{newsState.title}"
+        android:text="@{newsViewModel.title}"
         />
 
       <TextView
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:maxLines="2"
         android:ellipsize="end"
-        android:text="@{newsState.description}"
+        android:text="@{newsViewModel.description}"
         />
 
     </LinearLayout>
@@ -75,7 +75,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="@drawable/bg_card_view_fog"
-      bind:viewVisibility="@{newsState.isWasRead}"
+      bind:viewVisibility="@{newsViewModel.isWasRead}"
       />
 
   </RelativeLayout>

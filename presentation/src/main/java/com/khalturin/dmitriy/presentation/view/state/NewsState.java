@@ -1,6 +1,5 @@
 package com.khalturin.dmitriy.presentation.view.state;
 
-import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
 import android.graphics.drawable.Drawable;
 
@@ -9,7 +8,7 @@ import android.graphics.drawable.Drawable;
  * for android-rss-reader on 25.03.18 15:43.
  */
 
-public class NewsState extends ViewModel {
+public class NewsState {
 
   public ObservableField<String> title = new ObservableField<>();
   public ObservableField<String> description = new ObservableField<>();

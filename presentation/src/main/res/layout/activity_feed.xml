@@ -9,6 +9,11 @@
       type="com.khalturin.dmitriy.presentation.viewmodel.FeedViewModel"
       />
 
+    <variable
+      name="rssUrlViewModel"
+      type="com.khalturin.dmitriy.presentation.viewmodel.RssUrlViewModel"
+      />
+
   </data>
 
   <LinearLayout
@@ -70,6 +75,7 @@
           android:indeterminate="true"
           android:indeterminateTint="@color/colorInputIcon"
           android:indeterminateTintMode="src_atop"
+          bind:viewVisibility="@{rssUrlViewModel.isReady}"
           />
 
         <ImageView
@@ -84,6 +90,7 @@
           android:scaleType="fitCenter"
           android:clickable="true"
           android:focusable="true"
+          bind:viewVisibility="@{rssUrlViewModel.isReady}"
           />
 
         <EditText
@@ -92,6 +99,7 @@
           android:layout_height="match_parent"
           android:layout_weight="1"
           android:inputType="textUri"
+          android:text="@{rssUrlViewModel.rssUrl}"
           />
 
         <ImageButton
@@ -105,6 +113,8 @@
           android:background="@color/colorTransparent"
           android:adjustViewBounds="true"
           android:scaleType="fitCenter"
+          android:enabled="@{rssUrlViewModel.isReady}"
+          android:onClick="@{rssUrlViewModel::onSetRssUrl}"
           />
 
       </com.khalturin.dmitriy.presentation.view.layout.RssUrlLayout>

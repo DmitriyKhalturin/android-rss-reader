@@ -1,8 +1,7 @@
-package com.khalturin.dmitriy.presentation.view.layout;
+package com.khalturin.dmitriy.presentation.viewmodel;
 
-import android.content.Context;
+import android.databinding.ObservableField;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.jakewharton.rxbinding.view.RxView;
@@ -18,15 +17,20 @@ import static android.view.View.VISIBLE;
  * for android-rss-reader on 26.02.18 1:15.
  */
 
-public class RssUrlGetter {
+public class RssUrlViewModel {
 
 //==================================================================================================
 //    Class Variables
 //==================================================================================================
 
+  public ObservableField<String> rssUrl = new ObservableField<>();
+  public ObservableField<Boolean> isReady = new ObservableField<>();
+
+
+
   private PublishSubject<String> onUpdateUrl = PublishSubject.create();
 
-  private boolean mReady = true;
+//  private boolean mReady = true;
 
   private View mButton;
   private View mInput;
@@ -37,20 +41,24 @@ public class RssUrlGetter {
 //    Class Constructor
 //==================================================================================================
 
-  public RssUrlGetter(Context context, View mButton, View mInput, View mLoader, View mIcon){
-    this.mButton = mButton;
-    this.mInput = mInput;
-    this.mLoader = mLoader;
-    this.mIcon = mIcon;
-
-    setButtonListener();
-    setLoaderVisible(false);
-    setInputListener(context);
+  public RssUrlViewModel(){
+//    this.mButton = mButton;
+//    this.mInput = mInput;
+//    this.mLoader = mLoader;
+//    this.mIcon = mIcon;
+//
+//    setButtonListener();
+//    setLoaderVisible(false);
+//    setInputListener(null);
   }
 
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
+
+  public void onSetRssUrl(View view){
+    int i = 1 + 1;
+  }
 
   private void setButtonListener(){
     RxView.clicks(mButton).subscribe(this::onClickButton);
@@ -66,17 +74,17 @@ public class RssUrlGetter {
     }
   }
 
-  private void setInputListener(Context context){
-    ((EditText) mInput).setOnFocusChangeListener((View v, boolean hasFocus) -> {
-      if(!hasFocus){
-        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-
-        if(inputMethodManager != null){
-          inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
-        }
-      }
-    });
-  }
+//  private void setInputListener(Context context){
+//    ((EditText) mInput).setOnFocusChangeListener((View v, boolean hasFocus) -> {
+//      if(!hasFocus){
+//        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+//
+//        if(inputMethodManager != null){
+//          inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+//        }
+//      }
+//    });
+//  }
 
   private boolean urlValidation(String url){
     return !url.isEmpty();
@@ -85,8 +93,8 @@ public class RssUrlGetter {
   private void onClickButton(Void aVoid){
     String url = ((EditText) mInput).getText().toString();
 
-    if(mReady && urlValidation(url)){
-      mReady = false;
+    if(/*mReady &&*/ urlValidation(url)){
+//      mReady = false;
       setLoaderVisible(true);
       onUpdateUrl.onNext(url);
     }
@@ -98,7 +106,7 @@ public class RssUrlGetter {
 
   public void setUpdateComplete(){
     setLoaderVisible(false);
-    mReady = true;
+//    mReady = true;
   }
 
 }

@@ -5,8 +5,6 @@
 
   <data>
 
-    <import type="android.view.View"/>
-
     <variable
       name="newsViewModel"
       type="com.khalturin.dmitriy.presentation.viewmodel.NewsViewModel"

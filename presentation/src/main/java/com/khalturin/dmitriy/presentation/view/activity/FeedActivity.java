@@ -13,28 +13,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 
 import com.khalturin.dmitriy.presentation.BR;
 import com.khalturin.dmitriy.presentation.R;
+import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerConfigurator;
+import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.databinding.ActivityFeedBinding;
-import com.khalturin.dmitriy.presentation.model.NewsModel;
 import com.khalturin.dmitriy.presentation.presenter.FeedPresenter;
 import com.khalturin.dmitriy.presentation.view.FeedView;
-import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
-import com.khalturin.dmitriy.presentation.view.adapter.FeedAdapter;
 import com.khalturin.dmitriy.presentation.view.layout.FloatingLayout;
-import com.khalturin.dmitriy.presentation.view.layout.RssUrlGetter;
 import com.khalturin.dmitriy.presentation.viewmodel.FeedViewModel;
 import com.khalturin.dmitriy.presentation.viewmodel.NewsViewModel;
-import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerConfigurator;
+import com.khalturin.dmitriy.presentation.viewmodel.RssUrlViewModel;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import butterknife.BindView;
@@ -57,6 +49,7 @@ public class FeedActivity extends BaseActivity implements FeedView,
 //==================================================================================================
 
   private FeedViewModel mFeedViewModel = new FeedViewModel();
+  private RssUrlViewModel mRssUrlViewModel = new RssUrlViewModel();
 
 
 
@@ -64,7 +57,7 @@ public class FeedActivity extends BaseActivity implements FeedView,
 
   private PublishSubject<Void> onUpdateList = PublishSubject.create();
 
-  private RssUrlGetter rssUrlGetter = null;
+//  private RssUrlViewModel rssUrlGetter = null;
 
   @BindView(R.id.toolbar)
   protected Toolbar toolbarView;
@@ -72,17 +65,17 @@ public class FeedActivity extends BaseActivity implements FeedView,
   @BindView(R.id.rss_url_layout)
   protected LinearLayout rssUrlLayout;
 
-  @BindView(R.id.rss_url_icon)
-  protected ImageView rssUrlIcon;
-
-  @BindView(R.id.rss_url_loader)
-  protected ProgressBar rssUrlLoader;
-
-  @BindView(R.id.rss_url_input)
-  protected EditText rssUrlInput;
-
-  @BindView(R.id.rss_url_button)
-  protected ImageButton rssUrlButton;
+//  @BindView(R.id.rss_url_icon)
+//  protected ImageView rssUrlIcon;
+//
+//  @BindView(R.id.rss_url_loader)
+//  protected ProgressBar rssUrlLoader;
+//
+//  @BindView(R.id.rss_url_input)
+//  protected EditText rssUrlInput;
+//
+//  @BindView(R.id.rss_url_button)
+//  protected ImageButton rssUrlButton;
 
   @BindView(R.id.feed_refresh)
   protected SwipeRefreshLayout refreshView;
@@ -110,6 +103,7 @@ public class FeedActivity extends BaseActivity implements FeedView,
     mFeedViewModel.recyclerConfigurator.set(getRecyclerConfigurator());
 
     binding.setFeedViewModel(mFeedViewModel);
+    binding.setRssUrlViewModel(mRssUrlViewModel);
 
 
 
@@ -119,7 +113,7 @@ public class FeedActivity extends BaseActivity implements FeedView,
 
     setSwipeRefreshSettings();
     setRssUrlLayoutSettings();
-    setRssUrlSetterSettings();
+//    setRssUrlSetterSettings();
   }
 
   @Override
@@ -192,9 +186,9 @@ public class FeedActivity extends BaseActivity implements FeedView,
     }, delay);
   }
 
-  private void setRssUrlSetterSettings(){
-    rssUrlGetter = new RssUrlGetter(this, rssUrlButton, rssUrlInput, rssUrlLoader, rssUrlIcon);
-  }
+//  private void setRssUrlSetterSettings(){
+//    rssUrlGetter = new RssUrlViewModel(this, rssUrlButton, rssUrlInput, rssUrlLoader, rssUrlIcon);
+//  }
 
 //==================================================================================================
 //    Class Implementation FeedView
@@ -202,12 +196,13 @@ public class FeedActivity extends BaseActivity implements FeedView,
 
   @Override
   public Observable<String> getOnUpdateUrl(){
-    return rssUrlGetter.getOnUpdate();
+//    return rssUrlGetter.getOnUpdate();
+    return PublishSubject.create();
   }
 
   @Override
   public void setUpdateUrlComplete(){
-    rssUrlGetter.setUpdateComplete();
+//    rssUrlGetter.setUpdateComplete();
   }
 
   @Override

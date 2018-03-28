@@ -12,16 +12,16 @@ import android.view.View;
 
 public class BindingViewHolder extends RecyclerView.ViewHolder {
 
-  private ViewDataBinding binding;
+  private ViewDataBinding mBinding;
 
   public BindingViewHolder(View view){
     super(view);
 
-    binding = DataBindingUtil.bind(view);
+    mBinding = DataBindingUtil.bind(view);
   }
 
   public ViewDataBinding getBinding(){
-    return binding;
+    return mBinding;
   }
 
 }

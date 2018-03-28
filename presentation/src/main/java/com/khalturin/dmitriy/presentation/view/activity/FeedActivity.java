@@ -114,6 +114,10 @@ public class FeedActivity extends BaseActivity implements FeedView,
     setSwipeRefreshSettings();
     setRssUrlLayoutSettings();
 //    setRssUrlSetterSettings();
+
+    mRssUrlViewModel.getOnUpdate().subscribe(s -> {
+      s.isEmpty();
+    });
   }
 
   @Override

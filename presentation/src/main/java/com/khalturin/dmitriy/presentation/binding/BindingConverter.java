@@ -23,6 +23,8 @@ public final class BindingConverter {
       });
 
       field.addOnPropertyChangedCallback(fieldChanged);
+
+      emitter.onNext(field.get());
     });
   }
 

@@ -1,10 +1,13 @@
 package com.khalturin.dmitriy.presentation.binding;
 
+import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerConfigurator;
 
@@ -26,8 +29,24 @@ public final class BindingAttribute {
   public static void bindVisibility(View view, ObservableField<Boolean> field){
     BindingConverter.toObservable(field)
       .subscribe(visible -> {
-        view.setVisibility((visible ? View.GONE : View.VISIBLE));
+        view.setVisibility((visible ? View.VISIBLE : View.GONE));
       });
+  }
+
+  @BindingAdapter("bind:hideKeyboard")
+  public static void bindHideKeyboard(EditText view, boolean active){
+    if(active){
+      view.setOnFocusChangeListener((View v, boolean hasFocus) -> {
+        if(!hasFocus){
+          InputMethodManager inputMethodManager = (InputMethodManager) view.getContext()
+            .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+          if(inputMethodManager != null){
+            inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+          }
+        }
+      });
+    }
   }
 
 }

@@ -2,15 +2,14 @@ package com.khalturin.dmitriy.presentation.viewmodel;
 
 import android.databinding.ObservableField;
 import android.view.View;
-import android.widget.EditText;
 
-import com.jakewharton.rxbinding.view.RxView;
+import com.khalturin.dmitriy.presentation.binding.BindingConverter;
 
-import rx.Observable;
-import rx.subjects.PublishSubject;
+import io.reactivex.Observable;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
+import static com.khalturin.dmitriy.presentation.viewmodel.DefaultFieldValue.EMPTY_STRING;
+import static com.khalturin.dmitriy.presentation.viewmodel.DefaultFieldValue.FALSE;
+import static com.khalturin.dmitriy.presentation.viewmodel.DefaultFieldValue.TRUE;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -19,94 +18,33 @@ import static android.view.View.VISIBLE;
 
 public class RssUrlViewModel {
 
-//==================================================================================================
-//    Class Variables
-//==================================================================================================
+  public ObservableField<String> url = new ObservableField<>(EMPTY_STRING);
+  public ObservableField<Boolean> isListening = new ObservableField<>(TRUE);
+  public ObservableField<Boolean> isLoading = new ObservableField<>(FALSE);
 
-  public ObservableField<String> rssUrl = new ObservableField<>();
-  public ObservableField<Boolean> isReady = new ObservableField<>();
-
-
-
-  private PublishSubject<String> onUpdateUrl = PublishSubject.create();
-
-//  private boolean mReady = true;
-
-  private View mButton;
-  private View mInput;
-  private View mLoader;
-  private View mIcon;
-
-//==================================================================================================
-//    Class Constructor
-//==================================================================================================
-
-  public RssUrlViewModel(){
-//    this.mButton = mButton;
-//    this.mInput = mInput;
-//    this.mLoader = mLoader;
-//    this.mIcon = mIcon;
-//
-//    setButtonListener();
-//    setLoaderVisible(false);
-//    setInputListener(null);
-  }
-
-//==================================================================================================
-//    Class Methods
-//==================================================================================================
-
-  public void onSetRssUrl(View view){
-    int i = 1 + 1;
-  }
-
-  private void setButtonListener(){
-    RxView.clicks(mButton).subscribe(this::onClickButton);
+  public void setUrl(View view){
   }
 
   private void setLoaderVisible(boolean visible){
-    if(visible){
-      mLoader.setVisibility(VISIBLE);
-      mIcon.setVisibility(GONE);
-    }else{
-      mLoader.setVisibility(GONE);
-      mIcon.setVisibility(VISIBLE);
-    }
-  }
-
-//  private void setInputListener(Context context){
-//    ((EditText) mInput).setOnFocusChangeListener((View v, boolean hasFocus) -> {
-//      if(!hasFocus){
-//        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-//
-//        if(inputMethodManager != null){
-//          inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
-//        }
-//      }
-//    });
-//  }
-
-  private boolean urlValidation(String url){
-    return !url.isEmpty();
-  }
-
-  private void onClickButton(Void aVoid){
-    String url = ((EditText) mInput).getText().toString();
-
-    if(/*mReady &&*/ urlValidation(url)){
-//      mReady = false;
-      setLoaderVisible(true);
-      onUpdateUrl.onNext(url);
-    }
+    isListening.set(!visible);
+    isLoading.set(visible);
   }
 
   public Observable<String> getOnUpdate(){
-    return onUpdateUrl.asObservable();
+    return BindingConverter.toObservable(url)
+      .filter(this::urlValidation)
+      .map(url -> {
+        setLoaderVisible(true);
+        return url;
+      });
   }
 
   public void setUpdateComplete(){
     setLoaderVisible(false);
-//    mReady = true;
+  }
+
+  private boolean urlValidation(String url){
+    return !url.isEmpty();
   }
 
 }

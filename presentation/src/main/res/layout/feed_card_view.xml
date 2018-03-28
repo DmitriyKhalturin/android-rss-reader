@@ -9,7 +9,7 @@
 
     <variable
       name="newsViewModel"
-      type="com.khalturin.dmitriy.presentation.view.state.NewsState"
+      type="com.khalturin.dmitriy.presentation.viewmodel.NewsViewModel"
       />
 
   </data>

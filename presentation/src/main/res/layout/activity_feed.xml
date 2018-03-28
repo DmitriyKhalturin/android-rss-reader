@@ -6,7 +6,7 @@
 
     <variable
       name="feedViewModel"
-      type="com.khalturin.dmitriy.presentation.view.state.FeedState"
+      type="com.khalturin.dmitriy.presentation.viewmodel.FeedViewModel"
       />
 
   </data>

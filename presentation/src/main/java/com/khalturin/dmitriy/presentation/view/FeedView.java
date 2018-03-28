@@ -1,7 +1,8 @@
 package com.khalturin.dmitriy.presentation.view;
 
-import com.khalturin.dmitriy.presentation.model.NewsModel;
+import com.khalturin.dmitriy.presentation.viewmodel.NewsViewModel;
 
+import java.util.Collection;
 import java.util.List;
 
 import rx.Observable;
@@ -13,7 +14,7 @@ import rx.Observable;
 
 public interface FeedView {
 
-    void setList(List<NewsModel> list);
+    void setItems(List<NewsViewModel> items);
 
     Observable<String> getOnUpdateUrl();
 

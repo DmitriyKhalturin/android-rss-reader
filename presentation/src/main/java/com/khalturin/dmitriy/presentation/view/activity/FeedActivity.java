@@ -25,15 +25,16 @@ import com.khalturin.dmitriy.presentation.databinding.ActivityFeedBinding;
 import com.khalturin.dmitriy.presentation.model.NewsModel;
 import com.khalturin.dmitriy.presentation.presenter.FeedPresenter;
 import com.khalturin.dmitriy.presentation.view.FeedView;
-import com.khalturin.dmitriy.presentation.view.adapter.BindingRecyclerAdapter;
+import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.view.adapter.FeedAdapter;
 import com.khalturin.dmitriy.presentation.view.layout.FloatingLayout;
 import com.khalturin.dmitriy.presentation.view.layout.RssUrlGetter;
-import com.khalturin.dmitriy.presentation.view.state.FeedState;
-import com.khalturin.dmitriy.presentation.view.state.NewsState;
-import com.khalturin.dmitriy.presentation.view.state.RecyclerConfigurator;
+import com.khalturin.dmitriy.presentation.viewmodel.FeedViewModel;
+import com.khalturin.dmitriy.presentation.viewmodel.NewsViewModel;
+import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerConfigurator;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,9 +56,9 @@ public class FeedActivity extends BaseActivity implements FeedView,
 //    Class Variables
 //==================================================================================================
 
-  private FeedState feedState = new FeedState();
+  private FeedViewModel mFeedViewModel = new FeedViewModel();
 
-  private FeedAdapter adapter = null;
+
 
   private FloatingLayout floatingLayout;
 
@@ -106,9 +107,11 @@ public class FeedActivity extends BaseActivity implements FeedView,
     super.onCreate(savedInstanceState);
     ActivityFeedBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_feed);
 
-    feedState.recyclerConfigurator.set(getRecyclerConfigurator());
+    mFeedViewModel.recyclerConfigurator.set(getRecyclerConfigurator());
 
-    binding.setFeedViewModel(feedState);
+    binding.setFeedViewModel(mFeedViewModel);
+
+
 
     ButterKnife.bind(this);
 
@@ -152,15 +155,16 @@ public class FeedActivity extends BaseActivity implements FeedView,
 //    Class Methods
 //==================================================================================================
 
+  @SuppressWarnings("unchecked")
   private RecyclerConfigurator getRecyclerConfigurator(){
     RecyclerConfigurator configurator = new RecyclerConfigurator();
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-    List<NewsState> list = new ArrayList<>();
-    BindingRecyclerAdapter<NewsState> adapter = new BindingRecyclerAdapter(R.layout.feed_card_view, list, BR.newsViewModel);
+    RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
+    BindingRecyclerAdapter<NewsViewModel> adapter = new BindingRecyclerAdapter(R.layout.feed_card_view, null, BR.newsViewModel);
 
-    configurator.layoutManager = layoutManager;
-    configurator.itemAnimator = new DefaultItemAnimator();
-    configurator.adapter = adapter;
+    configurator.setLayoutManager(layoutManager);
+    configurator.setItemAnimator(itemAnimator);
+    configurator.setAdapter(adapter);
 
     return configurator;
   }
@@ -180,8 +184,7 @@ public class FeedActivity extends BaseActivity implements FeedView,
     rssUrlLayout.setVisibility(GONE);
 
     handler.postDelayed(() -> {
-      List<NewsModel> list = adapter.getList();
-      int size = list.size();
+      int size = mFeedViewModel.getItemCount();
 
       if(size == 0){
         floatingLayout.setVisible();
@@ -208,8 +211,8 @@ public class FeedActivity extends BaseActivity implements FeedView,
   }
 
   @Override
-  public void setList(List<NewsModel> list){
-    adapter.setList(list);
+  public void setItems(List<NewsViewModel> items){
+    mFeedViewModel.setItems(items);
   }
 
   @Override

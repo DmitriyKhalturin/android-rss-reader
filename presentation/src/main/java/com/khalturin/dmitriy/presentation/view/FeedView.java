@@ -1,11 +1,10 @@
 package com.khalturin.dmitriy.presentation.view;
 
-import com.khalturin.dmitriy.presentation.viewmodel.NewsViewModel;
+import com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel;
 
-import java.util.Collection;
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -14,14 +13,14 @@ import rx.Observable;
 
 public interface FeedView {
 
-    void setItems(List<NewsViewModel> items);
+  Observable<String> getOnUpdateRssUrl();
 
-    Observable<String> getOnUpdateUrl();
+  void setUpdateRssUrlComplete();
 
-    void setUpdateUrlComplete();
+  void setFeedItems(List<NewsViewModel> items);
 
-    Observable<Void> getOnUpdateList();
+  Observable<Boolean> getOnUpdateFeedItems();
 
-    void setUpdateListComplete();
+  void setUpdateFeedItemsComplete();
 
 }

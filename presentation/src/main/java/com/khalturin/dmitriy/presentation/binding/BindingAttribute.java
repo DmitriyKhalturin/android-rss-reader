@@ -3,13 +3,13 @@ package com.khalturin.dmitriy.presentation.binding;
 import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerConfigurator;
+import com.khalturin.dmitriy.presentation.view.layout.FloatingLayout;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -19,17 +19,17 @@ import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerConfigurator;
 public final class BindingAttribute {
 
   @BindingAdapter("bind:recyclerConfigurator")
-  public static void bindRecyclerConfigurator(@NonNull RecyclerView recyclerView, RecyclerConfigurator recyclerConfigurator){
+  public static void bindRecyclerConfigurator(RecyclerView recyclerView, RecyclerConfigurator recyclerConfigurator){
     recyclerView.setLayoutManager(recyclerConfigurator.getLayoutManager());
     recyclerView.setItemAnimator(recyclerConfigurator.getItemAnimator());
     recyclerView.setAdapter(recyclerConfigurator.getAdapter());
   }
 
   @BindingAdapter("bind:viewVisibility")
-  public static void bindVisibility(View view, ObservableField<Boolean> field){
+  public static void bindViewVisibility(View view, ObservableField<Boolean> field){
     BindingConverter.toObservable(field)
-      .subscribe(visible -> {
-        view.setVisibility((visible ? View.VISIBLE : View.GONE));
+      .subscribe(visibility -> {
+        view.setVisibility((visibility ? View.VISIBLE : View.GONE));
       });
   }
 
@@ -47,6 +47,22 @@ public final class BindingAttribute {
         }
       });
     }
+  }
+
+  @BindingAdapter("bind:floatingViewVisibility")
+  public static void bindFloatingViewVisibility(View view, ObservableField<Boolean> field){
+    view.setVisibility(View.GONE);
+
+    BindingConverter.toObservable(field)
+      .subscribe(visibility -> {
+        FloatingLayout floatingLayout = (FloatingLayout) view;
+
+        if(visibility){
+          floatingLayout.setVisible();
+        }else{
+          floatingLayout.setInvisible();
+        }
+      });
   }
 
 }

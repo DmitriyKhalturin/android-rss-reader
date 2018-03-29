@@ -5,13 +5,18 @@
   <data>
 
     <variable
+      name="refreshViewModel"
+      type="com.khalturin.dmitriy.presentation.viewmodel.feed.RefreshViewModel"
+      />
+
+    <variable
       name="feedViewModel"
-      type="com.khalturin.dmitriy.presentation.viewmodel.FeedViewModel"
+      type="com.khalturin.dmitriy.presentation.viewmodel.feed.FeedViewModel"
       />
 
     <variable
       name="rssUrlViewModel"
-      type="com.khalturin.dmitriy.presentation.viewmodel.RssUrlViewModel"
+      type="com.khalturin.dmitriy.presentation.viewmodel.feed.RssUrlViewModel"
       />
 
   </data>
@@ -48,7 +53,10 @@
       <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/feed_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:colorSchemeResources="@{refreshViewModel.colorScheme}"
+        app:refreshing="@{refreshViewModel.isRefreshing}"
+        app:onRefreshListener="@{refreshViewModel::updateFeedItems}">
 
         <android.support.v7.widget.RecyclerView
           android:id="@+id/news_list"
@@ -65,7 +73,8 @@
         android:layout_height="@dimen/height__input_block"
         android:orientation="horizontal"
         android:layout_margin="@dimen/margin__input_block"
-        android:background="@android:drawable/editbox_dropdown_light_frame">
+        android:background="@android:drawable/editbox_dropdown_light_frame"
+        bind:floatingViewVisibility="@{rssUrlViewModel.isVisible}">
 
         <ProgressBar
           android:id="@+id/rss_url_loader"
@@ -99,7 +108,7 @@
           android:layout_height="match_parent"
           android:layout_weight="1"
           android:inputType="textUri"
-          android:text="@={rssUrlViewModel.url}"
+          android:text="@={rssUrlViewModel.rssUrl}"
           bind:hideKeyboard="@{true}"
           />
 
@@ -117,7 +126,7 @@
           android:clickable="true"
           android:focusable="true"
           android:enabled="@{rssUrlViewModel.isListening}"
-          android:onClick="@{rssUrlViewModel::setUrl}"
+          android:onClick="@{rssUrlViewModel::setRssUrl}"
           />
 
       </com.khalturin.dmitriy.presentation.view.layout.RssUrlLayout>

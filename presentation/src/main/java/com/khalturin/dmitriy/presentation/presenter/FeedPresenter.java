@@ -54,14 +54,14 @@ public class FeedPresenter extends RssPresenterImpl {
     }
 
     private void setActionListeners(){
-        addSubscription(view.getOnUpdateList()
-            .subscribe(this::onUpdateFeed));
-        addSubscription(view.getOnUpdateUrl()
-            .subscribe(this::onChangeFeedUrl));
+//        addSubscription(view.getOnUpdateList()
+//            .subscribe(this::onUpdateFeed));
+//        addSubscription(view.getOnUpdateUrl()
+//            .subscribe(this::onChangeFeedUrl));
     }
 
     private void onErrorUpdateFeed(Throwable error){
-        view.setUpdateListComplete();
+//        view.setUpdateListComplete();
         // TODO: show error message
     }
 
@@ -71,7 +71,7 @@ public class FeedPresenter extends RssPresenterImpl {
     }
 
     private void onErrorChangeFeedUrl(Throwable error){
-        view.setUpdateUrlComplete();
+//        view.setUpdateUrlComplete();
         // TODO: show error message
     }
 

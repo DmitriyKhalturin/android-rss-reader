@@ -14,7 +14,7 @@ import android.view.MenuItem;
 
 import com.khalturin.dmitriy.presentation.BR;
 import com.khalturin.dmitriy.presentation.R;
-import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerConfigurator;
+import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.databinding.ActivityFeedBinding;
 import com.khalturin.dmitriy.presentation.presenter.FeedPresenter;
@@ -60,7 +60,7 @@ public class FeedActivity extends BaseActivity implements FeedView {
     super.onCreate(savedInstanceState);
     ActivityFeedBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_feed);
 
-    mFeedViewModel.recyclerConfigurator.set(getRecyclerConfigurator());
+    mFeedViewModel.recyclerManager.set(getRecyclerManager());
 
     binding.setFeedViewModel(mFeedViewModel);
     binding.setRssUrlViewModel(mRssUrlViewModel);
@@ -86,7 +86,7 @@ public class FeedActivity extends BaseActivity implements FeedView {
 
     switch(id){
       case  R.id.action_add_news:
-        mRssUrlViewModel.changeVisibility();
+        mRssUrlViewModel.changeLayoutVisibility();
         break;
       case R.id.action_bookmarks:
         Intent intent = new Intent(this, BookmarksActivity.class);
@@ -105,17 +105,17 @@ public class FeedActivity extends BaseActivity implements FeedView {
 //==================================================================================================
 
   @SuppressWarnings("unchecked")
-  private RecyclerConfigurator getRecyclerConfigurator(){
-    RecyclerConfigurator configurator = new RecyclerConfigurator();
+  private RecyclerManager getRecyclerManager(){
+    RecyclerManager recyclerManager = new RecyclerManager();
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
     RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
     BindingRecyclerAdapter<NewsViewModel> adapter = new BindingRecyclerAdapter(R.layout.feed_card_view, null, BR.newsViewModel);
 
-    configurator.setLayoutManager(layoutManager);
-    configurator.setItemAnimator(itemAnimator);
-    configurator.setAdapter(adapter);
+    recyclerManager.setLayoutManager(layoutManager);
+    recyclerManager.setItemAnimator(itemAnimator);
+    recyclerManager.setAdapter(adapter);
 
-    return configurator;
+    return recyclerManager;
   }
 
   private void setRssUrlLayoutSettings(){
@@ -123,7 +123,7 @@ public class FeedActivity extends BaseActivity implements FeedView {
     Handler handler = new Handler();
 
     handler.postDelayed(() -> {
-      int size = mFeedViewModel.getItemCount();
+      int size = mFeedViewModel.getFeedItemCount();
 
       if(size == 0){
         mRssUrlViewModel.isVisible.set(true);
@@ -147,7 +147,7 @@ public class FeedActivity extends BaseActivity implements FeedView {
 
   @Override
   public void setFeedItems(List<NewsViewModel> items){
-    mFeedViewModel.setItems(items);
+    mFeedViewModel.setFeedItems(items);
   }
 
   @Override

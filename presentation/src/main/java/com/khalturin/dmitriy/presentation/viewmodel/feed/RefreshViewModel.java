@@ -3,7 +3,7 @@ package com.khalturin.dmitriy.presentation.viewmodel.feed;
 import android.databinding.ObservableField;
 
 import com.khalturin.dmitriy.presentation.R;
-import com.khalturin.dmitriy.presentation.binding.BindingConverter;
+import com.khalturin.dmitriy.presentation.binding.BindingTransformer;
 
 import io.reactivex.Observable;
 
@@ -37,7 +37,7 @@ public class RefreshViewModel {
 //==================================================================================================
 
   public Observable<Boolean> getOnUpdateFeedItems(){
-    return BindingConverter.toObservable(isRefreshing)
+    return BindingTransformer.toObservable(isRefreshing)
       .filter(aBoolean -> aBoolean);
   }
 

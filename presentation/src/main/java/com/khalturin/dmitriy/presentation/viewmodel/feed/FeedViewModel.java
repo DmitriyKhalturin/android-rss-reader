@@ -2,7 +2,7 @@ package com.khalturin.dmitriy.presentation.viewmodel.feed;
 
 import android.databinding.ObservableField;
 
-import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerConfigurator;
+import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel;
 
@@ -19,23 +19,23 @@ public class FeedViewModel {
 //    Binding ViewModel Members
 //==================================================================================================
 
-  public ObservableField<RecyclerConfigurator> recyclerConfigurator = new ObservableField<>();
+  public ObservableField<RecyclerManager> recyclerManager = new ObservableField<>();
 
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
 
-  public void setItems(List<NewsViewModel> items){
+  public void setFeedItems(List<NewsViewModel> items){
     getAdapter().setItems(items);
   }
 
-  public int getItemCount(){
+  public int getFeedItemCount(){
     return getAdapter().getItemCount();
   }
 
   @SuppressWarnings("unchecked")
   private BindingRecyclerAdapter<NewsViewModel> getAdapter(){
-    return (BindingRecyclerAdapter<NewsViewModel>) recyclerConfigurator.get().getAdapter();
+    return (BindingRecyclerAdapter<NewsViewModel>) recyclerManager.get().getAdapter();
   }
 
 }

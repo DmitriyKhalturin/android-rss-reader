@@ -46,7 +46,7 @@ public class RssUrlViewModel {
 //    Class Methods
 //==================================================================================================
 
-  public void changeVisibility(){
+  public void changeLayoutVisibility(){
     isVisible.set(!isVisible.get());
   }
 

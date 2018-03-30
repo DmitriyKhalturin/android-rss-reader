@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerConfigurator;
+import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.view.layout.FloatingLayout;
 
 /**
@@ -18,16 +18,16 @@ import com.khalturin.dmitriy.presentation.view.layout.FloatingLayout;
 
 public final class BindingAttribute {
 
-  @BindingAdapter("bind:recyclerConfigurator")
-  public static void bindRecyclerConfigurator(RecyclerView recyclerView, RecyclerConfigurator recyclerConfigurator){
-    recyclerView.setLayoutManager(recyclerConfigurator.getLayoutManager());
-    recyclerView.setItemAnimator(recyclerConfigurator.getItemAnimator());
-    recyclerView.setAdapter(recyclerConfigurator.getAdapter());
+  @BindingAdapter("bind:recyclerManager")
+  public static void bindRecyclerManager(RecyclerView recyclerView, RecyclerManager recyclerManager){
+    recyclerView.setLayoutManager(recyclerManager.getLayoutManager());
+    recyclerView.setItemAnimator(recyclerManager.getItemAnimator());
+    recyclerView.setAdapter(recyclerManager.getAdapter());
   }
 
   @BindingAdapter("bind:viewVisibility")
   public static void bindViewVisibility(View view, ObservableField<Boolean> field){
-    BindingConverter.toObservable(field)
+    BindingTransformer.toObservable(field)
       .subscribe(visibility -> {
         view.setVisibility((visibility ? View.VISIBLE : View.GONE));
       });
@@ -53,7 +53,7 @@ public final class BindingAttribute {
   public static void bindFloatingViewVisibility(View view, ObservableField<Boolean> field){
     view.setVisibility(View.GONE);
 
-    BindingConverter.toObservable(field)
+    BindingTransformer.toObservable(field)
       .subscribe(visibility -> {
         FloatingLayout floatingLayout = (FloatingLayout) view;
 

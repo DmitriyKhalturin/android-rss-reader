@@ -1,6 +1,6 @@
 package com.khalturin.dmitriy.presentation.view;
 
-import com.khalturin.dmitriy.presentation.model.NewsModel;
+import com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -11,6 +11,6 @@ public interface NewsView {
 
     long getNewsId();
 
-    void setContent(NewsModel news);
+    void setContent(NewsViewModel news);
 
 }

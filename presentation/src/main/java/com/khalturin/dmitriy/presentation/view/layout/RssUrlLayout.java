@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
  * for android-rss-reader on 01.08.17 17:27.
  */
 
+// TODO: fix animation
 public class RssUrlLayout extends LinearLayout implements FloatingLayout {
 
 //==================================================================================================
@@ -49,7 +50,6 @@ public class RssUrlLayout extends LinearLayout implements FloatingLayout {
 //==================================================================================================
 //    Class Implementation FloatingLayout
 //==================================================================================================
-
 
   public void setVisible(){
     if(mReady){

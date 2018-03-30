@@ -60,6 +60,7 @@ public class FeedActivity extends BaseActivity implements FeedView {
     super.onCreate(savedInstanceState);
     ActivityFeedBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_feed);
 
+    // TODO: check this setter
     mFeedViewModel.recyclerManager.set(getRecyclerManager());
 
     binding.setFeedViewModel(mFeedViewModel);

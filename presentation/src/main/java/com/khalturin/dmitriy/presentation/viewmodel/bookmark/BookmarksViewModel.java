@@ -9,6 +9,7 @@ import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecycl
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
 
 import static com.khalturin.dmitriy.presentation.viewmodel.DefaultFieldValue.EMPTY_STRING;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
@@ -21,23 +22,38 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 public class BookmarksViewModel {
 
 //==================================================================================================
+//    Class Variables
+//==================================================================================================
+
+  private PublishSubject<Long> onLoadRss = PublishSubject.create();
+  private PublishSubject<Long> onDeleteRss = PublishSubject.create();
+
+//==================================================================================================
 //    Binding ViewModel Members
 //==================================================================================================
 
   public ObservableField<RecyclerManager> recyclerManager = new ObservableField<>();
   public ObservableField<String> searchText = new ObservableField<>(EMPTY_STRING);
 
+  public void loadRss(Long rssId){
+    onLoadRss.onNext(rssId);
+  }
+
+  public void deleteRss(Long rssId){
+    onDeleteRss.onNext(rssId);
+  }
+
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
 
-  public void setBookmarksItems(List<RssFeedViewModel> items){
+  public void setBookmarksItems(List<RssViewModel> items){
     getAdapter().setItems(items);
   }
 
   @SuppressWarnings("unchecked")
-  private BindingRecyclerAdapter<RssFeedViewModel> getAdapter(){
-    return (BindingRecyclerAdapter<RssFeedViewModel>) recyclerManager.get().getAdapter();
+  private BindingRecyclerAdapter<RssViewModel> getAdapter(){
+    return (BindingRecyclerAdapter<RssViewModel>) recyclerManager.get().getAdapter();
   }
 
   public Observable<String> getOnSearchChange(){
@@ -45,6 +61,14 @@ public class BookmarksViewModel {
 
     return BindingTransformer.toObservable(searchText)
       .debounce(timeout, MILLISECONDS);
+  }
+
+  public Observable<Long> getOnLoadRss(){
+    return onLoadRss;
+  }
+
+  public Observable<Long> getOnDeleteRss(){
+    return onDeleteRss;
   }
 
 }

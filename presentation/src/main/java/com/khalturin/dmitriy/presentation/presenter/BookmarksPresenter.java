@@ -87,11 +87,11 @@ public class BookmarksPresenter extends RssPresenterImpl {
     }
 
     private void onLoadFeedComplete(Void aVoid){
-        view.setLoadFeedComplete();
+//        view.setLoadFeedComplete();
     }
 
     private void onDeleteFeedComplete(Void aVoid){
-        view.setDeleteFeedComplete();
+//        view.setDeleteFeedComplete();
     }
 
 }

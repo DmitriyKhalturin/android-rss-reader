@@ -28,6 +28,8 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
+import static com.khalturin.dmitriy.presentation.view.activity.NewsActivity.NEWS_ID;
+
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
  * for android-rss-reader on 17.02.17 20:28.
@@ -68,6 +70,7 @@ public class FeedActivity extends BaseActivity implements FeedView {
     binding.setRefreshViewModel(mRefreshViewModel);
 
     setRssUrlLayoutSettings();
+    setViewModelListeners();
 
     setSupportActionBar(findViewById(R.id.toolbar));
   }
@@ -130,6 +133,18 @@ public class FeedActivity extends BaseActivity implements FeedView {
         mRssUrlViewModel.isVisible.set(true);
       }
     }, delay);
+  }
+
+  private void setViewModelListeners(){
+    mFeedViewModel.getOnOpenNews()
+      .subscribe(this::openNews);
+  }
+
+  private void openNews(Long newsId){
+    Intent intent = new Intent(this, NewsActivity.class);
+    intent.putExtra(NEWS_ID, newsId);
+
+    startActivity(intent);
   }
 
 //==================================================================================================

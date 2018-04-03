@@ -16,7 +16,7 @@ import com.khalturin.dmitriy.presentation.databinding.ActivityBookmarksBinding;
 import com.khalturin.dmitriy.presentation.presenter.BookmarksPresenter;
 import com.khalturin.dmitriy.presentation.view.BookmarksView;
 import com.khalturin.dmitriy.presentation.viewmodel.bookmark.BookmarksViewModel;
-import com.khalturin.dmitriy.presentation.viewmodel.bookmark.RssFeedViewModel;
+import com.khalturin.dmitriy.presentation.viewmodel.bookmark.RssViewModel;
 
 import java.util.List;
 
@@ -75,7 +75,7 @@ public class BookmarksActivity extends BaseActivity implements BookmarksView {
     RecyclerManager recyclerManager = new RecyclerManager();
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
     RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
-    BindingRecyclerAdapter<RssFeedViewModel> adapter = new BindingRecyclerAdapter(R.layout.bookmark_card_view, null, BR.rssFeedViewModel);
+    BindingRecyclerAdapter<RssViewModel> adapter = new BindingRecyclerAdapter(R.layout.bookmark_card_view, null, BR.rssViewModel);
 
     recyclerManager.setLayoutManager(layoutManager);
     recyclerManager.setItemAnimator(itemAnimator);
@@ -89,7 +89,7 @@ public class BookmarksActivity extends BaseActivity implements BookmarksView {
 //==================================================================================================
 
   @Override
-  public void setBookmarksItems(List<RssFeedViewModel> items){
+  public void setBookmarksItems(List<RssViewModel> items){
     mBookmarksViewModel.setBookmarksItems(items);
   }
 
@@ -98,23 +98,14 @@ public class BookmarksActivity extends BaseActivity implements BookmarksView {
   }
 
   @Override
-  public Observable<Long> getOnLoadFeed(){
-    return null;
+  public Observable<Long> getOnLoadRss(){
+    return mBookmarksViewModel.getOnLoadRss();
   }
 
-  @Override
-  public void setLoadFeedComplete(){
-    // TODO: implementation later. stop loader. finish this activity. show feed activity
-  }
 
   @Override
-  public Observable<Long> getOnDeleteFeed(){
-    return null;
-  }
-
-  @Override
-  public void setDeleteFeedComplete(){
-    // TODO: implementation animation deleting from list
+  public Observable<Long> getOnDeleteRss(){
+    return mBookmarksViewModel.getOnDeleteRss();
   }
 
 }

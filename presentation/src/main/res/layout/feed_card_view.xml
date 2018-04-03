@@ -6,6 +6,11 @@
   <data>
 
     <variable
+      name="feedViewModel"
+      type="com.khalturin.dmitriy.presentation.viewmodel.feed.FeedViewModel"
+      />
+
+    <variable
       name="newsViewModel"
       type="com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel"
       />
@@ -16,7 +21,8 @@
     android:id="@+id/news_card"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height__card_view"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:onClick="@{() -> feedViewModel.openNews(newsViewModel.id)}">
 
     <ImageView
       android:id="@+id/news_image"

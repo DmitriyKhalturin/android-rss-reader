@@ -8,6 +8,9 @@ import com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
+
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
  * for android-rss-reader on 25.03.18 21:19.
@@ -16,10 +19,20 @@ import java.util.List;
 public class FeedViewModel {
 
 //==================================================================================================
+//    Class Variables
+//==================================================================================================
+
+  private PublishSubject<Long> onOpenNews = PublishSubject.create();
+
+//==================================================================================================
 //    Binding ViewModel Members
 //==================================================================================================
 
   public ObservableField<RecyclerManager> recyclerManager = new ObservableField<>();
+
+  public void openNews(Long newsId){
+    onOpenNews.onNext(newsId);
+  }
 
 //==================================================================================================
 //    Class Methods
@@ -36,6 +49,10 @@ public class FeedViewModel {
   @SuppressWarnings("unchecked")
   private BindingRecyclerAdapter<NewsViewModel> getAdapter(){
     return (BindingRecyclerAdapter<NewsViewModel>) recyclerManager.get().getAdapter();
+  }
+
+  public Observable<Long> getOnOpenNews(){
+    return onOpenNews;
   }
 
 }

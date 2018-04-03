@@ -1,6 +1,6 @@
 package com.khalturin.dmitriy.presentation.view;
 
-import com.khalturin.dmitriy.presentation.viewmodel.bookmark.RssFeedViewModel;
+import com.khalturin.dmitriy.presentation.viewmodel.bookmark.RssViewModel;
 
 import java.util.List;
 
@@ -13,16 +13,12 @@ import io.reactivex.Observable;
 
 public interface BookmarksView {
 
-    void setBookmarksItems(List<RssFeedViewModel> list);
+    void setBookmarksItems(List<RssViewModel> list);
 
     Observable<String> getOnSearchChange();
 
-    Observable<Long> getOnLoadFeed();
+    Observable<Long> getOnLoadRss();
 
-    void setLoadFeedComplete();
-
-    Observable<Long> getOnDeleteFeed();
-
-    void setDeleteFeedComplete();
+    Observable<Long> getOnDeleteRss();
 
 }

@@ -4,12 +4,18 @@
   <data>
 
     <variable
-      name="rssFeedViewModel"
-      type="com.khalturin.dmitriy.presentation.viewmodel.bookmark.RssFeedViewModel"
+      name="bookmarksViewModel"
+      type="com.khalturin.dmitriy.presentation.viewmodel.bookmark.BookmarksViewModel"
+      />
+
+    <variable
+      name="rssViewModel"
+      type="com.khalturin.dmitriy.presentation.viewmodel.bookmark.RssViewModel"
       />
 
   </data>
 
+  <!-- TODO: collapse card -->
   <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/bookmark_card"
@@ -28,7 +34,7 @@
       android:ellipsize="end"
       android:background="@drawable/bg_card_view_content"
       android:elevation="@dimen/elevation__card_view_content"
-      android:text="@{rssFeedViewModel.url}"/>
+      android:text="@{rssViewModel.url}"/>
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -41,7 +47,7 @@
         android:layout_height="@dimen/size__card_view_image"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
-        android:src="@{rssFeedViewModel.image}"/>
+        android:src="@{rssViewModel.image}"/>
 
       <LinearLayout
         android:layout_width="match_parent"
@@ -59,7 +65,7 @@
           android:textSize="@dimen/text_size__card_view_small_title"
           android:maxLines="2"
           android:ellipsize="end"
-          android:text="@{rssFeedViewModel.title}"/>
+          android:text="@{rssViewModel.title}"/>
 
         <LinearLayout
           android:layout_width="match_parent"
@@ -77,7 +83,7 @@
             android:id="@+id/bookmark_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{rssFeedViewModel.author}"/>
+            android:text="@{rssViewModel.author}"/>
 
         </LinearLayout>
 
@@ -97,7 +103,7 @@
             android:id="@+id/bookmark_last_update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{rssFeedViewModel.lastUpdate}"/>
+            android:text="@{rssViewModel.lastUpdate}"/>
 
         </LinearLayout>
 
@@ -116,7 +122,7 @@
         android:layout_height="match_parent"
         android:padding="@dimen/padding_high__card_view_content"
         android:lines="4"
-        android:text="@{rssFeedViewModel.description}"/>
+        android:text="@{rssViewModel.description}"/>
 
       <LinearLayout
         android:layout_width="wrap_content"
@@ -136,7 +142,7 @@
           android:background="@drawable/bg_card_view_content"
           android:adjustViewBounds="true"
           android:scaleType="fitCenter"
-          android:onClick="@{rssFeedViewModel::loadRssFeed}"/>
+          android:onClick="@{() -> bookmarksViewModel.loadRss(rssViewModel.id)}"/>
 
         <ImageButton
           android:id="@+id/bookmark_delete_button"
@@ -149,7 +155,7 @@
           android:background="@drawable/bg_card_view_content"
           android:adjustViewBounds="true"
           android:scaleType="fitCenter"
-          android:onClick="@{rssFeedViewModel::deleteRssFeed}"/>
+          android:onClick="@{() -> bookmarksViewModel.deleteRss(rssViewModel.id)}"/>
 
       </LinearLayout>
 

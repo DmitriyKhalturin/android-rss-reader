@@ -1,10 +1,10 @@
 package com.khalturin.dmitriy.presentation.view;
 
-import com.khalturin.dmitriy.presentation.model.FeedModel;
+import com.khalturin.dmitriy.presentation.viewmodel.bookmark.RssFeedViewModel;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -13,9 +13,9 @@ import rx.Observable;
 
 public interface BookmarksView {
 
-    void setList(List<FeedModel> list);
+    void setBookmarksItems(List<RssFeedViewModel> list);
 
-    Observable<CharSequence> getOnSearchChange();
+    Observable<String> getOnSearchChange();
 
     Observable<Long> getOnLoadFeed();
 

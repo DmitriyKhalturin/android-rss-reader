@@ -1,27 +1,26 @@
 package com.khalturin.dmitriy.presentation.view.activity;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.widget.EditText;
 
-import com.jakewharton.rxbinding.widget.RxTextView;
+import com.khalturin.dmitriy.presentation.BR;
 import com.khalturin.dmitriy.presentation.R;
-import com.khalturin.dmitriy.presentation.util.SubscribersList;
-import com.khalturin.dmitriy.presentation.model.FeedModel;
+import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
+import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
+import com.khalturin.dmitriy.presentation.databinding.ActivityBookmarksBinding;
 import com.khalturin.dmitriy.presentation.presenter.BookmarksPresenter;
 import com.khalturin.dmitriy.presentation.view.BookmarksView;
-import com.khalturin.dmitriy.presentation.view.adapter.BookmarksAdapter;
+import com.khalturin.dmitriy.presentation.viewmodel.bookmark.BookmarksViewModel;
+import com.khalturin.dmitriy.presentation.viewmodel.bookmark.RssFeedViewModel;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -34,110 +33,88 @@ public class BookmarksActivity extends BaseActivity implements BookmarksView {
 //    Class Variables
 //==================================================================================================
 
-    private BookmarksAdapter adapter = null;
-
-    private SubscribersList<CharSequence> onSearchChange = new SubscribersList<>();
-    private SubscribersList<Long> onLoadFeed = new SubscribersList<>();
-    private SubscribersList<Long> onDeleteFeed = new SubscribersList<>();
-
-    @BindView(R.id.toolbar)
-    protected Toolbar toolbarView;
-
-    @BindView(R.id.search_input)
-    protected EditText searchInput;
-
-    @BindView(R.id.bookmarks_list)
-    protected RecyclerView listView;
+  BookmarksViewModel mBookmarksViewModel = new BookmarksViewModel();
 
 //==================================================================================================
 //    Class Constructor
 //==================================================================================================
 
-    public BookmarksActivity(){
-        rssPresenter = new BookmarksPresenter(this);
-    }
+  public BookmarksActivity(){
+    rssPresenter = new BookmarksPresenter(this);
+  }
 
 //==================================================================================================
 //    Class Callbacks
 //==================================================================================================
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bookmarks);
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState){
+    super.onCreate(savedInstanceState);
+    ActivityBookmarksBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_bookmarks);
 
-        ButterKnife.bind(this);
+    // TODO: check this setter
+    mBookmarksViewModel.recyclerManager.set(getRecyclerManager());
 
-        setSupportActionBar(toolbarView);
+    binding.setBookmarksViewModel(mBookmarksViewModel);
 
-        ActionBar actionBar = getSupportActionBar();
+    setSupportActionBar(findViewById(R.id.toolbar));
 
-        if(actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+    ActionBar actionBar = getSupportActionBar();
 
-        setRecyclerViewSettings();
-        setSearchViewSettings();
+    if(actionBar != null){
+      actionBar.setDisplayHomeAsUpEnabled(true);
     }
+  }
 
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
 
-    private void setRecyclerViewSettings(){
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        adapter = new BookmarksAdapter();
+  @SuppressWarnings("unchecked")
+  private RecyclerManager getRecyclerManager(){
+    RecyclerManager recyclerManager = new RecyclerManager();
+    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+    RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
+    BindingRecyclerAdapter<RssFeedViewModel> adapter = new BindingRecyclerAdapter(R.layout.bookmark_card_view, null, BR.rssFeedViewModel);
 
-        listView.setLayoutManager(layoutManager);
-        listView.setAdapter(adapter);
+    recyclerManager.setLayoutManager(layoutManager);
+    recyclerManager.setItemAnimator(itemAnimator);
+    recyclerManager.setAdapter(adapter);
 
-        adapter.getOnLoadFeed().filter(feedId -> feedId != null).subscribe(feedId -> {
-            onLoadFeed.onNext(feedId);
-        });
-        adapter.getOnDeleteFeed().filter(feedId -> feedId != null).subscribe(feedId -> {
-            onDeleteFeed.onNext(feedId);
-        });
-    }
-
-    private void setSearchViewSettings(){
-        int timeout = 1000;
-
-        RxTextView.textChanges(searchInput)
-            .debounce(timeout, TimeUnit.MILLISECONDS)
-            .subscribe(onSearchChange::onNext);
-    }
+    return recyclerManager;
+  }
 
 //==================================================================================================
 //    Class Implementation BookmarksView
 //==================================================================================================
 
-    @Override
-    public void setList(List<FeedModel> list){
-        adapter.setList(list);
-    }
+  @Override
+  public void setBookmarksItems(List<RssFeedViewModel> items){
+    mBookmarksViewModel.setBookmarksItems(items);
+  }
 
-    public Observable<CharSequence> getOnSearchChange(){
-        return onSearchChange.getObservable();
-    }
+  public Observable<String> getOnSearchChange(){
+    return mBookmarksViewModel.getOnSearchChange();
+  }
 
-    @Override
-    public Observable<Long> getOnLoadFeed(){
-        return onLoadFeed.getObservable();
-    }
+  @Override
+  public Observable<Long> getOnLoadFeed(){
+    return null;
+  }
 
-    @Override
-    public void setLoadFeedComplete(){
-        // TODO: implementation later. stop loader. finish this activity. show feed activity
-    }
+  @Override
+  public void setLoadFeedComplete(){
+    // TODO: implementation later. stop loader. finish this activity. show feed activity
+  }
 
-    @Override
-    public Observable<Long> getOnDeleteFeed(){
-        return onDeleteFeed.getObservable();
-    }
+  @Override
+  public Observable<Long> getOnDeleteFeed(){
+    return null;
+  }
 
-    @Override
-    public void setDeleteFeedComplete(){
-        // TODO: implementation animation deleting from list
-    }
+  @Override
+  public void setDeleteFeedComplete(){
+    // TODO: implementation animation deleting from list
+  }
 
 }

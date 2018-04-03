@@ -78,12 +78,12 @@ public class BookmarksPresenter extends RssPresenterImpl {
     }
 
     private void setActionListeners(){
-        addSubscription(view.getOnSearchChange()
-            .subscribe(this::onSearchInFeed));
-        addSubscription(view.getOnLoadFeed()
-            .subscribe(this::onLoadFeed));
-        addSubscription(view.getOnDeleteFeed()
-            .subscribe(this::onDeleteFeed));
+//        addSubscription(view.getOnSearchChange()
+//            .subscribe(this::onSearchInFeed));
+//        addSubscription(view.getOnLoadFeed()
+//            .subscribe(this::onLoadFeed));
+//        addSubscription(view.getOnDeleteFeed()
+//            .subscribe(this::onDeleteFeed));
     }
 
     private void onLoadFeedComplete(Void aVoid){

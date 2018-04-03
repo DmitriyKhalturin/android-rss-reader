@@ -1,7 +1,6 @@
 package com.khalturin.dmitriy.presentation.di.component;
 
 import com.khalturin.dmitriy.presentation.di.module.ApplicationModule;
-import com.khalturin.dmitriy.presentation.view.activity.BaseActivity;
 
 import javax.inject.Singleton;
 

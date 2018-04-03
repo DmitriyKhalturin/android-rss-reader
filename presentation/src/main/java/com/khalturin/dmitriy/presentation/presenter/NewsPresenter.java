@@ -1,54 +1,48 @@
 package com.khalturin.dmitriy.presentation.presenter;
 
-import com.khalturin.dmitriy.presentation.view.NewsView;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModel;
+import android.support.annotation.NonNull;
+
+import com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
  * for android-rss-reader on 19.02.17 14:01.
  */
 
-public class NewsPresenter extends RssPresenterImpl {
+public class NewsPresenter extends ViewModel {
 
 //==================================================================================================
 //    Class Variables
 //==================================================================================================
 
-    private NewsView view = null;
-//    private NewsMapper mapper = null;
-
-//==================================================================================================
-//    Class Constructor
-//==================================================================================================
-
-    public NewsPresenter(NewsView view){
-        this.view = view;
-//        this.mapper = new NewsMapper();
-    }
+  private MutableLiveData<NewsViewModel> mNewsViewModel = new MutableLiveData<>();
 
 //==================================================================================================
 //    Class Callbacks
 //==================================================================================================
 
-    @Override
-    public void onResume(){
-        super.onResume();
+  public LiveData<NewsViewModel> getNewsViewModel(){
+      return mNewsViewModel;
+  }
 
-        setNews();
+  public void setNewsId(@NonNull Long newsId){
+    if(newsId.equals(getNewsId())){
+      // TODO: get news id add load to view model
+    }
+  }
+
+  private Long getNewsId(){
+    Long newsId = null;
+    NewsViewModel newsViewModel = mNewsViewModel.getValue();
+
+    if(newsViewModel != null){
+      newsId = newsViewModel.id;
     }
 
-//==================================================================================================
-//    Class Callbacks
-//==================================================================================================
-
-    private void setNews(){
-        long newsId = view.getNewsId();
-
-//        addSubscription(rssModel.getItem(newsId)
-//            .map(mapper)
-//            .subscribe(view::setContent,
-//                throwable -> {
-//                    // TODO: processing exception
-//                }));
-    }
+    return newsId;
+  }
 
 }

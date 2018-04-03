@@ -7,7 +7,7 @@ import com.khalturin.dmitriy.presentation.view.FeedView;
  * for android-rss-reader on 19.02.17 14:01.
  */
 
-public class FeedPresenter extends RssPresenterImpl {
+public class FeedPresenter {
 
 //==================================================================================================
 //    Class Variables
@@ -29,13 +29,13 @@ public class FeedPresenter extends RssPresenterImpl {
 //    Class Callbacks
 //==================================================================================================
 
-    @Override
-    public void onResume(){
-        super.onResume();
-
-        updateFeedList(true);
-        setActionListeners();
-    }
+//    @Override
+//    public void onResume(){
+//        super.onResume();
+//
+//        updateFeedList(true);
+//        setActionListeners();
+//    }
 
 //==================================================================================================
 //    Class Methods

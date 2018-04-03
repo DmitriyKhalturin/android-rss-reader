@@ -1,5 +1,6 @@
 package com.khalturin.dmitriy.presentation.view.activity;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -10,15 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import com.khalturin.dmitriy.presentation.R;
 import com.khalturin.dmitriy.presentation.databinding.ActivityNewsBinding;
 import com.khalturin.dmitriy.presentation.presenter.NewsPresenter;
-import com.khalturin.dmitriy.presentation.view.NewsView;
-import com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
  * for android-rss-reader on 17.02.17 22:00.
  */
 
-public class NewsActivity extends AppCompatActivity implements NewsView {
+public class NewsActivity extends AppCompatActivity {
 
 //==================================================================================================
 //    Class Variables
@@ -27,18 +26,6 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
   public static final String NEWS_ID = "NEWS_ID";
   public static final long DEFAULT_NEWS_ID = -1;
 
-  private long newsId;
-
-  private NewsViewModel mNewsViewModel = new NewsViewModel();
-
-//==================================================================================================
-//    Class Constructor
-//==================================================================================================
-
-  public NewsActivity(){
-//    rssPresenter = new NewsPresenter(this);
-  }
-
 //==================================================================================================
 //    Class Callbacks
 //==================================================================================================
@@ -46,42 +33,36 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState){
     super.onCreate(savedInstanceState);
-    ActivityNewsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_news);
+    ActivityNewsBinding binding = DataBindingUtil
+      .setContentView(this, R.layout.activity_news);
+    NewsPresenter presenter = ViewModelProvider.AndroidViewModelFactory
+      .getInstance(getApplication()).create(NewsPresenter.class);
 
-    binding.setNewsViewModel(mNewsViewModel);
+    bindPresenter(binding, presenter);
+    setupPresenter(presenter);
 
-    setNewsId();
-
+    // TODO: remove this boilerplate later
     setSupportActionBar(findViewById(R.id.toolbar));
-
     ActionBar actionBar = getSupportActionBar();
-
     if(actionBar != null){
       actionBar.setDisplayHomeAsUpEnabled(true);
     }
   }
 
 //==================================================================================================
-//    Class Methods
+//    Class Callbacks
 //==================================================================================================
 
-  private void setNewsId(){
+  private void bindPresenter(ActivityNewsBinding binding, NewsPresenter presenter){
+    presenter.getNewsViewModel()
+      .observe(this, binding::setNewsViewModel);
+  }
+
+  private void setupPresenter(NewsPresenter presenter){
     Intent intent = getIntent();
-    newsId = intent.getLongExtra(NEWS_ID, DEFAULT_NEWS_ID);
-  }
+    Long newsId = intent.getLongExtra(NEWS_ID, DEFAULT_NEWS_ID);
 
-//==================================================================================================
-//    Class Implementation NewsView
-//==================================================================================================
-
-  @Override
-  public long getNewsId(){
-    return newsId;
-  }
-
-  @Override
-  public void setContent(NewsViewModel news){
-    mNewsViewModel = news;
+    presenter.setNewsId(newsId);
   }
 
 }

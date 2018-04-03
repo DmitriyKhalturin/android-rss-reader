@@ -1,5 +1,7 @@
 package com.khalturin.dmitriy.presentation.presenter;
 
+import android.arch.lifecycle.ViewModel;
+
 import com.khalturin.dmitriy.presentation.view.BookmarksView;
 
 /**
@@ -7,7 +9,7 @@ import com.khalturin.dmitriy.presentation.view.BookmarksView;
  * for android-rss-reader on 19.02.17 14:01.
  */
 
-public class BookmarksPresenter extends RssPresenterImpl {
+public class BookmarksPresenter extends ViewModel {
 
 //==================================================================================================
 //    Class Variables
@@ -23,18 +25,6 @@ public class BookmarksPresenter extends RssPresenterImpl {
     public BookmarksPresenter(BookmarksView view){
         this.view = view;
 //        this.mapper = new BookmarksMapper();
-    }
-
-//==================================================================================================
-//    Class Callbacks
-//==================================================================================================
-
-    @Override
-    public void onResume(){
-        super.onResume();
-
-        setBookmarksList();
-        setActionListeners();
     }
 
 //==================================================================================================

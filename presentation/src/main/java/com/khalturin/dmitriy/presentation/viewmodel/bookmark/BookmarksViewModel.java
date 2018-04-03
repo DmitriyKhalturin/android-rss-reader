@@ -1,5 +1,6 @@
 package com.khalturin.dmitriy.presentation.viewmodel.bookmark;
 
+import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
 
 import com.khalturin.dmitriy.presentation.binding.BindingTransformer;
@@ -19,7 +20,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
  * for android-rss-reader on 03.04.18 9:58.
  */
 
-public class BookmarksViewModel {
+public class BookmarksViewModel extends ViewModel {
 
 //==================================================================================================
 //    Class Variables

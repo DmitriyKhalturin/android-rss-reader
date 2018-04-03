@@ -18,7 +18,7 @@ import com.khalturin.dmitriy.presentation.R;
 import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.databinding.ActivityFeedBinding;
-import com.khalturin.dmitriy.presentation.presenter.FeedPresenter;
+import com.khalturin.dmitriy.presentation.navigator.Navigator;
 import com.khalturin.dmitriy.presentation.view.FeedView;
 import com.khalturin.dmitriy.presentation.viewmodel.feed.FeedViewModel;
 import com.khalturin.dmitriy.presentation.viewmodel.feed.RefreshViewModel;
@@ -26,6 +26,8 @@ import com.khalturin.dmitriy.presentation.viewmodel.feed.RssUrlViewModel;
 import com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 
@@ -41,6 +43,9 @@ public class FeedActivity extends AppCompatActivity implements FeedView {
 //==================================================================================================
 //    Class Variables
 //==================================================================================================
+
+  @Inject
+  protected Navigator navigator;
 
   private FeedViewModel mFeedViewModel = new FeedViewModel();
   private RssUrlViewModel mRssUrlViewModel = new RssUrlViewModel();
@@ -73,6 +78,7 @@ public class FeedActivity extends AppCompatActivity implements FeedView {
     setRssUrlLayoutSettings();
     setViewModelListeners();
 
+    // TODO: remove this boilerplate later
     setSupportActionBar(findViewById(R.id.toolbar));
   }
 
@@ -94,9 +100,7 @@ public class FeedActivity extends AppCompatActivity implements FeedView {
         mRssUrlViewModel.changeLayoutVisibility();
         break;
       case R.id.action_bookmarks:
-        Intent intent = new Intent(this, BookmarksActivity.class);
-
-        startActivity(intent);
+        navigator.navigateToBookmarks();
         break;
       default:
         return super.onOptionsItemSelected(item);
@@ -138,14 +142,7 @@ public class FeedActivity extends AppCompatActivity implements FeedView {
 
   private void setViewModelListeners(){
     mFeedViewModel.getOnOpenNews()
-      .subscribe(this::openNews);
-  }
-
-  private void openNews(Long newsId){
-    Intent intent = new Intent(this, NewsActivity.class);
-    intent.putExtra(NEWS_ID, newsId);
-
-    startActivity(intent);
+      .subscribe(navigator::navigateToNews);
   }
 
 //==================================================================================================

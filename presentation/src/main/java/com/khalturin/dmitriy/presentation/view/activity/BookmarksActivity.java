@@ -1,5 +1,6 @@
 package com.khalturin.dmitriy.presentation.view.activity;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,31 +38,23 @@ public class BookmarksActivity extends AppCompatActivity implements BookmarksVie
   BookmarksViewModel mBookmarksViewModel = new BookmarksViewModel();
 
 //==================================================================================================
-//    Class Constructor
-//==================================================================================================
-
-  public BookmarksActivity(){
-//    rssPresenter = new BookmarksPresenter(this);
-  }
-
-//==================================================================================================
 //    Class Callbacks
 //==================================================================================================
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState){
     super.onCreate(savedInstanceState);
-    ActivityBookmarksBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_bookmarks);
+    ActivityBookmarksBinding binding = DataBindingUtil
+      .setContentView(this, R.layout.activity_bookmarks);
+    BookmarksPresenter presenter = ViewModelProvider.AndroidViewModelFactory
+      .getInstance(getApplication()).create(BookmarksPresenter.class);
 
-    // TODO: check this setter
-    mBookmarksViewModel.recyclerManager.set(getRecyclerManager());
+    bindPresenter(binding, presenter);
+    setupPresenter(presenter);
 
-    binding.setBookmarksViewModel(mBookmarksViewModel);
-
+    // TODO: remove this boilerplate later
     setSupportActionBar(findViewById(R.id.toolbar));
-
     ActionBar actionBar = getSupportActionBar();
-
     if(actionBar != null){
       actionBar.setDisplayHomeAsUpEnabled(true);
     }
@@ -71,12 +64,21 @@ public class BookmarksActivity extends AppCompatActivity implements BookmarksVie
 //    Class Methods
 //==================================================================================================
 
+  private void bindPresenter(ActivityBookmarksBinding binding, BookmarksPresenter presenter){
+    binding.setBookmarksViewModel(mBookmarksViewModel);
+  }
+
+  public void setupPresenter(BookmarksPresenter presenter){
+    mBookmarksViewModel.recyclerManager.set(getRecyclerManager());
+  }
+
   @SuppressWarnings("unchecked")
   private RecyclerManager getRecyclerManager(){
     RecyclerManager recyclerManager = new RecyclerManager();
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
     RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
-    BindingRecyclerAdapter<RssViewModel> adapter = new BindingRecyclerAdapter(R.layout.bookmark_card_view, null, BR.rssViewModel);
+    BindingRecyclerAdapter<RssViewModel> adapter =
+      new BindingRecyclerAdapter(R.layout.bookmark_card_view, null, BR.rssViewModel);
 
     recyclerManager.setLayoutManager(layoutManager);
     recyclerManager.setItemAnimator(itemAnimator);

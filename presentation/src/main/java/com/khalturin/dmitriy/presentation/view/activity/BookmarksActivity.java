@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,7 +28,7 @@ import io.reactivex.Observable;
  * for android-rss-reader on 17.02.17 22:00.
  */
 
-public class BookmarksActivity extends BaseActivity implements BookmarksView {
+public class BookmarksActivity extends AppCompatActivity implements BookmarksView {
 
 //==================================================================================================
 //    Class Variables
@@ -40,7 +41,7 @@ public class BookmarksActivity extends BaseActivity implements BookmarksView {
 //==================================================================================================
 
   public BookmarksActivity(){
-    rssPresenter = new BookmarksPresenter(this);
+//    rssPresenter = new BookmarksPresenter(this);
   }
 
 //==================================================================================================

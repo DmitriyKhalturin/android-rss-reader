@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,7 +36,7 @@ import static com.khalturin.dmitriy.presentation.view.activity.NewsActivity.NEWS
  * for android-rss-reader on 17.02.17 20:28.
  */
 
-public class FeedActivity extends BaseActivity implements FeedView {
+public class FeedActivity extends AppCompatActivity implements FeedView {
 
 //==================================================================================================
 //    Class Variables
@@ -50,7 +51,7 @@ public class FeedActivity extends BaseActivity implements FeedView {
 //==================================================================================================
 
   public FeedActivity(){
-    rssPresenter = new FeedPresenter(this);
+//    rssPresenter = new FeedPresenter(this);
   }
 
 //==================================================================================================

@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 
 import com.khalturin.dmitriy.presentation.R;
 import com.khalturin.dmitriy.presentation.databinding.ActivityNewsBinding;
@@ -17,7 +18,7 @@ import com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel;
  * for android-rss-reader on 17.02.17 22:00.
  */
 
-public class NewsActivity extends BaseActivity implements NewsView {
+public class NewsActivity extends AppCompatActivity implements NewsView {
 
 //==================================================================================================
 //    Class Variables
@@ -35,7 +36,7 @@ public class NewsActivity extends BaseActivity implements NewsView {
 //==================================================================================================
 
   public NewsActivity(){
-    rssPresenter = new NewsPresenter(this);
+//    rssPresenter = new NewsPresenter(this);
   }
 
 //==================================================================================================

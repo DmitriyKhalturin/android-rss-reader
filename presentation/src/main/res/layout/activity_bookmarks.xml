@@ -63,7 +63,7 @@
           android:layout_height="match_parent"
           android:layout_weight="1"
           android:inputType="text"
-          android:text="@={bookmarksViewModel.searchText}"/>
+          android:text="@={bookmarksViewModel.searchFeedText}"/>
 
       </LinearLayout>
 

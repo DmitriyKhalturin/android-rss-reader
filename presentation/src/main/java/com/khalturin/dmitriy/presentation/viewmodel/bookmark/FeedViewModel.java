@@ -11,7 +11,7 @@ import static com.khalturin.dmitriy.presentation.viewmodel.DefaultFieldValue.EMP
  * for android-rss-reader on 03.04.18 9:59.
  */
 
-public class RssViewModel {
+public class FeedViewModel {
 
 //==================================================================================================
 //    Class Variables

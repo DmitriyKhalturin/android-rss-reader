@@ -1,6 +1,6 @@
 package com.khalturin.dmitriy.presentation.view;
 
-import com.khalturin.dmitriy.presentation.viewmodel.bookmark.RssViewModel;
+import com.khalturin.dmitriy.presentation.viewmodel.bookmark.FeedViewModel;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import io.reactivex.Observable;
 
 public interface BookmarksView {
 
-    void setBookmarksItems(List<RssViewModel> list);
+    void setBookmarksItems(List<FeedViewModel> list);
 
     Observable<String> getOnSearchChange();
 

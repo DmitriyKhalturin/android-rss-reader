@@ -1,9 +1,8 @@
 package com.khalturin.dmitriy.presentation.view.activity;
 
-import android.content.Intent;
+import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -19,26 +18,17 @@ import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.databinding.ActivityFeedBinding;
 import com.khalturin.dmitriy.presentation.navigator.Navigator;
-import com.khalturin.dmitriy.presentation.view.FeedView;
-import com.khalturin.dmitriy.presentation.viewmodel.feed.FeedViewModel;
-import com.khalturin.dmitriy.presentation.viewmodel.feed.RefreshViewModel;
-import com.khalturin.dmitriy.presentation.viewmodel.feed.RssUrlViewModel;
+import com.khalturin.dmitriy.presentation.presenter.FeedPresenter;
 import com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel;
 
-import java.util.List;
-
 import javax.inject.Inject;
-
-import io.reactivex.Observable;
-
-import static com.khalturin.dmitriy.presentation.view.activity.NewsActivity.NEWS_ID;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
  * for android-rss-reader on 17.02.17 20:28.
  */
 
-public class FeedActivity extends AppCompatActivity implements FeedView {
+public class FeedActivity extends AppCompatActivity {
 
 //==================================================================================================
 //    Class Variables
@@ -47,17 +37,7 @@ public class FeedActivity extends AppCompatActivity implements FeedView {
   @Inject
   protected Navigator navigator;
 
-  private FeedViewModel mFeedViewModel = new FeedViewModel();
-  private RssUrlViewModel mRssUrlViewModel = new RssUrlViewModel();
-  private RefreshViewModel mRefreshViewModel = new RefreshViewModel();
-
-//==================================================================================================
-//    Class Constructor
-//==================================================================================================
-
-  public FeedActivity(){
-//    rssPresenter = new FeedPresenter(this);
-  }
+  FeedPresenter presenter;
 
 //==================================================================================================
 //    Class Callbacks
@@ -66,17 +46,13 @@ public class FeedActivity extends AppCompatActivity implements FeedView {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState){
     super.onCreate(savedInstanceState);
-    ActivityFeedBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_feed);
+    ActivityFeedBinding binding = DataBindingUtil
+      .setContentView(this, R.layout.activity_feed);
+    presenter = ViewModelProvider.AndroidViewModelFactory
+      .getInstance(getApplication()).create(FeedPresenter.class);
 
-    // TODO: check this setter
-    mFeedViewModel.recyclerManager.set(getRecyclerManager());
-
-    binding.setFeedViewModel(mFeedViewModel);
-    binding.setRssUrlViewModel(mRssUrlViewModel);
-    binding.setRefreshViewModel(mRefreshViewModel);
-
-    setRssUrlLayoutSettings();
-    setViewModelListeners();
+    bindPresenter(binding, presenter);
+    setupPresenter(presenter);
 
     // TODO: remove this boilerplate later
     setSupportActionBar(findViewById(R.id.toolbar));
@@ -97,7 +73,7 @@ public class FeedActivity extends AppCompatActivity implements FeedView {
 
     switch(id){
       case  R.id.action_add_news:
-        mRssUrlViewModel.changeLayoutVisibility();
+        presenter.changeRssUrlLayoutVisibility();
         break;
       case R.id.action_bookmarks:
         navigator.navigateToBookmarks();
@@ -113,6 +89,21 @@ public class FeedActivity extends AppCompatActivity implements FeedView {
 //    Class Methods
 //==================================================================================================
 
+  private void bindPresenter(ActivityFeedBinding binding, FeedPresenter presenter){
+    presenter.getFeedObserve()
+      .observe(this, binding::setFeedViewModel);
+    presenter.getRssUrlObserve()
+      .observe(this, binding::setRssUrlViewModel);
+    presenter.getSwipeRefreshObserve()
+      .observe(this, binding::setSwipeRefreshViewModel);
+  }
+
+  private void setupPresenter(FeedPresenter presenter){
+    presenter.setRecyclerManager(getRecyclerManager());
+    presenter.setActionsListeners();
+    presenter.setRssUrlLayoutState();
+  }
+
   @SuppressWarnings("unchecked")
   private RecyclerManager getRecyclerManager(){
     RecyclerManager recyclerManager = new RecyclerManager();
@@ -125,57 +116,6 @@ public class FeedActivity extends AppCompatActivity implements FeedView {
     recyclerManager.setAdapter(adapter);
 
     return recyclerManager;
-  }
-
-  private void setRssUrlLayoutSettings(){
-    int delay = 1000;
-    Handler handler = new Handler();
-
-    handler.postDelayed(() -> {
-      int size = mFeedViewModel.getFeedItemCount();
-
-      if(size == 0){
-        mRssUrlViewModel.isVisible.set(true);
-      }
-    }, delay);
-  }
-
-  private void setViewModelListeners(){
-    mFeedViewModel.getOnOpenNews()
-      .subscribe(navigator::navigateToNews);
-  }
-
-//==================================================================================================
-//    Class Implementation FeedView
-//==================================================================================================
-
-  @Override
-  public Observable<String> getOnUpdateRssUrl(){
-    return mRssUrlViewModel.getOnUpdateRssUrl();
-  }
-
-  @Override
-  public void setUpdateRssUrlComplete(){
-    mRssUrlViewModel.setUpdateRssUrlComplete();
-  }
-
-  @Override
-  public void setFeedItems(List<NewsViewModel> items){
-    mFeedViewModel.setFeedItems(items);
-  }
-
-  @Override
-  public Observable<Boolean> getOnUpdateFeedItems(){
-    return mRefreshViewModel.getOnUpdateFeedItems()
-      .map(aBoolean -> {
-        mRssUrlViewModel.isVisible.set(false);
-        return aBoolean;
-      });
-  }
-
-  @Override
-  public void setUpdateFeedItemsComplete(){
-    mRefreshViewModel.isRefreshing.set(false);
   }
 
 }

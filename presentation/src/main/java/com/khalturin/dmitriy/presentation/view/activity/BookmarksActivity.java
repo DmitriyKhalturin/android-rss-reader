@@ -16,26 +16,14 @@ import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.databinding.ActivityBookmarksBinding;
 import com.khalturin.dmitriy.presentation.presenter.BookmarksPresenter;
-import com.khalturin.dmitriy.presentation.view.BookmarksView;
-import com.khalturin.dmitriy.presentation.viewmodel.bookmark.BookmarksViewModel;
-import com.khalturin.dmitriy.presentation.viewmodel.bookmark.RssViewModel;
-
-import java.util.List;
-
-import io.reactivex.Observable;
+import com.khalturin.dmitriy.presentation.viewmodel.bookmark.FeedViewModel;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
  * for android-rss-reader on 17.02.17 22:00.
  */
 
-public class BookmarksActivity extends AppCompatActivity implements BookmarksView {
-
-//==================================================================================================
-//    Class Variables
-//==================================================================================================
-
-  BookmarksViewModel mBookmarksViewModel = new BookmarksViewModel();
+public class BookmarksActivity extends AppCompatActivity {
 
 //==================================================================================================
 //    Class Callbacks
@@ -65,11 +53,13 @@ public class BookmarksActivity extends AppCompatActivity implements BookmarksVie
 //==================================================================================================
 
   private void bindPresenter(ActivityBookmarksBinding binding, BookmarksPresenter presenter){
-    binding.setBookmarksViewModel(mBookmarksViewModel);
+    presenter.getBookmarksObserve()
+      .observe(this, binding::setBookmarksViewModel);
   }
 
   public void setupPresenter(BookmarksPresenter presenter){
-    mBookmarksViewModel.recyclerManager.set(getRecyclerManager());
+    presenter.setRecyclerManager(getRecyclerManager());
+    presenter.setActionsListeners();
   }
 
   @SuppressWarnings("unchecked")
@@ -77,38 +67,14 @@ public class BookmarksActivity extends AppCompatActivity implements BookmarksVie
     RecyclerManager recyclerManager = new RecyclerManager();
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
     RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
-    BindingRecyclerAdapter<RssViewModel> adapter =
-      new BindingRecyclerAdapter(R.layout.bookmark_card_view, null, BR.rssViewModel);
+    BindingRecyclerAdapter<FeedViewModel> adapter =
+      new BindingRecyclerAdapter(R.layout.bookmark_card_view, null, BR.feedViewModel);
 
     recyclerManager.setLayoutManager(layoutManager);
     recyclerManager.setItemAnimator(itemAnimator);
     recyclerManager.setAdapter(adapter);
 
     return recyclerManager;
-  }
-
-//==================================================================================================
-//    Class Implementation BookmarksView
-//==================================================================================================
-
-  @Override
-  public void setBookmarksItems(List<RssViewModel> items){
-    mBookmarksViewModel.setBookmarksItems(items);
-  }
-
-  public Observable<String> getOnSearchChange(){
-    return mBookmarksViewModel.getOnSearchChange();
-  }
-
-  @Override
-  public Observable<Long> getOnLoadRss(){
-    return mBookmarksViewModel.getOnLoadRss();
-  }
-
-
-  @Override
-  public Observable<Long> getOnDeleteRss(){
-    return mBookmarksViewModel.getOnDeleteRss();
   }
 
 }

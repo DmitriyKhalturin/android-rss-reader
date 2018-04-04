@@ -1,8 +1,11 @@
 package com.khalturin.dmitriy.presentation.presenter;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.khalturin.dmitriy.presentation.view.BookmarksView;
+import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
+import com.khalturin.dmitriy.presentation.viewmodel.bookmark.BookmarksViewModel;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -15,73 +18,49 @@ public class BookmarksPresenter extends ViewModel {
 //    Class Variables
 //==================================================================================================
 
-    private BookmarksView view = null;
-//    private BookmarksMapper mapper = null;
-
-//==================================================================================================
-//    Class Constructor
-//==================================================================================================
-
-    public BookmarksPresenter(BookmarksView view){
-        this.view = view;
-//        this.mapper = new BookmarksMapper();
-    }
+  private MutableLiveData<BookmarksViewModel> mBookmarksViewModel = new MutableLiveData<>();
 
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
 
-    private void onErrorBookmarksList(Throwable error){}
+  private BookmarksViewModel getBookmarksViewModel(){
+    return mBookmarksViewModel.getValue();
+  }
 
-    private void setBookmarksList(){
-//        addSubscription(rssModel.getFeedsList()
-//            .map(mapper)
-//            .subscribe(view::setList, this::onErrorBookmarksList));
-    }
+  private void setBookmarksViewModel(BookmarksViewModel bookmarksViewModel){
+    mBookmarksViewModel.setValue(bookmarksViewModel);
+  }
 
-    private void onErrorSearchInFeed(Throwable error){}
+  public LiveData<BookmarksViewModel> getBookmarksObserve(){
+    return mBookmarksViewModel;
+  }
 
-    private void onSearchInFeed(CharSequence text){
-        String searchText = text.toString();
+  public void setRecyclerManager(RecyclerManager recyclerManager){
+    getBookmarksViewModel().recyclerManager.set(recyclerManager);
+  }
 
-        if(searchText.isEmpty()){
-            setBookmarksList();
-        }else{
-//            addSubscription(rssModel.getFeedsListWithSearch(searchText)
-//                .map(mapper)
-//                .subscribe(view::setList, this::onErrorSearchInFeed));
-        }
-    }
+  public void setActionsListeners(){
+    BookmarksViewModel bookmarksViewModel = getBookmarksViewModel();
 
-    private void onErrorLoadFeed(Throwable error){}
+    bookmarksViewModel.getOnSearchFeed()
+      .subscribe(this::onSearchFeed);
+    bookmarksViewModel.getOnLoadFeed()
+      .subscribe(this::onLoadFeed);
+    bookmarksViewModel.getOnDeleteFeed()
+      .subscribe(this::onDeleteFeed);
+  }
 
-    private void onLoadFeed(long feedId){
-//        addSubscription(rssModel.setFeed(feedId)
-//            .subscribe(this::onLoadFeedComplete, this::onErrorLoadFeed));
-    }
+  private void onSearchFeed(String searchText){
+    // TODO: implementation later
+  }
 
-    private void onErrorDeleteFeed(Throwable error){}
+  private void onLoadFeed(Long feedId){
+    // TODO: implementation later
+  }
 
-    private void onDeleteFeed(long feedId){
-//        addSubscription(rssModel.removeFeed(feedId)
-//            .subscribe(this::onDeleteFeedComplete, this::onErrorDeleteFeed));
-    }
-
-    private void setActionListeners(){
-//        addSubscription(view.getOnSearchChange()
-//            .subscribe(this::onSearchInFeed));
-//        addSubscription(view.getOnLoadFeed()
-//            .subscribe(this::onLoadFeed));
-//        addSubscription(view.getOnDeleteFeed()
-//            .subscribe(this::onDeleteFeed));
-    }
-
-    private void onLoadFeedComplete(Void aVoid){
-//        view.setLoadFeedComplete();
-    }
-
-    private void onDeleteFeedComplete(Void aVoid){
-//        view.setDeleteFeedComplete();
-    }
+  private void onDeleteFeed(Long feedId){
+    // TODO: implementation later
+  }
 
 }

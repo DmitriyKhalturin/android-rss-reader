@@ -5,8 +5,8 @@
   <data>
 
     <variable
-      name="refreshViewModel"
-      type="com.khalturin.dmitriy.presentation.viewmodel.feed.RefreshViewModel"
+      name="swipeRefreshViewModel"
+      type="com.khalturin.dmitriy.presentation.viewmodel.feed.SwipeRefreshViewModel"
       />
 
     <variable
@@ -54,9 +54,9 @@
         android:id="@+id/feed_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:colorSchemeResources="@{refreshViewModel.colorScheme}"
-        app:refreshing="@{refreshViewModel.isRefreshing}"
-        app:onRefreshListener="@{refreshViewModel::updateFeedItems}">
+        app:colorSchemeResources="@{swipeRefreshViewModel.colorScheme}"
+        app:refreshing="@{swipeRefreshViewModel.isRefreshing}"
+        app:onRefreshListener="@{swipeRefreshViewModel::updateFeedItems}">
 
         <android.support.v7.widget.RecyclerView
           android:id="@+id/news_list"

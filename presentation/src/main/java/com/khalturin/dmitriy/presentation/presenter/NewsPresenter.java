@@ -24,7 +24,15 @@ public class NewsPresenter extends ViewModel {
 //    Class Callbacks
 //==================================================================================================
 
-  public LiveData<NewsViewModel> getNewsViewModel(){
+  private NewsViewModel getNewsViewModel(){
+    return mNewsViewModel.getValue();
+  }
+
+  private void setNewsViewModel(NewsViewModel newsViewModel){
+    mNewsViewModel.setValue(newsViewModel);
+  }
+
+  public LiveData<NewsViewModel> getNewsObserver(){
       return mNewsViewModel;
   }
 
@@ -35,14 +43,7 @@ public class NewsPresenter extends ViewModel {
   }
 
   private Long getNewsId(){
-    Long newsId = null;
-    NewsViewModel newsViewModel = mNewsViewModel.getValue();
-
-    if(newsViewModel != null){
-      newsId = newsViewModel.id;
-    }
-
-    return newsId;
+    return getNewsViewModel().id;
   }
 
 }

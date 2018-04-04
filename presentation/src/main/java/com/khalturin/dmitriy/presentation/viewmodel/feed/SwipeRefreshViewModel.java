@@ -14,7 +14,7 @@ import static com.khalturin.dmitriy.presentation.viewmodel.DefaultFieldValue.FAL
  * for android-rss-reader on 29.03.18 23:04.
  */
 
-public class RefreshViewModel {
+public class SwipeRefreshViewModel {
 
 //==================================================================================================
 //    Binding ViewModel Members

@@ -54,7 +54,9 @@ public class BindingRecyclerAdapter<T> extends RecyclerView.Adapter<BindingViewH
   }
 
   public void setItems(@Nullable List<T> mItems){
-    if(mItems != null){
+    if(mItems == null){
+      this.mItems.clear();
+    }else{
       this.mItems = mItems;
       notifyDataSetChanged();
     }

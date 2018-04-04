@@ -1,6 +1,5 @@
 package com.khalturin.dmitriy.presentation.viewmodel.bookmark;
 
-import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
 
 import com.khalturin.dmitriy.presentation.binding.BindingTransformer;
@@ -20,56 +19,56 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
  * for android-rss-reader on 03.04.18 9:58.
  */
 
-public class BookmarksViewModel extends ViewModel {
+public class BookmarksViewModel {
 
 //==================================================================================================
 //    Class Variables
 //==================================================================================================
 
-  private PublishSubject<Long> onLoadRss = PublishSubject.create();
-  private PublishSubject<Long> onDeleteRss = PublishSubject.create();
+  private PublishSubject<Long> onLoadFeed = PublishSubject.create();
+  private PublishSubject<Long> onDeleteFeed = PublishSubject.create();
 
 //==================================================================================================
 //    Binding ViewModel Members
 //==================================================================================================
 
   public ObservableField<RecyclerManager> recyclerManager = new ObservableField<>();
-  public ObservableField<String> searchText = new ObservableField<>(EMPTY_STRING);
+  public ObservableField<String> searchFeedText = new ObservableField<>(EMPTY_STRING);
 
-  public void loadRss(Long rssId){
-    onLoadRss.onNext(rssId);
+  public void loadFeed(Long rssId){
+    onLoadFeed.onNext(rssId);
   }
 
-  public void deleteRss(Long rssId){
-    onDeleteRss.onNext(rssId);
+  public void deleteFeed(Long rssId){
+    onDeleteFeed.onNext(rssId);
   }
 
 //==================================================================================================
 //    Class Methods
 //==================================================================================================
 
-  public void setBookmarksItems(List<RssViewModel> items){
+  public void setBookmarksItems(List<FeedViewModel> items){
     getAdapter().setItems(items);
   }
 
   @SuppressWarnings("unchecked")
-  private BindingRecyclerAdapter<RssViewModel> getAdapter(){
-    return (BindingRecyclerAdapter<RssViewModel>) recyclerManager.get().getAdapter();
+  private BindingRecyclerAdapter<FeedViewModel> getAdapter(){
+    return (BindingRecyclerAdapter<FeedViewModel>) recyclerManager.get().getAdapter();
   }
 
-  public Observable<String> getOnSearchChange(){
+  public Observable<String> getOnSearchFeed(){
     int timeout = 1000;
 
-    return BindingTransformer.toObservable(searchText)
+    return BindingTransformer.toObservable(searchFeedText)
       .debounce(timeout, MILLISECONDS);
   }
 
-  public Observable<Long> getOnLoadRss(){
-    return onLoadRss;
+  public Observable<Long> getOnLoadFeed(){
+    return onLoadFeed;
   }
 
-  public Observable<Long> getOnDeleteRss(){
-    return onDeleteRss;
+  public Observable<Long> getOnDeleteFeed(){
+    return onDeleteFeed;
   }
 
 }

@@ -9,8 +9,8 @@
       />
 
     <variable
-      name="rssViewModel"
-      type="com.khalturin.dmitriy.presentation.viewmodel.bookmark.RssViewModel"
+      name="feedViewModel"
+      type="com.khalturin.dmitriy.presentation.viewmodel.bookmark.FeedViewModel"
       />
 
   </data>
@@ -34,7 +34,7 @@
       android:ellipsize="end"
       android:background="@drawable/bg_card_view_content"
       android:elevation="@dimen/elevation__card_view_content"
-      android:text="@{rssViewModel.url}"/>
+      android:text="@{feedViewModel.url}"/>
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -47,7 +47,7 @@
         android:layout_height="@dimen/size__card_view_image"
         android:contentDescription="@null"
         android:scaleType="centerCrop"
-        android:src="@{rssViewModel.image}"/>
+        android:src="@{feedViewModel.image}"/>
 
       <LinearLayout
         android:layout_width="match_parent"
@@ -65,7 +65,7 @@
           android:textSize="@dimen/text_size__card_view_small_title"
           android:maxLines="2"
           android:ellipsize="end"
-          android:text="@{rssViewModel.title}"/>
+          android:text="@{feedViewModel.title}"/>
 
         <LinearLayout
           android:layout_width="match_parent"
@@ -83,7 +83,7 @@
             android:id="@+id/bookmark_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{rssViewModel.author}"/>
+            android:text="@{feedViewModel.author}"/>
 
         </LinearLayout>
 
@@ -103,7 +103,7 @@
             android:id="@+id/bookmark_last_update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{rssViewModel.lastUpdate}"/>
+            android:text="@{feedViewModel.lastUpdate}"/>
 
         </LinearLayout>
 
@@ -122,7 +122,7 @@
         android:layout_height="match_parent"
         android:padding="@dimen/padding_high__card_view_content"
         android:lines="4"
-        android:text="@{rssViewModel.description}"/>
+        android:text="@{feedViewModel.description}"/>
 
       <LinearLayout
         android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
           android:background="@drawable/bg_card_view_content"
           android:adjustViewBounds="true"
           android:scaleType="fitCenter"
-          android:onClick="@{() -> bookmarksViewModel.loadRss(rssViewModel.id)}"/>
+          android:onClick="@{() -> bookmarksViewModel.loadFeed(feedViewModel.id)}"/>
 
         <ImageButton
           android:id="@+id/bookmark_delete_button"
@@ -155,7 +155,7 @@
           android:background="@drawable/bg_card_view_content"
           android:adjustViewBounds="true"
           android:scaleType="fitCenter"
-          android:onClick="@{() -> bookmarksViewModel.deleteRss(rssViewModel.id)}"/>
+          android:onClick="@{() -> bookmarksViewModel.deleteFeed(feedViewModel.id)}"/>
 
       </LinearLayout>
 

@@ -54,13 +54,13 @@ public class NewsActivity extends AppCompatActivity {
 //==================================================================================================
 
   private void bindPresenter(ActivityNewsBinding binding, NewsPresenter presenter){
-    presenter.getNewsViewModel()
+    presenter.getNewsObserver()
       .observe(this, binding::setNewsViewModel);
   }
 
   private void setupPresenter(NewsPresenter presenter){
     Intent intent = getIntent();
-    Long newsId = intent.getLongExtra(NEWS_ID, DEFAULT_NEWS_ID);
+    long newsId = intent.getLongExtra(NEWS_ID, DEFAULT_NEWS_ID);
 
     presenter.setNewsId(newsId);
   }

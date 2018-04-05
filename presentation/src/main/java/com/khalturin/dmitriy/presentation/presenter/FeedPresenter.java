@@ -32,6 +32,16 @@ public class FeedPresenter extends ViewModel {
   private MutableLiveData<SwipeRefreshViewModel> mSwipeRefreshViewModel = new MutableLiveData<>();
 
 //==================================================================================================
+//    Class Constructor
+//==================================================================================================
+
+  public FeedPresenter(){
+    setFeedViewModel(new FeedViewModel());
+    setRssUrlViewModel(new RssUrlViewModel());
+    setSwipeRefreshViewModel(new SwipeRefreshViewModel());
+  }
+
+//==================================================================================================
 //    Class Methods
 //==================================================================================================
 
@@ -84,7 +94,7 @@ public class FeedPresenter extends ViewModel {
       .subscribe(this::onUpdateFeedItems);
   }
 
-  public void setRssUrlLayoutState(){
+  public void setRssUrlLayoutVisibility(){
     int delay = 1000;
     Handler handler = new Handler();
 
@@ -99,6 +109,10 @@ public class FeedPresenter extends ViewModel {
 
   public void changeRssUrlLayoutVisibility(){
     getRssUrlViewModel().changeLayoutVisibility();
+  }
+
+  public void openBookmarks(){
+    navigator.navigateToBookmarks();
   }
 
   private void onUpdateRssUrl(String rssUrl){

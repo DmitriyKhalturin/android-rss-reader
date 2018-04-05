@@ -13,19 +13,19 @@ import com.khalturin.dmitriy.presentation.di.module.ApplicationModule;
 
 public class RssApplication extends Application {
 
-  private static ApplicationComponent sApplicationComponent;
+  private ApplicationComponent sApplicationComponent;
 
   @Override
   public void onCreate(){
     super.onCreate();
-    sApplicationComponent = buildComponent();
+    sApplicationComponent = buildApplicationComponent();
   }
 
-  public static ApplicationComponent getComponent(){
+  public ApplicationComponent getApplicationComponent(){
     return sApplicationComponent;
   }
 
-  protected ApplicationComponent buildComponent(){
+  protected ApplicationComponent buildApplicationComponent(){
     return DaggerApplicationComponent.builder()
       .applicationModule(new ApplicationModule(this))
       .build();

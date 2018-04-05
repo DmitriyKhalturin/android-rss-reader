@@ -17,11 +17,8 @@ import com.khalturin.dmitriy.presentation.R;
 import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.databinding.ActivityFeedBinding;
-import com.khalturin.dmitriy.presentation.navigator.Navigator;
 import com.khalturin.dmitriy.presentation.presenter.FeedPresenter;
 import com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel;
-
-import javax.inject.Inject;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -33,9 +30,6 @@ public class FeedActivity extends AppCompatActivity {
 //==================================================================================================
 //    Class Variables
 //==================================================================================================
-
-  @Inject
-  protected Navigator navigator;
 
   FeedPresenter presenter;
 
@@ -76,7 +70,7 @@ public class FeedActivity extends AppCompatActivity {
         presenter.changeRssUrlLayoutVisibility();
         break;
       case R.id.action_bookmarks:
-        navigator.navigateToBookmarks();
+        presenter.openBookmarks();
         break;
       default:
         return super.onOptionsItemSelected(item);
@@ -101,7 +95,7 @@ public class FeedActivity extends AppCompatActivity {
   private void setupPresenter(FeedPresenter presenter){
     presenter.setRecyclerManager(getRecyclerManager());
     presenter.setActionsListeners();
-    presenter.setRssUrlLayoutState();
+    presenter.setRssUrlLayoutVisibility();
   }
 
   @SuppressWarnings("unchecked")

@@ -21,6 +21,14 @@ public class BookmarksPresenter extends ViewModel {
   private MutableLiveData<BookmarksViewModel> mBookmarksViewModel = new MutableLiveData<>();
 
 //==================================================================================================
+//    Class Constructor
+//==================================================================================================
+
+  public BookmarksPresenter(){
+    setBookmarksViewModel(new BookmarksViewModel());
+  }
+
+//==================================================================================================
 //    Class Methods
 //==================================================================================================
 

@@ -31,7 +31,7 @@ public class FeedActivity extends AppCompatActivity {
 //    Class Variables
 //==================================================================================================
 
-  FeedPresenter presenter;
+  FeedPresenter mPresenter;
 
 //==================================================================================================
 //    Class Callbacks
@@ -42,11 +42,11 @@ public class FeedActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     ActivityFeedBinding binding = DataBindingUtil
       .setContentView(this, R.layout.activity_feed);
-    presenter = ViewModelProvider.AndroidViewModelFactory
+    mPresenter = ViewModelProvider.AndroidViewModelFactory
       .getInstance(getApplication()).create(FeedPresenter.class);
 
-    bindPresenter(binding, presenter);
-    setupPresenter(presenter);
+    bindPresenter(binding, mPresenter);
+    setupPresenter(mPresenter);
 
     // TODO: remove this boilerplate later
     setSupportActionBar(findViewById(R.id.toolbar));
@@ -67,10 +67,10 @@ public class FeedActivity extends AppCompatActivity {
 
     switch(id){
       case  R.id.action_add_news:
-        presenter.changeRssUrlLayoutVisibility();
+        mPresenter.changeRssUrlLayoutVisibility();
         break;
       case R.id.action_bookmarks:
-        presenter.openBookmarks();
+        mPresenter.openBookmarks();
         break;
       default:
         return super.onOptionsItemSelected(item);

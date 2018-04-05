@@ -25,7 +25,7 @@ public class FeedPresenter extends ViewModel {
 //==================================================================================================
 
   @Inject
-  protected Navigator navigator;
+  protected Navigator mNavigator;
 
   private MutableLiveData<FeedViewModel> mFeedViewModel = new MutableLiveData<>();
   private MutableLiveData<RssUrlViewModel> mRssUrlViewModel = new MutableLiveData<>();
@@ -87,7 +87,7 @@ public class FeedPresenter extends ViewModel {
 
   public void setActionsListeners(){
     getFeedViewModel().getOnOpenNews()
-      .subscribe(navigator::navigateToNews);
+      .subscribe(mNavigator::navigateToNews);
     getRssUrlViewModel().getOnUpdateRssUrl()
       .subscribe(this::onUpdateRssUrl);
     getSwipeRefreshViewModel().getOnUpdateFeedItems()
@@ -112,7 +112,7 @@ public class FeedPresenter extends ViewModel {
   }
 
   public void openBookmarks(){
-    navigator.navigateToBookmarks();
+    mNavigator.navigateToBookmarks();
   }
 
   private void onUpdateRssUrl(String rssUrl){

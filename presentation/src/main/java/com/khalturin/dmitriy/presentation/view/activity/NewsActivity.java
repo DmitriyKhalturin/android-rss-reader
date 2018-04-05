@@ -26,6 +26,8 @@ public class NewsActivity extends AppCompatActivity {
   public static final String NEWS_ID = "NEWS_ID";
   public static final long DEFAULT_NEWS_ID = -1;
 
+  NewsPresenter mPresenter;
+
 //==================================================================================================
 //    Class Callbacks
 //==================================================================================================
@@ -35,11 +37,11 @@ public class NewsActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     ActivityNewsBinding binding = DataBindingUtil
       .setContentView(this, R.layout.activity_news);
-    NewsPresenter presenter = ViewModelProvider.AndroidViewModelFactory
+    mPresenter = ViewModelProvider.AndroidViewModelFactory
       .getInstance(getApplication()).create(NewsPresenter.class);
 
-    bindPresenter(binding, presenter);
-    setupPresenter(presenter);
+    bindPresenter(binding, mPresenter);
+    setupPresenter(mPresenter);
 
     // TODO: remove this boilerplate later
     setSupportActionBar(findViewById(R.id.toolbar));

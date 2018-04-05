@@ -26,6 +26,12 @@ import com.khalturin.dmitriy.presentation.viewmodel.bookmark.FeedViewModel;
 public class BookmarksActivity extends AppCompatActivity {
 
 //==================================================================================================
+//    Class Variables
+//==================================================================================================
+
+  private BookmarksPresenter mPresenter;
+
+//==================================================================================================
 //    Class Callbacks
 //==================================================================================================
 
@@ -34,11 +40,11 @@ public class BookmarksActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     ActivityBookmarksBinding binding = DataBindingUtil
       .setContentView(this, R.layout.activity_bookmarks);
-    BookmarksPresenter presenter = ViewModelProvider.AndroidViewModelFactory
+    mPresenter = ViewModelProvider.AndroidViewModelFactory
       .getInstance(getApplication()).create(BookmarksPresenter.class);
 
-    bindPresenter(binding, presenter);
-    setupPresenter(presenter);
+    bindPresenter(binding, mPresenter);
+    setupPresenter(mPresenter);
 
     // TODO: remove this boilerplate later
     setSupportActionBar(findViewById(R.id.toolbar));

@@ -6,9 +6,6 @@ import android.content.Intent;
 import com.khalturin.dmitriy.presentation.view.activity.BookmarksActivity;
 import com.khalturin.dmitriy.presentation.view.activity.NewsActivity;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import static com.khalturin.dmitriy.presentation.view.activity.NewsActivity.NEWS_ID;
 
 /**
@@ -16,15 +13,12 @@ import static com.khalturin.dmitriy.presentation.view.activity.NewsActivity.NEWS
  * for android-rss-reader on 21.03.18 18:10.
  */
 
-@Singleton
 public class Navigator {
 
-  @Inject
-  protected Context context;
+  private Context context;
 
-  // TODO: fix injecting Navigator
-  @Inject
-  public Navigator(){
+  public Navigator(Context context){
+    this.context = context;
   }
 
   public void navigateToNews(Long newsId){

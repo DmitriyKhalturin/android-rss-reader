@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.os.Handler;
 
+import com.khalturin.dmitriy.presentation.RssApplication;
 import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.navigator.Navigator;
 import com.khalturin.dmitriy.presentation.viewmodel.feed.FeedViewModel;
@@ -39,6 +40,8 @@ public class FeedPresenter extends ViewModel {
     setFeedViewModel(new FeedViewModel());
     setRssUrlViewModel(new RssUrlViewModel());
     setSwipeRefreshViewModel(new SwipeRefreshViewModel());
+
+    RssApplication.getInjector();
   }
 
 //==================================================================================================

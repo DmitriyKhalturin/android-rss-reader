@@ -1,6 +1,5 @@
 package com.khalturin.dmitriy.presentation.view.activity;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,8 +16,11 @@ import com.khalturin.dmitriy.presentation.R;
 import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.databinding.ActivityFeedBinding;
+import com.khalturin.dmitriy.presentation.di.PerPresenter;
 import com.khalturin.dmitriy.presentation.presenter.FeedPresenter;
 import com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel;
+
+import javax.inject.Inject;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -31,6 +33,8 @@ public class FeedActivity extends AppCompatActivity {
 //    Class Variables
 //==================================================================================================
 
+  @PerPresenter
+  @Inject
   FeedPresenter mPresenter;
 
 //==================================================================================================
@@ -42,8 +46,6 @@ public class FeedActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     ActivityFeedBinding binding = DataBindingUtil
       .setContentView(this, R.layout.activity_feed);
-    mPresenter = ViewModelProvider.AndroidViewModelFactory
-      .getInstance(getApplication()).create(FeedPresenter.class);
 
     bindPresenter(binding, mPresenter);
     setupPresenter(mPresenter);

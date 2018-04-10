@@ -1,6 +1,5 @@
 package com.khalturin.dmitriy.presentation.view.activity;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,8 +14,11 @@ import com.khalturin.dmitriy.presentation.R;
 import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.databinding.ActivityBookmarksBinding;
+import com.khalturin.dmitriy.presentation.di.PerPresenter;
 import com.khalturin.dmitriy.presentation.presenter.BookmarksPresenter;
 import com.khalturin.dmitriy.presentation.viewmodel.bookmark.FeedViewModel;
+
+import javax.inject.Inject;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -29,7 +31,9 @@ public class BookmarksActivity extends AppCompatActivity {
 //    Class Variables
 //==================================================================================================
 
-  private BookmarksPresenter mPresenter;
+  @PerPresenter
+  @Inject
+  protected BookmarksPresenter mPresenter;
 
 //==================================================================================================
 //    Class Callbacks
@@ -40,8 +44,6 @@ public class BookmarksActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     ActivityBookmarksBinding binding = DataBindingUtil
       .setContentView(this, R.layout.activity_bookmarks);
-    mPresenter = ViewModelProvider.AndroidViewModelFactory
-      .getInstance(getApplication()).create(BookmarksPresenter.class);
 
     bindPresenter(binding, mPresenter);
     setupPresenter(mPresenter);

@@ -2,9 +2,7 @@ package com.khalturin.dmitriy.presentation;
 
 import android.app.Application;
 
-import com.khalturin.dmitriy.presentation.di.component.ApplicationComponent;
-import com.khalturin.dmitriy.presentation.di.component.DaggerApplicationComponent;
-import com.khalturin.dmitriy.presentation.di.module.ApplicationModule;
+import com.khalturin.dmitriy.presentation.di.Injector;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -13,22 +11,16 @@ import com.khalturin.dmitriy.presentation.di.module.ApplicationModule;
 
 public class RssApplication extends Application {
 
-  private ApplicationComponent sApplicationComponent;
+  private static Injector sInjector = Injector.getInstance();
 
   @Override
   public void onCreate(){
     super.onCreate();
-    sApplicationComponent = buildApplicationComponent();
+    sInjector.buildAppComponent(this);
   }
 
-  public ApplicationComponent getApplicationComponent(){
-    return sApplicationComponent;
-  }
-
-  protected ApplicationComponent buildApplicationComponent(){
-    return DaggerApplicationComponent.builder()
-      .applicationModule(new ApplicationModule(this))
-      .build();
+  public static Injector getInjector(){
+    return sInjector;
   }
 
 }

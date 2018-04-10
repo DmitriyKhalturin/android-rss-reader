@@ -1,6 +1,5 @@
 package com.khalturin.dmitriy.presentation.view.activity;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -10,7 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.khalturin.dmitriy.presentation.R;
 import com.khalturin.dmitriy.presentation.databinding.ActivityNewsBinding;
+import com.khalturin.dmitriy.presentation.di.PerPresenter;
 import com.khalturin.dmitriy.presentation.presenter.NewsPresenter;
+
+import javax.inject.Inject;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -26,7 +28,9 @@ public class NewsActivity extends AppCompatActivity {
   public static final String NEWS_ID = "NEWS_ID";
   public static final long DEFAULT_NEWS_ID = -1;
 
-  NewsPresenter mPresenter;
+  @PerPresenter
+  @Inject
+  protected NewsPresenter mPresenter;
 
 //==================================================================================================
 //    Class Callbacks
@@ -37,8 +41,6 @@ public class NewsActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     ActivityNewsBinding binding = DataBindingUtil
       .setContentView(this, R.layout.activity_news);
-    mPresenter = ViewModelProvider.AndroidViewModelFactory
-      .getInstance(getApplication()).create(NewsPresenter.class);
 
     bindPresenter(binding, mPresenter);
     setupPresenter(mPresenter);

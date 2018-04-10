@@ -41,7 +41,7 @@ public class FeedPresenter extends ViewModel {
     setRssUrlViewModel(new RssUrlViewModel());
     setSwipeRefreshViewModel(new SwipeRefreshViewModel());
 
-    RssApplication.getInjector();
+    RssApplication.getInjector().getAppComponent().inject(this);
   }
 
 //==================================================================================================

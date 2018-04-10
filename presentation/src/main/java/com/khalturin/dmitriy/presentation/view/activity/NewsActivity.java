@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.khalturin.dmitriy.presentation.R;
+import com.khalturin.dmitriy.presentation.RssApplication;
 import com.khalturin.dmitriy.presentation.databinding.ActivityNewsBinding;
 import com.khalturin.dmitriy.presentation.di.PerPresenter;
 import com.khalturin.dmitriy.presentation.presenter.NewsPresenter;
@@ -42,6 +43,8 @@ public class NewsActivity extends AppCompatActivity {
     ActivityNewsBinding binding = DataBindingUtil
       .setContentView(this, R.layout.activity_news);
 
+    RssApplication.getInjector().getPresenterComponent().inject(this);
+
     bindPresenter(binding, mPresenter);
     setupPresenter(mPresenter);
 
@@ -51,6 +54,13 @@ public class NewsActivity extends AppCompatActivity {
     if(actionBar != null){
       actionBar.setDisplayHomeAsUpEnabled(true);
     }
+  }
+
+  @Override
+  protected void onDestroy() {
+    RssApplication.getInjector().clearPresenterComponent();
+
+    super.onDestroy();
   }
 
 //==================================================================================================

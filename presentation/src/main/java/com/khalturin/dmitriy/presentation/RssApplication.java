@@ -16,6 +16,7 @@ public class RssApplication extends Application {
   @Override
   public void onCreate(){
     super.onCreate();
+
     sInjector.buildAppComponent(this);
   }
 

@@ -18,7 +18,7 @@ public final class Injector {
 
   private static Injector sInstance = new Injector();
 
-  private AppComponent mAppComponent;
+  private static AppComponent sAppComponent;
   private PresenterComponent mPresenterComponent;
 
   public static Injector getInstance(){
@@ -26,18 +26,21 @@ public final class Injector {
   }
 
   public void buildAppComponent(Application application){
-    mAppComponent = DaggerAppComponent.builder()
+    sAppComponent = DaggerAppComponent.builder()
       .applicationContextModule(new ApplicationContextModule(application))
       .navigatorModule(new NavigatorModule())
       .build();
   }
 
-  public PresenterComponent plusPresenterComponent(){
-    if(mPresenterComponent == null){
-      mPresenterComponent = mAppComponent.plusPresenterComponent(new PresenterModule());
-    }
+  public AppComponent getAppComponent(){
+    return sAppComponent;
+  }
 
-    return mPresenterComponent;
+  public PresenterComponent getPresenterComponent(){
+    return (
+      (mPresenterComponent == null) ?
+        sAppComponent.getPresenterComponent(new PresenterModule()) :
+        mPresenterComponent);
   }
 
   public void clearPresenterComponent(){

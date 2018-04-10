@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.khalturin.dmitriy.presentation.BR;
 import com.khalturin.dmitriy.presentation.R;
+import com.khalturin.dmitriy.presentation.RssApplication;
 import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.databinding.ActivityBookmarksBinding;
@@ -45,6 +46,8 @@ public class BookmarksActivity extends AppCompatActivity {
     ActivityBookmarksBinding binding = DataBindingUtil
       .setContentView(this, R.layout.activity_bookmarks);
 
+    RssApplication.getInjector().getPresenterComponent().inject(this);
+
     bindPresenter(binding, mPresenter);
     setupPresenter(mPresenter);
 
@@ -54,6 +57,13 @@ public class BookmarksActivity extends AppCompatActivity {
     if(actionBar != null){
       actionBar.setDisplayHomeAsUpEnabled(true);
     }
+  }
+
+  @Override
+  protected void onDestroy() {
+    RssApplication.getInjector().clearPresenterComponent();
+
+    super.onDestroy();
   }
 
 //==================================================================================================

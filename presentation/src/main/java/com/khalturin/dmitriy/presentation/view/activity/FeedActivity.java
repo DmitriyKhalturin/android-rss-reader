@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import com.khalturin.dmitriy.presentation.BR;
 import com.khalturin.dmitriy.presentation.R;
+import com.khalturin.dmitriy.presentation.RssApplication;
 import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.databinding.ActivityFeedBinding;
@@ -47,11 +48,20 @@ public class FeedActivity extends AppCompatActivity {
     ActivityFeedBinding binding = DataBindingUtil
       .setContentView(this, R.layout.activity_feed);
 
+    RssApplication.getInjector().getPresenterComponent().inject(this);
+
     bindPresenter(binding, mPresenter);
     setupPresenter(mPresenter);
 
     // TODO: remove this boilerplate later
     setSupportActionBar(findViewById(R.id.toolbar));
+  }
+
+  @Override
+  protected void onDestroy() {
+    RssApplication.getInjector().clearPresenterComponent();
+
+    super.onDestroy();
   }
 
   @Override

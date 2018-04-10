@@ -20,7 +20,7 @@ import dagger.Component;
 })
 public interface AppComponent {
 
-  PresenterComponent plusPresenterComponent(PresenterModule module);
+  PresenterComponent getPresenterComponent(PresenterModule module);
 
   void inject(FeedPresenter presenter);
 

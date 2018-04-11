@@ -11,7 +11,15 @@ import com.khalturin.dmitriy.presentation.di.Injector;
 
 public class RssApplication extends Application {
 
+//==================================================================================================
+//    Class Variables
+//==================================================================================================
+
   private static Injector sInjector = Injector.getInstance();
+
+//==================================================================================================
+//    Class Callbacks
+//==================================================================================================
 
   @Override
   public void onCreate(){
@@ -19,6 +27,10 @@ public class RssApplication extends Application {
 
     sInjector.buildAppComponent(this);
   }
+
+//==================================================================================================
+//    Class Methods
+//==================================================================================================
 
   public static Injector getInjector(){
     return sInjector;

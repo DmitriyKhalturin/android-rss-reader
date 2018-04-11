@@ -16,10 +16,18 @@ import com.khalturin.dmitriy.presentation.di.module.PresenterModule;
 
 public final class Injector {
 
+//==================================================================================================
+//    Class Variables
+//==================================================================================================
+
   private static Injector sInstance = new Injector();
 
   private static AppComponent sAppComponent;
   private PresenterComponent mPresenterComponent;
+
+//==================================================================================================
+//    Class Methods
+//==================================================================================================
 
   public static Injector getInstance(){
     return sInstance;

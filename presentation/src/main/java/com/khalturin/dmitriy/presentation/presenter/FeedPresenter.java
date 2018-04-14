@@ -50,6 +50,8 @@ public class FeedPresenter extends ViewModel {
 
   @Override
   protected void onCleared(){
+    // TODO: Clear all resources and break actions in this scope.
+
     super.onCleared();
   }
 

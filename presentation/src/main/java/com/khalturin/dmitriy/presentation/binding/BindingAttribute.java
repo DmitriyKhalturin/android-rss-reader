@@ -3,12 +3,10 @@ package com.khalturin.dmitriy.presentation.binding;
 import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.view.layout.FloatingLayout;
 
 /**
@@ -17,13 +15,6 @@ import com.khalturin.dmitriy.presentation.view.layout.FloatingLayout;
  */
 
 public final class BindingAttribute {
-
-  @BindingAdapter("bind:recyclerManager")
-  public static void bindRecyclerManager(RecyclerView recyclerView, RecyclerManager recyclerManager){
-    recyclerView.setLayoutManager(recyclerManager.getLayoutManager());
-    recyclerView.setItemAnimator(recyclerManager.getItemAnimator());
-    recyclerView.setAdapter(recyclerManager.getAdapter());
-  }
 
   @BindingAdapter("bind:viewVisibility")
   public static void bindViewVisibility(View view, ObservableField<Boolean> field){
@@ -51,18 +42,10 @@ public final class BindingAttribute {
 
   @BindingAdapter("bind:floatingViewVisibility")
   public static void bindFloatingViewVisibility(View view, ObservableField<Boolean> field){
-    view.setVisibility(View.GONE);
+    FloatingLayout floatingLayout = (FloatingLayout) view;
 
     BindingTransformer.toObservable(field)
-      .subscribe(visibility -> {
-        FloatingLayout floatingLayout = (FloatingLayout) view;
-
-        if(visibility){
-          floatingLayout.setVisible();
-        }else{
-          floatingLayout.setInvisible();
-        }
-      });
+      .subscribe(floatingLayout::setVisibility);
   }
 
 }

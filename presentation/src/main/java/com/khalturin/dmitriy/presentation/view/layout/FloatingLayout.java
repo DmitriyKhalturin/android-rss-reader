@@ -7,10 +7,6 @@ package com.khalturin.dmitriy.presentation.view.layout;
 
 public interface FloatingLayout {
 
-    void setVisible();
-
-    void setInvisible();
-
-    void changeVisibility();
+  void setVisibility(boolean visibility);
 
 }

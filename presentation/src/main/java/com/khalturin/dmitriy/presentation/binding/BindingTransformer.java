@@ -37,7 +37,6 @@ public final class BindingTransformer {
   }
 
   private static final class FieldChanged<T> extends OnPropertyChangedCallback {
-
     private ObservableField<T> field;
     private ObservableEmitter<T> emitter;
 

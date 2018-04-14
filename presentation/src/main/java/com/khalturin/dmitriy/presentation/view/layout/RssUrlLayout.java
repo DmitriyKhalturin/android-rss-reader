@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
  * for android-rss-reader on 01.08.17 17:27.
  */
 
-// TODO: fix animation
 public class RssUrlLayout extends LinearLayout implements FloatingLayout {
 
 //==================================================================================================
@@ -22,7 +21,6 @@ public class RssUrlLayout extends LinearLayout implements FloatingLayout {
   private static final int sDuration = 300;
 
   private boolean mReady = true;
-  private boolean mVisible = true;
 
 //==================================================================================================
 //    Class Constructor
@@ -37,19 +35,17 @@ public class RssUrlLayout extends LinearLayout implements FloatingLayout {
   }
 
 //==================================================================================================
-//    Class Callbacks
+//    Class Implementation FloatingLayout
 //==================================================================================================
 
   @Override
-  public void setVisibility(int visibility){
-    super.setVisibility(visibility);
-
-    mVisible = (visibility == VISIBLE);
+  public void setVisibility(boolean visibility){
+    if(visibility){
+      setVisible();
+    }else{
+      setInvisible();
+    }
   }
-
-//==================================================================================================
-//    Class Implementation FloatingLayout
-//==================================================================================================
 
   public void setVisible(){
     if(mReady){
@@ -69,7 +65,6 @@ public class RssUrlLayout extends LinearLayout implements FloatingLayout {
         .setListener(new AnimatorListenerAdapter() {
           @Override
           public void onAnimationEnd(Animator animation){
-            mVisible = true;
             mReady = true;
           }
         });
@@ -90,18 +85,9 @@ public class RssUrlLayout extends LinearLayout implements FloatingLayout {
           @Override
           public void onAnimationEnd(Animator animation){
             setVisibility(GONE);
-            mVisible = false;
             mReady = true;
           }
         });
-    }
-  }
-
-  public void changeVisibility(){
-    if(mVisible){
-      setInvisible();
-    }else{
-      setVisible();
     }
   }
 

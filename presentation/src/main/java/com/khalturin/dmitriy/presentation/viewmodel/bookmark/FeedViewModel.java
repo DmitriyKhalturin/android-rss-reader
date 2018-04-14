@@ -2,7 +2,6 @@ package com.khalturin.dmitriy.presentation.viewmodel.bookmark;
 
 import android.databinding.ObservableField;
 import android.graphics.drawable.Drawable;
-import android.view.View;
 
 import static com.khalturin.dmitriy.presentation.viewmodel.DefaultFieldValue.EMPTY_STRING;
 

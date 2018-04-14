@@ -1,7 +1,7 @@
 package com.khalturin.dmitriy.presentation.binding;
 
-import android.databinding.ObservableField;
 import android.databinding.Observable.OnPropertyChangedCallback;
+import android.databinding.ObservableField;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;

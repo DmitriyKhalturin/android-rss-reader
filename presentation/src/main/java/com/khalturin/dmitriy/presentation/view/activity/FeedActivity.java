@@ -48,20 +48,14 @@ public class FeedActivity extends AppCompatActivity {
     ActivityFeedBinding binding = DataBindingUtil
       .setContentView(this, R.layout.activity_feed);
 
-    RssApplication.getInjector().getPresenterComponent().inject(this);
+    RssApplication.getInjector()
+      .getPresenterComponent().inject(this);
 
     bindPresenter(binding, mPresenter);
     setupPresenter(mPresenter);
 
     // TODO: remove this boilerplate later
     setSupportActionBar(findViewById(R.id.toolbar));
-  }
-
-  @Override
-  protected void onDestroy() {
-    RssApplication.getInjector().clearPresenterComponent();
-
-    super.onDestroy();
   }
 
   @Override

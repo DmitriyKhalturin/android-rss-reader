@@ -1,8 +1,7 @@
 package com.khalturin.dmitriy.presentation.di.module;
 
-import android.app.Application;
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
+import android.support.v4.app.FragmentActivity;
 
 import com.khalturin.dmitriy.presentation.di.PerPresenter;
 import com.khalturin.dmitriy.presentation.presenter.BookmarksPresenter;
@@ -22,26 +21,20 @@ public class PresenterModule {
 
   @PerPresenter
   @Provides
-  public FeedPresenter providerFeedPresenter(Application application){
-    return getPresenter(application, FeedPresenter.class);
+  public FeedPresenter providerFeedPresenter(FragmentActivity activity){
+    return ViewModelProviders.of(activity).get(FeedPresenter.class);
   }
 
   @PerPresenter
   @Provides
-  public NewsPresenter providerNewsPresenter(Application application){
-    return getPresenter(application, NewsPresenter.class);
+  public NewsPresenter providerNewsPresenter(FragmentActivity activity){
+    return ViewModelProviders.of(activity).get(NewsPresenter.class);
   }
 
   @PerPresenter
   @Provides
-  public BookmarksPresenter providerBookmarksPresenter(Application application){
-    return getPresenter(application, BookmarksPresenter.class);
-  }
-
-  @SuppressWarnings("unchecked")
-  private <T extends ViewModel> T getPresenter(Application application, Class<T> clazz){
-    return ViewModelProvider.AndroidViewModelFactory
-      .getInstance(application).create(clazz);
+  public BookmarksPresenter providerBookmarksPresenter(FragmentActivity activity){
+    return ViewModelProviders.of(activity).get(BookmarksPresenter.class);
   }
 
 }

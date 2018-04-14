@@ -23,7 +23,7 @@ public final class Injector {
   private static Injector sInstance = new Injector();
 
   private static AppComponent sAppComponent;
-  private PresenterComponent mPresenterComponent;
+  private static PresenterComponent sPresenterComponent;
 
 //==================================================================================================
 //    Class Methods
@@ -44,15 +44,16 @@ public final class Injector {
     return sAppComponent;
   }
 
-  public PresenterComponent getPresenterComponent(){
-    return (
-      (mPresenterComponent == null) ?
-        sAppComponent.getPresenterComponent(new PresenterModule()) :
-        mPresenterComponent);
+  public synchronized PresenterComponent getPresenterComponent(){
+    if(sPresenterComponent == null){
+      sPresenterComponent = sAppComponent.getPresenterComponent(new PresenterModule());
+    }
+
+    return sPresenterComponent;
   }
 
-  public void clearPresenterComponent(){
-    mPresenterComponent = null;
+  public synchronized void clearPresenterComponent(){
+    sPresenterComponent = null;
   }
 
 }

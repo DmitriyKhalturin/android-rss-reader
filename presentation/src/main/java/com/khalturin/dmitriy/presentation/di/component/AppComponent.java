@@ -2,7 +2,6 @@ package com.khalturin.dmitriy.presentation.di.component;
 
 import com.khalturin.dmitriy.presentation.di.module.ApplicationContextModule;
 import com.khalturin.dmitriy.presentation.di.module.NavigatorModule;
-import com.khalturin.dmitriy.presentation.di.module.PresenterModule;
 import com.khalturin.dmitriy.presentation.presenter.FeedPresenter;
 
 import javax.inject.Singleton;
@@ -19,8 +18,6 @@ import dagger.Component;
   ApplicationContextModule.class, NavigatorModule.class
 })
 public interface AppComponent {
-
-  PresenterComponent getPresenterComponent(PresenterModule module);
 
   void inject(FeedPresenter presenter);
 

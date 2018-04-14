@@ -1,5 +1,6 @@
 package com.khalturin.dmitriy.presentation.view.activity;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,15 +14,13 @@ import android.view.MenuItem;
 
 import com.khalturin.dmitriy.presentation.BR;
 import com.khalturin.dmitriy.presentation.R;
-import com.khalturin.dmitriy.presentation.RssApplication;
 import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.databinding.ActivityFeedBinding;
-import com.khalturin.dmitriy.presentation.di.PerPresenter;
 import com.khalturin.dmitriy.presentation.presenter.FeedPresenter;
 import com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel;
 
-import javax.inject.Inject;
+import static com.khalturin.dmitriy.presentation.view.SupportActionBar.setRootActionBar;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -34,8 +33,6 @@ public class FeedActivity extends AppCompatActivity {
 //    Class Variables
 //==================================================================================================
 
-  @PerPresenter
-  @Inject
   FeedPresenter mPresenter;
 
 //==================================================================================================
@@ -48,14 +45,12 @@ public class FeedActivity extends AppCompatActivity {
     ActivityFeedBinding binding = DataBindingUtil
       .setContentView(this, R.layout.activity_feed);
 
-    RssApplication.getInjector()
-      .getPresenterComponent().inject(this);
+    mPresenter = ViewModelProviders.of(this).get(FeedPresenter.class);
 
     bindPresenter(binding, mPresenter);
     setupPresenter(mPresenter);
 
-    // TODO: remove this boilerplate later
-    setSupportActionBar(findViewById(R.id.toolbar));
+    setRootActionBar(this, R.id.toolbar);
   }
 
   @Override

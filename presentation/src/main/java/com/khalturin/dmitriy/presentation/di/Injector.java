@@ -4,10 +4,8 @@ import android.app.Application;
 
 import com.khalturin.dmitriy.presentation.di.component.AppComponent;
 import com.khalturin.dmitriy.presentation.di.component.DaggerAppComponent;
-import com.khalturin.dmitriy.presentation.di.component.PresenterComponent;
 import com.khalturin.dmitriy.presentation.di.module.ApplicationContextModule;
 import com.khalturin.dmitriy.presentation.di.module.NavigatorModule;
-import com.khalturin.dmitriy.presentation.di.module.PresenterModule;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -23,7 +21,6 @@ public final class Injector {
   private static Injector sInstance = new Injector();
 
   private static AppComponent sAppComponent;
-  private static PresenterComponent sPresenterComponent;
 
 //==================================================================================================
 //    Class Methods
@@ -42,18 +39,6 @@ public final class Injector {
 
   public AppComponent getAppComponent(){
     return sAppComponent;
-  }
-
-  public synchronized PresenterComponent getPresenterComponent(){
-    if(sPresenterComponent == null){
-      sPresenterComponent = sAppComponent.getPresenterComponent(new PresenterModule());
-    }
-
-    return sPresenterComponent;
-  }
-
-  public synchronized void clearPresenterComponent(){
-    sPresenterComponent = null;
   }
 
 }

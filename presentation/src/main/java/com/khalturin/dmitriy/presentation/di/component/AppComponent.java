@@ -1,6 +1,6 @@
 package com.khalturin.dmitriy.presentation.di.component;
 
-import com.khalturin.dmitriy.presentation.di.module.ApplicationContextModule;
+import com.khalturin.dmitriy.presentation.di.module.AppModule;
 import com.khalturin.dmitriy.presentation.di.module.NavigatorModule;
 import com.khalturin.dmitriy.presentation.presenter.FeedPresenter;
 
@@ -15,7 +15,7 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {
-  ApplicationContextModule.class, NavigatorModule.class
+  AppModule.class, NavigatorModule.class
 })
 public interface AppComponent {
 

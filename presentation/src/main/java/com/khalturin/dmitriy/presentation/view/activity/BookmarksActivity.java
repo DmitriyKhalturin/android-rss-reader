@@ -1,6 +1,5 @@
 package com.khalturin.dmitriy.presentation.view.activity;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,11 +10,14 @@ import android.support.v7.widget.RecyclerView;
 
 import com.khalturin.dmitriy.presentation.BR;
 import com.khalturin.dmitriy.presentation.R;
+import com.khalturin.dmitriy.presentation.RssApplication;
 import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.databinding.ActivityBookmarksBinding;
 import com.khalturin.dmitriy.presentation.presenter.BookmarksPresenter;
 import com.khalturin.dmitriy.presentation.viewmodel.bookmark.FeedViewModel;
+
+import javax.inject.Inject;
 
 import static com.khalturin.dmitriy.presentation.view.SupportActionBar.setChildActionBar;
 
@@ -27,6 +29,13 @@ import static com.khalturin.dmitriy.presentation.view.SupportActionBar.setChildA
 public class BookmarksActivity extends AppCompatActivity {
 
 //==================================================================================================
+//    Class Variables
+//==================================================================================================
+
+  @Inject
+  BookmarksPresenter mPresenter;
+
+//==================================================================================================
 //    Class Callbacks
 //==================================================================================================
 
@@ -36,10 +45,12 @@ public class BookmarksActivity extends AppCompatActivity {
     ActivityBookmarksBinding binding = DataBindingUtil
       .setContentView(this, R.layout.activity_bookmarks);
 
-    BookmarksPresenter presenter = ViewModelProviders.of(this).get(BookmarksPresenter.class);
+    RssApplication.getInjector()
+      .getPresenterComponent(this)
+      .inject(this);
 
-    bindPresenter(binding, presenter);
-    setupPresenter(presenter);
+    bindPresenter(binding, mPresenter);
+    setupPresenter(mPresenter);
 
     setChildActionBar(this, R.id.toolbar);
   }

@@ -1,6 +1,5 @@
 package com.khalturin.dmitriy.presentation.view.activity;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -8,8 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.khalturin.dmitriy.presentation.R;
+import com.khalturin.dmitriy.presentation.RssApplication;
 import com.khalturin.dmitriy.presentation.databinding.ActivityNewsBinding;
 import com.khalturin.dmitriy.presentation.presenter.NewsPresenter;
+
+import javax.inject.Inject;
 
 import static com.khalturin.dmitriy.presentation.view.SupportActionBar.setChildActionBar;
 
@@ -27,6 +29,9 @@ public class NewsActivity extends AppCompatActivity {
   public static final String NEWS_ID = "NEWS_ID";
   public static final long DEFAULT_NEWS_ID = -1;
 
+  @Inject
+  NewsPresenter mPresenter;
+
 //==================================================================================================
 //    Class Callbacks
 //==================================================================================================
@@ -37,10 +42,12 @@ public class NewsActivity extends AppCompatActivity {
     ActivityNewsBinding binding = DataBindingUtil
       .setContentView(this, R.layout.activity_news);
 
-    NewsPresenter presenter = ViewModelProviders.of(this).get(NewsPresenter.class);
+    RssApplication.getInjector()
+      .getPresenterComponent(this)
+      .inject(this);
 
-    bindPresenter(binding, presenter);
-    setupPresenter(presenter);
+    bindPresenter(binding, mPresenter);
+    setupPresenter(mPresenter);
 
     setChildActionBar(this, R.id.toolbar);
   }

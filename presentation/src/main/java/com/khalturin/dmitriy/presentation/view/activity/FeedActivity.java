@@ -14,13 +14,14 @@ import android.view.MenuItem;
 import com.khalturin.dmitriy.presentation.BR;
 import com.khalturin.dmitriy.presentation.R;
 import com.khalturin.dmitriy.presentation.RssApplication;
-import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
-import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.databinding.ActivityFeedBinding;
 import com.khalturin.dmitriy.presentation.presenter.FeedPresenter;
 import com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel;
 
 import javax.inject.Inject;
+
+import dmitriy.khalturin.com.view.recycler.binding.RecyclerManager;
+import dmitriy.khalturin.com.view.recycler.binding.adapter.BindingRecyclerAdapter;
 
 import static com.khalturin.dmitriy.presentation.view.SupportActionBar.setRootActionBar;
 

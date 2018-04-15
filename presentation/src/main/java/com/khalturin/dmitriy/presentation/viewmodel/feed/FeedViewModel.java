@@ -2,12 +2,12 @@ package com.khalturin.dmitriy.presentation.viewmodel.feed;
 
 import android.databinding.ObservableField;
 
-import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
-import com.khalturin.dmitriy.presentation.binding.recycler.adapter.BindingRecyclerAdapter;
 import com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel;
 
 import java.util.List;
 
+import dmitriy.khalturin.com.view.recycler.binding.RecyclerManager;
+import dmitriy.khalturin.com.view.recycler.binding.adapter.BindingRecyclerAdapter;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 

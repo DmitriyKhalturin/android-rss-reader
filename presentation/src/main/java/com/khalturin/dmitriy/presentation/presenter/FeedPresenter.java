@@ -6,13 +6,14 @@ import android.arch.lifecycle.ViewModel;
 import android.os.Handler;
 
 import com.khalturin.dmitriy.presentation.RssApplication;
-import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.navigator.Navigator;
 import com.khalturin.dmitriy.presentation.viewmodel.feed.FeedViewModel;
 import com.khalturin.dmitriy.presentation.viewmodel.feed.RssUrlViewModel;
 import com.khalturin.dmitriy.presentation.viewmodel.feed.SwipeRefreshViewModel;
 
 import javax.inject.Inject;
+
+import dmitriy.khalturin.com.view.recycler.binding.RecyclerManager;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>

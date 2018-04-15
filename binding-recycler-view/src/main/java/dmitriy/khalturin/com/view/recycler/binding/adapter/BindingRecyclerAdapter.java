@@ -1,4 +1,4 @@
-package com.khalturin.dmitriy.presentation.binding.recycler.adapter;
+package dmitriy.khalturin.com.view.recycler.binding.adapter;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
- * for android-rss-reader on 25.03.18 21:58.
+ * for android-binding-recycler-view on 14.04.18 19:13.
  */
 
 public class BindingRecyclerAdapter<T> extends RecyclerView.Adapter<BindingViewHolder> {

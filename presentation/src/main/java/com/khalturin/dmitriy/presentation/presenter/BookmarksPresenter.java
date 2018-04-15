@@ -4,8 +4,9 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.khalturin.dmitriy.presentation.binding.recycler.RecyclerManager;
 import com.khalturin.dmitriy.presentation.viewmodel.bookmark.BookmarksViewModel;
+
+import dmitriy.khalturin.com.view.recycler.binding.RecyclerManager;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>

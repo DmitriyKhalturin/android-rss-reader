@@ -1,10 +1,10 @@
-package com.khalturin.dmitriy.presentation.binding.recycler;
+package dmitriy.khalturin.com.view.recycler.binding;
 
 import android.support.v7.widget.RecyclerView;
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
- * for android-rss-reader on 26.03.18 16:02.
+ * for android-binding-recycler-view on 14.04.18 19:13.
  */
 
 public final class RecyclerManager {

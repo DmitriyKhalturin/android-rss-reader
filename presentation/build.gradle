@@ -49,6 +49,7 @@ dependencies {
   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
   compile project(':domain')
+  compile project(':binding-recycler-view')
 
   implementation 'com.android.support:appcompat-v7:27.1.1'
   implementation 'com.android.support:support-v4:27.1.1'

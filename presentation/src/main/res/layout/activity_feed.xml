@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:bind="http://schemas.android.com/tools">
 
   <data>
@@ -22,8 +24,6 @@
   </data>
 
   <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -46,7 +46,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
@@ -72,7 +72,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height__input_block"
         android:orientation="horizontal"
-        android:layout_margin="@dimen/margin__input_block"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="@dimen/margin__input_block"
+        android:layout_marginStart="@dimen/margin__input_block"
+        android:layout_marginTop="@dimen/margin__input_block"
+        android:visibility="gone"
         android:background="@android:drawable/editbox_dropdown_light_frame"
         bind:floatingViewVisibility="@{rssUrlViewModel.isVisible}">
 
@@ -131,7 +137,7 @@
 
       </com.khalturin.dmitriy.presentation.view.layout.RssUrlLayout>
 
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 
   </LinearLayout>
 

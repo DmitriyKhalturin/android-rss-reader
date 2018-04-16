@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:bind="http://schemas.android.com/tools">
+<layout
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:bind="http://schemas.android.com/tools">
 
   <data>
 
@@ -11,8 +14,6 @@
   </data>
 
   <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -35,45 +36,54 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:orientation="vertical">
 
-      <LinearLayout
-        android:layout_width="match_parent"
+      <ImageView
+        android:id="@+id/search_icon"
+        android:layout_width="@dimen/width__input_block_control"
         android:layout_height="@dimen/height__input_block"
-        android:orientation="horizontal"
-        android:layout_margin="@dimen/margin__input_block">
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/margin__input_block"
+        android:layout_marginTop="@dimen/margin__input_block"
+        android:padding="@dimen/padding__input_block_control"
+        android:src="@drawable/ic_search"
+        android:tint="@color/colorInputIcon"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        />
 
-        <ImageView
-          android:id="@+id/search_icon"
-          android:layout_width="@dimen/width__input_block_control"
-          android:layout_height="match_parent"
-          android:contentDescription="@null"
-          android:padding="@dimen/padding__input_block_control"
-          android:src="@drawable/ic_search"
-          android:tint="@color/colorInputIcon"
-          android:adjustViewBounds="true"
-          android:scaleType="fitCenter"/>
-
-        <EditText
-          android:id="@+id/search_input"
-          android:layout_width="0dp"
-          android:layout_height="match_parent"
-          android:layout_weight="1"
-          android:inputType="text"
-          android:text="@={bookmarksViewModel.searchFeedText}"/>
-
-      </LinearLayout>
+      <EditText
+        android:id="@+id/search_input"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height__input_block"
+        android:layout_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="@dimen/margin__input_block"
+        android:paddingStart="@dimen/width__input_block_control"
+        android:paddingEnd="0dp"
+        android:inputType="text"
+        android:text="@={bookmarksViewModel.searchFeedText}"
+        />
 
       <android.support.v7.widget.RecyclerView
         android:id="@+id/bookmarks_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        bind:recyclerManager="@{bookmarksViewModel.recyclerManager}"/>
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/search_input"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/margin__input_block"
+        bind:recyclerManager="@{bookmarksViewModel.recyclerManager}" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
   </LinearLayout>
 

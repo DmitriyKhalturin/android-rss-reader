@@ -76,7 +76,7 @@ public class BookmarksActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
     RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
     BindingRecyclerAdapter<FeedViewModel> adapter =
-      new BindingRecyclerAdapter(R.layout.bookmark_card_view, null, BR.feedViewModel);
+      new BindingRecyclerAdapter(R.layout.view_bookmark_card, null, BR.feedViewModel);
 
     recyclerManager.setLayoutManager(layoutManager);
     recyclerManager.setItemAnimator(itemAnimator);

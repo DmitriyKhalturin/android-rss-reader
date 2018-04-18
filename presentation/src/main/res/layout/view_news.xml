@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <data>
+
+    <variable
+      name="newsViewModel"
+      type="com.khalturin.dmitriy.presentation.viewmodel.news.NewsViewModel"
+      />
+
+  </data>
+
+  <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+      android:id="@+id/news_image"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height__card_view"
+      android:contentDescription="@null"
+      app:layout_constraintTop_toTopOf="parent"
+      android:scaleType="centerCrop"
+      android:src="@{newsViewModel.image}"
+      />
+
+    <TextView
+      android:id="@+id/news_date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      android:padding="@dimen/padding_middle__card_view_content"
+      android:elevation="@dimen/elevation__card_view_content"
+      android:background="@drawable/bg_card_view_date"
+      android:text="@{newsViewModel.date}"
+      />
+
+    <TextView
+      android:id="@+id/news_title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toBottomOf="@+id/news_image"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      android:paddingTop="@dimen/padding_middle__card_view_content"
+      android:paddingStart="@dimen/padding_high__card_view_content"
+      android:paddingEnd="@dimen/padding_high__card_view_content"
+      android:textSize="@dimen/text_size__card_view_big_title"
+      android:text="@{newsViewModel.title}"
+      />
+
+    <TextView
+      android:id="@+id/news_description"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toBottomOf="@+id/news_title"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      android:padding="@dimen/padding_middle__card_view_content"
+      android:paddingStart="@dimen/padding_high__card_view_content"
+      android:paddingEnd="@dimen/padding_high__card_view_content"
+      android:text="@{newsViewModel.description}"
+      />
+
+  </android.support.constraint.ConstraintLayout>
+
+</layout>

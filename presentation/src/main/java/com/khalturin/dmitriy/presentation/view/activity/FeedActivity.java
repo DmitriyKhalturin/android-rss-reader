@@ -110,7 +110,7 @@ public class FeedActivity extends AppCompatActivity {
     RecyclerManager recyclerManager = new RecyclerManager();
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
     RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
-    BindingRecyclerAdapter<NewsViewModel> adapter = new BindingRecyclerAdapter(R.layout.view_feed_card, null, BR.newsViewModel);
+    BindingRecyclerAdapter<NewsViewModel> adapter = new BindingRecyclerAdapter(R.layout.card_view_feed, null, BR.newsViewModel);
 
     recyclerManager.setLayoutManager(layoutManager);
     recyclerManager.setItemAnimator(itemAnimator);

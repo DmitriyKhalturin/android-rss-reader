@@ -72,8 +72,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height__input_block"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginEnd="@dimen/margin__input_block"
         android:layout_marginStart="@dimen/margin__input_block"

@@ -98,6 +98,8 @@ public class FeedPresenter extends ViewModel {
 
   public void setRecyclerManager(RecyclerManager recyclerManager){
     getFeedViewModel().recyclerManager.set(recyclerManager);
+
+    // TODO: load rs feed
   }
 
   public void setActionsListeners(){

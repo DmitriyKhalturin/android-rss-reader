@@ -58,6 +58,8 @@ public class BookmarksPresenter extends ViewModel {
 
   public void setRecyclerManager(RecyclerManager recyclerManager){
     getBookmarksViewModel().recyclerManager.set(recyclerManager);
+
+    // TODO: load bookmarks list
   }
 
   public void setActionsListeners(){

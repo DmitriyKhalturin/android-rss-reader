@@ -8,12 +8,12 @@
 
     <variable
       name="bookmarksViewModel"
-      type="com.khalturin.dmitriy.rssreader.viewmodel.bookmark.BookmarksViewModel"
+      type="com.khalturin.dmitriy.rssreader.view.viewmodel.bookmark.BookmarksViewModel"
       />
 
     <variable
       name="feedViewModel"
-      type="com.khalturin.dmitriy.rssreader.viewmodel.bookmark.FeedViewModel"
+      type="com.khalturin.dmitriy.rssreader.view.viewmodel.bookmark.FeedViewModel"
       />
 
   </data>

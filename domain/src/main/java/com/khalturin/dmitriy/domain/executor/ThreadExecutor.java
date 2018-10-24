@@ -9,7 +9,4 @@ import io.reactivex.Scheduler;
  * for android-rss-reader on 24.10.18 20:48.
  */
 public interface ThreadExecutor extends Executor {
-
-  Scheduler getScheduler();
-
 }

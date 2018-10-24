@@ -8,17 +8,17 @@
 
     <variable
       name="swipeRefreshViewModel"
-      type="com.khalturin.dmitriy.rssreader.viewmodel.feed.SwipeRefreshViewModel"
+      type="com.khalturin.dmitriy.rssreader.view.viewmodel.feed.SwipeRefreshViewModel"
       />
 
     <variable
       name="feedViewModel"
-      type="com.khalturin.dmitriy.rssreader.viewmodel.feed.FeedViewModel"
+      type="com.khalturin.dmitriy.rssreader.view.viewmodel.feed.FeedViewModel"
       />
 
     <variable
       name="rssUrlViewModel"
-      type="com.khalturin.dmitriy.rssreader.viewmodel.feed.RssUrlViewModel"
+      type="com.khalturin.dmitriy.rssreader.view.viewmodel.feed.RssUrlViewModel"
       />
 
   </data>

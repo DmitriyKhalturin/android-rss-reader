@@ -8,12 +8,12 @@
 
     <variable
       name="feedViewModel"
-      type="com.khalturin.dmitriy.rssreader.viewmodel.feed.FeedViewModel"
+      type="com.khalturin.dmitriy.rssreader.view.viewmodel.feed.FeedViewModel"
       />
 
     <variable
       name="newsViewModel"
-      type="com.khalturin.dmitriy.rssreader.viewmodel.news.NewsViewModel"
+      type="com.khalturin.dmitriy.rssreader.view.viewmodel.news.NewsViewModel"
       />
 
   </data>

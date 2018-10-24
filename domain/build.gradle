@@ -1,7 +1,13 @@
-apply plugin: 'java'
+apply plugin: "java-library"
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+def globalConfiguration = rootProject.extensions.getByName("ext")
 
 dependencies {
+  implementation fileTree(dir: "libs", include: ["*.jar"])
+
+  implementation "io.reactivex.rxjava2:rxjava:${globalConfiguration.getAt("rxJavaVersion")}"
+  implementation "javax.inject:javax.inject:1"
 }

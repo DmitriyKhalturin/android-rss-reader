@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  >
+
+  <data>
+
+    <variable
+      name="bookmarksViewModel"
+      type="com.khalturin.dmitriy.rssreader.viewmodel.bookmark.BookmarksViewModel"
+      />
+
+    <variable
+      name="feedViewModel"
+      type="com.khalturin.dmitriy.rssreader.viewmodel.bookmark.FeedViewModel"
+      />
+
+  </data>
+
+  <android.support.constraint.ConstraintLayout
+    android:id="@+id/bookmark_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+      android:id="@+id/bookmark_url"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toTopOf="parent"
+      android:background="@drawable/bg_card_view_content"
+      android:elevation="@dimen/elevation__card_view_content"
+      android:ellipsize="end"
+      android:lines="1"
+      android:padding="@dimen/padding_middle__card_view_content"
+      android:text="@{feedViewModel.url}"
+      android:textColor="@color/colorCardViewUrl"
+      android:textSize="@dimen/text_size__card_view_url"
+      />
+
+    <ImageView
+      android:id="@+id/bookmark_image"
+      android:layout_width="@dimen/size__card_view_image"
+      android:layout_height="@dimen/size__card_view_image"
+      app:layout_constraintTop_toBottomOf="@+id/bookmark_url"
+      app:layout_constraintStart_toStartOf="parent"
+      android:contentDescription="@null"
+      android:scaleType="centerCrop"
+      android:src="@{feedViewModel.image}"
+      />
+
+    <TextView
+      android:id="@+id/bookmark_title"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toBottomOf="@+id/bookmark_url"
+      app:layout_constraintStart_toEndOf="@id/bookmark_image"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginTop="@dimen/padding_low__card_view_content"
+      android:layout_marginStart="@dimen/padding_high__card_view_content"
+      android:layout_marginEnd="@dimen/padding_high__card_view_content"
+      android:ellipsize="end"
+      android:maxLines="2"
+      android:text="@{feedViewModel.title}"
+      android:textSize="@dimen/text_size__card_view_small_title"
+      />
+
+    <TextView
+      android:id="@+id/bookmark_author_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toBottomOf="@+id/bookmark_title"
+      app:layout_constraintStart_toEndOf="@id/bookmark_image"
+      android:layout_marginStart="@dimen/padding_high__card_view_content"
+      android:paddingEnd="@dimen/padding_middle__card_view_content"
+      android:paddingStart="0dp"
+      android:text="@string/label__author"
+      />
+
+    <TextView
+      android:id="@+id/bookmark_author"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toBottomOf="@+id/bookmark_title"
+      app:layout_constraintStart_toEndOf="@+id/bookmark_author_label"
+      android:layout_marginEnd="@dimen/padding_high__card_view_content"
+      android:text="@{feedViewModel.author}"
+      app:layout_constraintEnd_toEndOf="parent"
+      />
+
+    <TextView
+      android:id="@+id/bookmark_last_update_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toBottomOf="@+id/bookmark_author"
+      app:layout_constraintStart_toEndOf="@+id/bookmark_image"
+      android:layout_marginStart="@dimen/padding_high__card_view_content"
+      android:paddingEnd="@dimen/padding_middle__card_view_content"
+      android:paddingStart="0dp"
+      android:text="@string/label__last_update"
+      />
+
+    <TextView
+      android:id="@+id/bookmark_last_update"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toBottomOf="@+id/bookmark_author"
+      app:layout_constraintStart_toEndOf="@+id/bookmark_last_update_label"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginEnd="@dimen/padding_high__card_view_content"
+      android:text="@{feedViewModel.lastUpdate}"
+      />
+
+    <TextView
+      android:id="@+id/bookmark_description"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height__card_view_description"
+      app:layout_constraintTop_toBottomOf="@+id/bookmark_image"
+      android:padding="@dimen/padding_high__card_view_content"
+      android:lines="4"
+      android:text="@{feedViewModel.description}"
+      />
+
+    <ImageButton
+      android:id="@+id/bookmark_load_button"
+      android:layout_width="@dimen/size__card_view_button"
+      android:layout_height="@dimen/size__card_view_button"
+      android:contentDescription="@null"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/bookmark_delete_button"
+      android:padding="@dimen/padding__input_block_control"
+      android:src="@drawable/ic_load"
+      android:tint="@color/colorInputIcon"
+      android:background="@drawable/bg_card_view_content"
+      android:adjustViewBounds="true"
+      android:scaleType="fitCenter"
+      android:onClick="@{() -> bookmarksViewModel.loadFeed(feedViewModel.id)}"
+      />
+
+    <ImageButton
+      android:id="@+id/bookmark_delete_button"
+      android:layout_width="@dimen/size__card_view_button"
+      android:layout_height="@dimen/size__card_view_button"
+      android:contentDescription="@null"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:padding="@dimen/padding__input_block_control"
+      android:src="@drawable/ic_delete"
+      android:tint="@color/colorInputIcon"
+      android:background="@drawable/bg_card_view_content"
+      android:adjustViewBounds="true"
+      android:scaleType="fitCenter"
+      android:onClick="@{() -> bookmarksViewModel.deleteFeed(feedViewModel.id)}"
+      />
+
+  </android.support.constraint.ConstraintLayout>
+
+</layout>

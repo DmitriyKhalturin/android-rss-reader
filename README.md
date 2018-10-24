@@ -11,15 +11,11 @@ JRE: 1.8
 
 # Uses technologies and plugins
 
-Retrolambda [https://github.com/evant/gradle-retrolambda]
-
 RxJava [https://github.com/ReactiveX/RxJava]
 
 RxAndroid [https://github.com/ReactiveX/RxAndroid]
 
 Butterknife [http://jakewharton.github.io/butterknife/]
-
-Realm [https://realm.io/docs/java/latest/]
 
 For parsing rss feed used library [https://github.com/einmalfel/Earl]
 

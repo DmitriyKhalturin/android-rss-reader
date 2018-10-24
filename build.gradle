@@ -2,12 +2,12 @@
 
 buildscript {
   repositories {
-    jcenter()
     google()
+    jcenter()
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.0.1'
+    classpath 'com.android.tools.build:gradle:3.1.4'
 
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
@@ -16,19 +16,34 @@ buildscript {
 
 allprojects {
   ext {
-    androidApplicationId = 'com.khalturin.dmitriy'
     androidVersionCode = 0
     androidVersionName = '0.0.0'
 
     androidBuildToolsVersion = '27.0.3'
+
     androidMinSdkVersion = 19
     androidTargetSdkVersion = 27
-    androidCompileSdkVersion = 27
+
+    supportLibraryVersion = "27.1.1"
+    constraintLayoutVersion = "1.1.3"
+
+    rxJavaVersion = "2.2.2"
+    rxAndroidVersion = "2.1.0"
+  }
+
+  gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+      options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    }
   }
 
   repositories {
-    jcenter()
     google()
+    jcenter()
+
+    maven {
+      url "https://jitpack.io"
+    }
   }
 }
 

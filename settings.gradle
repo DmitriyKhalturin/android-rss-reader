@@ -1,4 +1,1 @@
-include ':presentation'
-include ':data'
-include ':domain'
-include ':binding-recycler-view'
+include ":rssreader", ":library", ":data", ":domain"

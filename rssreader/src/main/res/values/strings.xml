@@ -1,9 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">RSS Reader</string>
-
-    <string name="menu_action__add_news">Add RSS feed</string>
-    <string name="menu_action__bookmarks">Bookmarks</string>
-
-    <string name="label__author">Author:</string>
-    <string name="label__last_update">Last update:</string>
+  <string name="app_name">Rss Reader</string>
 </resources>

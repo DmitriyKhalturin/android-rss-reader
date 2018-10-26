@@ -1,6 +1,5 @@
-apply plugin: "com.android.application"
+apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
-apply plugin: "kotlin-android-extensions"
 apply plugin: "kotlin-kapt"
 
 android {
@@ -8,8 +7,6 @@ android {
   buildToolsVersion "$androidBuildToolsVersion"
 
   defaultConfig {
-    applicationId "com.khalturin.dmitriy.rssreader"
-
     minSdkVersion androidMinSdkVersion
     targetSdkVersion androidTargetSdkVersion
 
@@ -18,7 +15,11 @@ android {
 
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-    vectorDrawables.useSupportLibrary = true
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+      }
+    }
   }
 
   sourceSets {
@@ -33,10 +34,6 @@ android {
 
     debug {
     }
-  }
-
-  dataBinding {
-    enabled = true
   }
 
   compileOptions {
@@ -59,21 +56,15 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 
   implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
-  implementation "com.android.support:support-v4:$supportLibraryVersion"
-  implementation "com.android.support:design:$supportLibraryVersion"
-  implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
 
-  // ViewModel and LiveData
-  api "android.arch.lifecycle:extensions:1.1.0"
-  api "android.arch.lifecycle:reactivestreams:1.1.0"
-  kapt "android.arch.lifecycle:compiler:1.1.0"
+  api "android.arch.persistence.room:runtime:1.1.1"
+  kapt "android.arch.persistence.room:compiler:1.1.1"
+  api "android.arch.persistence.room:rxjava2:1.1.1"
 
-  implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
   implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+  implementation "javax.inject:javax.inject:1"
 
-  implementation "com.google.dagger:dagger:2.15"
-  kapt "com.google.dagger:dagger-compiler:2.15"
+  implementation "com.prof.rssparser:rssparser:1.4.4"
 
   implementation project(":domain")
-  implementation project(':repository')
 }

@@ -1,1 +1,1 @@
-include ":rssreader", ":library", ":data", ":domain"
+include ":rssreader", ":domain", ":repository", ":library"

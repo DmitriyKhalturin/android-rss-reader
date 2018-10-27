@@ -11,13 +11,16 @@ import javax.inject.Inject
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
  * for android-rss-reader on 26.10.18 0:25.
  */
-
-const val CORE_POOL_SIZE = 3
-const val MAX_POOL_SIZE = 5
-const val KEEP_ALIVE_TIME = 10L
-const val THREAD_NAME_PREFIX = "job_executor_"
-
 class JobExecutor @Inject constructor() : ThreadExecutor {
+
+  companion object {
+
+    private const val CORE_POOL_SIZE = 5
+    private const val MAX_POOL_SIZE = 10
+    private const val KEEP_ALIVE_TIME = 10L
+    private const val THREAD_NAME_PREFIX = "job_executor_"
+
+  }
 
   private val mThreadPoolExecutor = ThreadPoolExecutor(
     CORE_POOL_SIZE,
@@ -28,11 +31,11 @@ class JobExecutor @Inject constructor() : ThreadExecutor {
     JobThreadFactory()
   )
 
-  override fun execute(command: Runnable) = mThreadPoolExecutor.execute(command)
+  override fun execute(runnable: Runnable) = mThreadPoolExecutor.execute(runnable)
 
   private class JobThreadFactory : ThreadFactory {
 
-    override fun newThread(r: Runnable) = Thread(r, getThreadName())
+    override fun newThread(runnable: Runnable) = Thread(runnable, getThreadName())
 
     private var mCounter = 0
 

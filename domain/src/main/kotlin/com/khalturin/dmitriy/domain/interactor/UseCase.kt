@@ -22,7 +22,7 @@ abstract class UseCase<T, Params>(
     .subscribeOn(Schedulers.from(mThreadExecutor))
     .observeOn(mPostExecutionThread.getScheduler())
 
-  val mDisposables = CompositeDisposable()
+  private val mDisposables = CompositeDisposable()
 
   fun execute(observer: DisposableObserver<T>, params: Params) {
     mDisposables.add(

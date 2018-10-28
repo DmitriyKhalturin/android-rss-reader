@@ -15,5 +15,6 @@ data class Article(
   var image: String,
   var link: String,
   var publicationDate: Date,
-  var categories: List<String>
+  var categories: List<String>,
+  var isWasRead: Boolean
 )

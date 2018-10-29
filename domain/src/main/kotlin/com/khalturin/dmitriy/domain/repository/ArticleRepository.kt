@@ -9,8 +9,8 @@ import io.reactivex.Observable
  */
 interface ArticleRepository {
 
-  fun getArticlesList(feedId: Long): Observable<List<Article>>
-  fun updateArticlesList(feedId: Long): Observable<Boolean>
+  fun getArticlesList(): Observable<List<Article>>
+  fun updateArticlesList(): Observable<Boolean>
   fun getArticle(articleId: Long): Observable<Article>
 
 }

@@ -13,8 +13,8 @@ class UpdateArticlesList @Inject constructor(
   private val mRepository: ArticleRepository,
   mThreadExecutor: ThreadExecutor,
   mPostExecutionThread: PostExecutionThread
-) : UseCase<Boolean, Long>(mThreadExecutor, mPostExecutionThread) {
+) : UseCase<Boolean, Void>(mThreadExecutor, mPostExecutionThread) {
 
-  override fun buildUseCaseObservable(params: Long) = mRepository.updateArticlesList(params)
+  override fun buildUseCaseObservable(params: Void) = mRepository.updateArticlesList()
 
 }

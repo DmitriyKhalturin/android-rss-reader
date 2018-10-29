@@ -8,7 +8,7 @@ import java.util.*
  * for android-rss-reader on 27.10.18 21:53.
  */
 @Entity(
-  tableName = "article",
+  tableName = "articles",
   foreignKeys = [
     ForeignKey(
       entity = FeedEntity::class,
@@ -24,33 +24,36 @@ data class ArticleEntity(
 
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "id")
-  val mId: Long,
+  val mId: Long?,
 
   @ColumnInfo(name = "feed_id")
   val mFeedId: Long,
 
   @ColumnInfo(name = "title")
-  val title: String,
+  val mTitle: String,
 
   @ColumnInfo(name = "author")
-  val author: String,
+  val mAuthor: String,
 
   @ColumnInfo(name = "description")
-  val description: String,
+  val mDescription: String,
 
   @ColumnInfo(name = "content")
-  val content: String,
+  val mContent: String,
 
   @ColumnInfo(name = "image")
-  val image: String,
+  val mImage: String,
 
   @ColumnInfo(name = "link")
-  val link: String,
+  val mLink: String,
 
   @ColumnInfo(name = "publication_date")
-  val publicationDate: Date,
+  val mPublicationDate: Date,
 
   @ColumnInfo(name = "categories")
-  val categories: List<String>
+  val mCategories: List<String>,
+
+  @ColumnInfo(name = "is_was_read")
+  var mIsWasRead: Boolean = false
 
 )

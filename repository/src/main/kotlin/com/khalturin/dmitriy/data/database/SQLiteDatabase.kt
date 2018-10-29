@@ -5,11 +5,14 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
-import com.khalturin.dmitriy.data.database.converter.FieldConverter
+import com.khalturin.dmitriy.data.database.converter.DateConverter
+import com.khalturin.dmitriy.data.database.converter.ListStringConverter
 import com.khalturin.dmitriy.data.database.dao.ArticleDao
 import com.khalturin.dmitriy.data.database.dao.FeedDao
+import com.khalturin.dmitriy.data.database.dao.SettingsDao
 import com.khalturin.dmitriy.data.database.entity.ArticleEntity
 import com.khalturin.dmitriy.data.database.entity.FeedEntity
+import com.khalturin.dmitriy.data.database.entity.SettingsEntity
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -23,11 +26,13 @@ const val DATABASE_NAME = "sqlite.db"
   exportSchema = false,
   entities = [
     FeedEntity::class,
-    ArticleEntity::class
+    ArticleEntity::class,
+    SettingsEntity::class
   ]
 )
 @TypeConverters(
-  FieldConverter::class
+  DateConverter::class,
+  ListStringConverter::class
 )
 abstract class SQLiteDatabase : RoomDatabase() {
 
@@ -54,5 +59,6 @@ abstract class SQLiteDatabase : RoomDatabase() {
 
   abstract fun feedDao(): FeedDao
   abstract fun articleDao(): ArticleDao
+  abstract fun settingsDao(): SettingsDao
 
 }

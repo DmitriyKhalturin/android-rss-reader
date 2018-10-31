@@ -11,8 +11,10 @@ class RssReaderApplication : Application() {
 
   companion object {
 
+    @JvmStatic
     private val sInjector = Injector.getsInstance()
 
+    @JvmStatic
     fun getInjector() = sInjector
 
   }

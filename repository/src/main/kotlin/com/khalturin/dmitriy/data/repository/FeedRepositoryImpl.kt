@@ -18,9 +18,9 @@ import javax.inject.Inject
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
  * for android-rss-reader on 28.10.18 20:38.
  */
-class FeedRepositoryImpl @Inject constructor(context: Context) : FeedRepository {
+class FeedRepositoryImpl @Inject constructor(mContext: Context) : FeedRepository {
 
-  private val database: SQLiteDatabase = SQLiteDatabase.getInstance(context)!!
+  private val database: SQLiteDatabase = SQLiteDatabase.getInstance(mContext) !!
   private val feedDao = database.feedDao()
   private val articleDao = database.articleDao()
   private val settingsDao = database.settingsDao()

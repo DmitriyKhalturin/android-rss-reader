@@ -8,6 +8,7 @@ import com.khalturin.dmitriy.rssreader.di.component.DaggerPresenterComponent
 import com.khalturin.dmitriy.rssreader.di.module.ApplicationModule
 import com.khalturin.dmitriy.rssreader.di.module.PresenterModule
 import com.khalturin.dmitriy.rssreader.di.module.RepositoryModule
+import com.khalturin.dmitriy.rssreader.di.module.StateModule
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86></dmitry.halturin.86>@gmail.com>
@@ -33,7 +34,8 @@ class Injector {
       .builder()
       .applicationModule(ApplicationModule(application))
       .repositoryModule(RepositoryModule())
-      .build()
+      .stateModule(StateModule())
+      .build() !!
   }
 
   fun getsApplicationComponent() = sAppComponent
@@ -41,6 +43,6 @@ class Injector {
   fun getPresenterComponent(activity: FragmentActivity) = DaggerPresenterComponent
     .builder()
     .presenterModule(PresenterModule(activity))
-    .build()
+    .build() !!
 
 }

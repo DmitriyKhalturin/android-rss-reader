@@ -2,6 +2,13 @@ package com.khalturin.dmitriy.rssreader.di.component
 
 import com.khalturin.dmitriy.rssreader.di.module.ApplicationModule
 import com.khalturin.dmitriy.rssreader.di.module.RepositoryModule
+import com.khalturin.dmitriy.rssreader.di.module.StateModule
+import com.khalturin.dmitriy.rssreader.presenter.ArticlePresenter
+import com.khalturin.dmitriy.rssreader.presenter.BookmarksPresenter
+import com.khalturin.dmitriy.rssreader.presenter.FeedPresenter
+import com.khalturin.dmitriy.rssreader.view.activity.ArticleActivity
+import com.khalturin.dmitriy.rssreader.view.activity.BookmarksActivity
+import com.khalturin.dmitriy.rssreader.view.activity.FeedActivity
 import dagger.Component
 import javax.inject.Singleton
 
@@ -13,7 +20,14 @@ import javax.inject.Singleton
 @Component(
   modules = [
     ApplicationModule::class,
-    RepositoryModule::class
+    RepositoryModule::class,
+    StateModule::class
   ]
 )
-interface ApplicationComponent
+interface ApplicationComponent {
+
+  fun inject(presenter: FeedPresenter)
+  fun inject(presenter: ArticlePresenter)
+  fun inject(presenter: BookmarksPresenter)
+
+}

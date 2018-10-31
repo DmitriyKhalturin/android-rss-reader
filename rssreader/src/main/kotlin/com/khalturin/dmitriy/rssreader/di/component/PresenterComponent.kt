@@ -2,6 +2,9 @@ package com.khalturin.dmitriy.rssreader.di.component
 
 import com.khalturin.dmitriy.rssreader.di.PerPresenter
 import com.khalturin.dmitriy.rssreader.di.module.PresenterModule
+import com.khalturin.dmitriy.rssreader.view.activity.ArticleActivity
+import com.khalturin.dmitriy.rssreader.view.activity.BookmarksActivity
+import com.khalturin.dmitriy.rssreader.view.activity.FeedActivity
 import dagger.Component
 
 /**
@@ -14,4 +17,10 @@ import dagger.Component
     PresenterModule::class
   ]
 )
-interface PresenterComponent
+interface PresenterComponent {
+
+  fun inject(activity: FeedActivity)
+  fun inject(activity: ArticleActivity)
+  fun inject(activity: BookmarksActivity)
+
+}

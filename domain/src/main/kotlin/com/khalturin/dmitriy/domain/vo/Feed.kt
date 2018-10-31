@@ -7,7 +7,7 @@ import java.util.*
  * for android-rss-reader on 25.10.18 23:37.
  */
 data class Feed(
-  var id: Long,
-  var url: String,
-  var lastUpdateDate: Date
+  var mId: Long,
+  var mUrl: String,
+  var mLastUpdateDate: Date
 )

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <data>
+    <variable
+      name="cardFeed"
+      type="com.khalturin.dmitriy.rssreader.view.viewmodel.CardFeedViewModel"
+      />
+  </data>
+
+  <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <TextView
+      android:id="@+id/url"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      android:layout_marginStart="15dp"
+      android:layout_marginEnd="15dp"
+      android:text="@{cardFeed.mUrl}"
+      android:lines="1"
+      android:ellipsize="end"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toTopOf="@+id/last_update_date_label"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      />
+
+    <TextView
+      android:id="@+id/last_update_date_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginStart="15dp"
+      android:layout_marginEnd="5dp"
+      android:text="@string/label__last_update_date"
+      app:layout_constraintTop_toBottomOf="@+id/url"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/last_update_date"
+      />
+
+    <TextView
+      android:id="@+id/last_update_date"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="@{cardFeed.mLastUpdateDate}"
+      app:layout_constraintTop_toTopOf="@+id/last_update_date_label"
+      app:layout_constraintBottom_toBottomOf="@+id/last_update_date_label"
+      app:layout_constraintStart_toEndOf="@id/last_update_date_label"
+      app:layout_constraintEnd_toEndOf="parent"
+      />
+
+  </android.support.constraint.ConstraintLayout>
+
+</layout>

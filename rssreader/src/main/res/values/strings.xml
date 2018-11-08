@@ -6,4 +6,10 @@
 
   <string name="activity_title__Feed">Feed</string>
   <string name="activity_title__bookmarks">Bookmarks</string>
+
+  <string name="hint__rss_url">Rss url</string>
+
+  <string name="label__author">Author:</string>
+  <string name="label__publication_date">Publication date:</string>
+  <string name="label__last_update_date">Last update date:</string>
 </resources>

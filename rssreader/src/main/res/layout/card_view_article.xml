@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <data>
+    <variable
+      name="cardArticle"
+      type="com.khalturin.dmitriy.rssreader.view.viewmodel.CardArticleViewModel"
+      />
+  </data>
+
+  <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+      android:id="@+id/image"
+      android:layout_width="120dp"
+      android:layout_height="120dp"
+      android:contentDescription="@null"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
+    <TextView
+      android:id="@+id/title"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="2dp"
+      android:layout_marginStart="10dp"
+      android:text="@{cardArticle.mTitle}"
+      android:textStyle="bold"
+      android:textSize="16sp"
+      android:maxLines="2"
+      android:ellipsize="end"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toEndOf="@id/image"
+      app:layout_constraintEnd_toEndOf="parent"
+      />
+
+    <TextView
+      android:id="@+id/content"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="2dp"
+      android:layout_marginBottom="2dp"
+      android:layout_marginStart="10dp"
+      android:text="@{cardArticle.mContent}"
+      android:textStyle="italic"
+      android:textSize="14sp"
+      android:maxLines="4"
+      android:ellipsize="end"
+      app:layout_constraintTop_toBottomOf="@+id/title"
+      app:layout_constraintBottom_toTopOf="@+id/label_author"
+      app:layout_constraintStart_toEndOf="@id/image"
+      app:layout_constraintEnd_toEndOf="parent"
+      />
+
+    <TextView
+      android:id="@+id/label_author"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="10dp"
+      android:text="@string/label__author"
+      app:layout_constraintStart_toEndOf="@id/image"
+      app:layout_constraintBottom_toTopOf="@+id/label_publication_data"
+      />
+
+    <TextView
+      android:id="@+id/author"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="5dp"
+      android:text="@{cardArticle.mAuthor}"
+      app:layout_constraintTop_toTopOf="@+id/label_author"
+      app:layout_constraintBottom_toBottomOf="@+id/label_author"
+      app:layout_constraintStart_toEndOf="@id/label_author"
+      />
+
+    <TextView
+      android:id="@+id/label_publication_data"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="2dp"
+      android:layout_marginStart="10dp"
+      android:text="@string/label__publication_date"
+      app:layout_constraintStart_toEndOf="@id/image"
+      app:layout_constraintBottom_toBottomOf="parent"
+      />
+
+    <TextView
+      android:id="@+id/publication_date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="5dp"
+      android:text="@{cardArticle.mPublicationDate}"
+      app:layout_constraintTop_toTopOf="@+id/label_publication_data"
+      app:layout_constraintBottom_toBottomOf="@+id/label_publication_data"
+      app:layout_constraintStart_toEndOf="@id/label_publication_data"
+      />
+
+  </android.support.constraint.ConstraintLayout>
+
+</layout>

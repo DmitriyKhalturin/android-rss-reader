@@ -6,4 +6,10 @@
 
   <string name="activity_title__Feed">Лента</string>
   <string name="activity_title__bookmarks">Закладки</string>
+
+  <string name="hint__rss_url">Новостная ссылка</string>
+
+  <string name="label__author">Автор:</string>
+  <string name="label__publication_date">Дата публикации:</string>
+  <string name="label__last_update_date">Дата последнего обновления:</string>
 </resources>

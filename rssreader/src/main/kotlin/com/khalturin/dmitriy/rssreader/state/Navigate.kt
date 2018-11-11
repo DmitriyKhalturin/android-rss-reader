@@ -2,9 +2,11 @@ package com.khalturin.dmitriy.rssreader.state
 
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.content.Intent.*
+import android.net.Uri
 import android.os.Bundle
+import com.khalturin.dmitriy.rssreader.view.activity.ArticleActivity
+import com.khalturin.dmitriy.rssreader.view.activity.ArticleActivity.Companion.ARTICLE_ID_FIELD
 import com.khalturin.dmitriy.rssreader.view.activity.BookmarksActivity
 
 /**
@@ -27,10 +29,24 @@ class Navigate constructor(private val mContext: Context) {
     mContext.startActivity(intent)
   }
 
-  fun navigateToArticle() {}
+  fun navigateToArticle(articleId: Long) {
+    val bundle = Bundle()
+
+    bundle.putLong(ARTICLE_ID_FIELD, articleId)
+
+    startActivity(ArticleActivity::class.java, bundle, false)
+  }
 
   fun navigateToBookmarks() {
     startActivity(BookmarksActivity::class.java, null, false)
+  }
+
+  fun openInBrowser(url: String) {
+    val intent = Intent(ACTION_VIEW, Uri.parse(url))
+
+    intent.flags = FLAG_ACTIVITY_NEW_TASK
+
+    mContext.startActivity(intent)
   }
 
 }

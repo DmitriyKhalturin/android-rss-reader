@@ -2,6 +2,7 @@ package com.khalturin.dmitriy.data.database.entity
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Index
 import android.arch.persistence.room.PrimaryKey
 import java.util.*
 
@@ -10,7 +11,15 @@ import java.util.*
  * for android-rss-reader on 27.10.18 21:53.
  */
 @Entity(
-  tableName = "feeds"
+  tableName = "feeds",
+  indices = [
+    Index(
+      value = [
+        "url"
+      ],
+      unique = true
+    )
+  ]
 )
 data class FeedEntity(
 
@@ -22,6 +31,6 @@ data class FeedEntity(
   val mUrl: String,
 
   @ColumnInfo(name = "last_update_date")
-  var mLastUpdateDate: Date
+  var mLastUpdateDate: Date?
 
 )

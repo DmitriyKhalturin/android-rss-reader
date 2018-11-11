@@ -14,8 +14,8 @@ class GetFeedsList @Inject constructor(
   private val mRepository: FeedRepository,
   mThreadExecutor: ThreadExecutor,
   mPostExecutionThread: PostExecutionThread
-) : UseCase<List<Feed>, Void>(mThreadExecutor, mPostExecutionThread) {
+) : UseCase<MutableList<Feed>, Void?>(mThreadExecutor, mPostExecutionThread) {
 
-  override fun buildUseCaseObservable(params: Void) = mRepository.getFeedsList()
+  override fun buildUseCaseObservable(params: Void?) = mRepository.getFeedsList()
 
 }

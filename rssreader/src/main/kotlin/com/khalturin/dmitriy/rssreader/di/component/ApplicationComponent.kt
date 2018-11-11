@@ -6,9 +6,6 @@ import com.khalturin.dmitriy.rssreader.di.module.StateModule
 import com.khalturin.dmitriy.rssreader.presenter.ArticlePresenter
 import com.khalturin.dmitriy.rssreader.presenter.BookmarksPresenter
 import com.khalturin.dmitriy.rssreader.presenter.FeedPresenter
-import com.khalturin.dmitriy.rssreader.view.activity.ArticleActivity
-import com.khalturin.dmitriy.rssreader.view.activity.BookmarksActivity
-import com.khalturin.dmitriy.rssreader.view.activity.FeedActivity
 import dagger.Component
 import javax.inject.Singleton
 

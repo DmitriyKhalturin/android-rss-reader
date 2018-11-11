@@ -4,12 +4,19 @@ import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import com.khalturin.dmitriy.library.recyclerview.RecyclerViewManager
+import com.khalturin.dmitriy.library.recyclerview.adapter.BindingRecyclerAdapter
+import com.khalturin.dmitriy.rssreader.BR
 import com.khalturin.dmitriy.rssreader.R
 import com.khalturin.dmitriy.rssreader.RssReaderApplication
 import com.khalturin.dmitriy.rssreader.databinding.ActivityFeedBinding
 import com.khalturin.dmitriy.rssreader.presenter.FeedPresenter
+import com.khalturin.dmitriy.rssreader.view.viewmodel.CardArticleViewModel
+import com.khalturin.dmitriy.rssreader.view.viewmodel.FeedViewModel
 import kotlinx.android.synthetic.main.activity_bookmarks.*
 import javax.inject.Inject
 
@@ -17,23 +24,41 @@ class FeedActivity: AppCompatActivity() {
 
   private val mComponent by lazy { RssReaderApplication.getInjector().getPresenterComponent(this) }
 
-  @Inject
-  lateinit var mPresenter: FeedPresenter
+  @Inject lateinit var mPresenter: FeedPresenter
+
+  private lateinit var mBinding: ActivityFeedBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    val binding: ActivityFeedBinding = DataBindingUtil
+    mBinding = DataBindingUtil
       .setContentView(this, R.layout.activity_feed)
 
     setSupportActionBar(toolbar)
+    setTitle(R.string.activity_title__Feed)
 
     mComponent.inject(this)
 
-    mPresenter.getLiveData().observe(this, Observer { feed ->
-      binding.feedViewModel = feed
-    })
+    mPresenter.getLiveData().observe(this, Observer { viewModel -> setViewModel(viewModel) })
   }
+
+  private fun setViewModel(viewModel: FeedViewModel?) {
+    if(viewModel?.mRecyclerViewManager?.get() == null){
+      viewModel?.mRecyclerViewManager?.set(getRecyclerViewManager())
+    }
+
+    mBinding.feedViewModel = viewModel
+  }
+
+  private fun getRecyclerViewManager() = RecyclerViewManager<CardArticleViewModel>(
+    LinearLayoutManager(this),
+    DefaultItemAnimator(),
+    BindingRecyclerAdapter(
+      R.layout.card_view_article,
+      null,
+      BR.cardArticle
+    )
+  )
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
     menuInflater.inflate(R.menu.menu_feed, menu)

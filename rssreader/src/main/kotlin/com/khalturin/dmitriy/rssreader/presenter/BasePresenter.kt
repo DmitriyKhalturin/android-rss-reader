@@ -2,6 +2,8 @@ package com.khalturin.dmitriy.rssreader.presenter
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -26,5 +28,19 @@ abstract class BasePresenter<T> constructor(clazz: Class<T>) : ViewModel() {
   fun getLiveData() = mLiveData
 
   protected abstract fun buildViewModel()
+
+  private val mDisposables = CompositeDisposable()
+
+  fun addDisposables(vararg disposables: Disposable) {
+    mDisposables.addAll(*disposables)
+  }
+
+  override fun onCleared() {
+    if(!mDisposables.isDisposed){
+      mDisposables.dispose()
+    }
+
+    super.onCleared()
+  }
 
 }

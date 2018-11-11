@@ -24,7 +24,7 @@ class ArticleEntityMapper {
       entity.mIsWasRead
     )
 
-    fun transform(entities: List<ArticleEntity>): List<Article> {
+    fun transform(entities: MutableList<ArticleEntity>): MutableList<Article> {
       val list = ArrayList<Article>()
 
       entities.map { item -> list.add(transform(item)) }

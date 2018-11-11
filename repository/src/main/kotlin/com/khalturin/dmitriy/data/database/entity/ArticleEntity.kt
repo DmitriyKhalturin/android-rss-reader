@@ -17,7 +17,11 @@ import java.util.*
     )
   ],
   indices = [
-    Index("feed_id")
+    Index(
+      value = [
+        "feed_id"
+      ]
+    )
   ]
 )
 data class ArticleEntity(
@@ -30,28 +34,28 @@ data class ArticleEntity(
   val mFeedId: Long,
 
   @ColumnInfo(name = "title")
-  val mTitle: String,
+  val mTitle: String?,
 
   @ColumnInfo(name = "author")
-  val mAuthor: String,
+  val mAuthor: String?,
 
   @ColumnInfo(name = "description")
-  val mDescription: String,
+  val mDescription: String?,
 
   @ColumnInfo(name = "content")
-  val mContent: String,
+  val mContent: String?,
 
   @ColumnInfo(name = "image")
-  val mImage: String,
+  val mImage: String?,
 
   @ColumnInfo(name = "link")
-  val mLink: String,
+  val mLink: String?,
 
   @ColumnInfo(name = "publication_date")
-  val mPublicationDate: Date,
+  val mPublicationDate: Date?,
 
   @ColumnInfo(name = "categories")
-  val mCategories: List<String>,
+  val mCategories: List<String>?,
 
   @ColumnInfo(name = "is_was_read")
   var mIsWasRead: Boolean = false

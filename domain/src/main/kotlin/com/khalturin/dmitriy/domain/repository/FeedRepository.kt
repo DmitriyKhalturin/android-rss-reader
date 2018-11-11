@@ -9,7 +9,7 @@ import io.reactivex.Observable
  */
 interface FeedRepository {
 
-  fun getFeedsList(): Observable<List<Feed>>
+  fun getFeedsList(): Observable<MutableList<Feed>>
   fun addFeed(feedUrl: String): Observable<Boolean>
   fun setFeed(feedId: Long): Observable<Boolean>
 

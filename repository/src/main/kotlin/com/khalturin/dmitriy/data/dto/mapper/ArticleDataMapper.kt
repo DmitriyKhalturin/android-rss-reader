@@ -24,7 +24,7 @@ class ArticleDataMapper {
       data.categories
     )
 
-    fun transform(data: List<Article>, feedId: Long): List<ArticleEntity> {
+    fun transform(data: MutableList<Article>, feedId: Long): MutableList<ArticleEntity> {
       val list = ArrayList<ArticleEntity>()
 
       data.map { item -> list.add(transform(item, feedId)) }

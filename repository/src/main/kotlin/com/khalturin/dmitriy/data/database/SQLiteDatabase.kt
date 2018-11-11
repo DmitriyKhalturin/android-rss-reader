@@ -22,7 +22,7 @@ import com.khalturin.dmitriy.data.database.entity.SettingsEntity
 const val DATABASE_NAME = "sqlite.db"
 
 @Database(
-  version = 0,
+  version = 1,
   exportSchema = false,
   entities = [
     FeedEntity::class,
@@ -44,7 +44,11 @@ abstract class SQLiteDatabase : RoomDatabase() {
     @JvmStatic
     fun getInstance(context: Context): SQLiteDatabase? {
       if (sInstance == null) {
-        synchronized(SQLiteDatabase::class, fun() = sInstance ?: buildDatabase(context))
+        synchronized(SQLiteDatabase::class) {
+          if(sInstance == null) {
+            sInstance = buildDatabase(context)
+          }
+        }
       }
 
       return sInstance

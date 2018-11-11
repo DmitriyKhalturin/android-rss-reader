@@ -8,13 +8,13 @@ import java.util.*
  */
 data class Article(
   var mId: Long,
-  var mTitle: String,
-  var mAuthor: String,
-  var mDescription: String,
-  var mContent: String,
-  var mImage: String,
-  var mLink: String,
-  var mPublicationDate: Date,
-  var mCategories: List<String>,
+  var mTitle: String?,
+  var mAuthor: String?,
+  var mDescription: String?,
+  var mContent: String?,
+  var mImage: String?,
+  var mLink: String?,
+  var mPublicationDate: Date?,
+  var mCategories: List<String>?,
   var mIsWasRead: Boolean
 )

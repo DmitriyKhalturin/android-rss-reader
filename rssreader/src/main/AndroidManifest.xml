@@ -16,7 +16,6 @@
 
     <activity
       android:name=".view.activity.FeedActivity"
-      android:label="@string/activity_title__Feed"
       android:theme="@style/AppTheme.NoActionBar"
       android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
       <intent-filter>
@@ -38,7 +37,6 @@
 
     <activity
       android:name=".view.activity.BookmarksActivity"
-      android:label="@string/activity_title__bookmarks"
       android:parentActivityName=".view.activity.FeedActivity"
       android:theme="@style/AppTheme.NoActionBar"
       android:windowSoftInputMode="stateAlwaysHidden|adjustResize">

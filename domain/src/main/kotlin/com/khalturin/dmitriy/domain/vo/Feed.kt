@@ -9,5 +9,5 @@ import java.util.*
 data class Feed(
   var mId: Long,
   var mUrl: String,
-  var mLastUpdateDate: Date
+  var mLastUpdateDate: Date?
 )

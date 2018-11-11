@@ -21,9 +21,9 @@ interface ArticleDao {
   fun setArticle(article: ArticleEntity)
 
   @Query("SELECT * FROM articles WHERE feed_id = :feedId")
-  fun getObservableArticles(feedId: Long): Flowable<List<ArticleEntity>>
+  fun getObservableArticles(feedId: Long): Flowable<MutableList<ArticleEntity>>
 
   @Insert(onConflict = REPLACE)
-  fun addArticles(articles: List<ArticleEntity>)
+  fun addArticles(articles: MutableList<ArticleEntity>)
 
 }

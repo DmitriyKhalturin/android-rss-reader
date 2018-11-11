@@ -7,8 +7,8 @@ import com.khalturin.dmitriy.library.recyclerview.adapter.BindingRecyclerAdapter
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
  * for android-rss-reader on 01.11.18 22:59.
  */
-data class RecyclerViewManager (
+data class RecyclerViewManager<T> (
   var mLayoutManager: RecyclerView.LayoutManager,
   var mItemAnimator: RecyclerView.ItemAnimator,
-  var mAdapter: BindingRecyclerAdapter<*>
+  var mAdapter: BindingRecyclerAdapter<T>
 )

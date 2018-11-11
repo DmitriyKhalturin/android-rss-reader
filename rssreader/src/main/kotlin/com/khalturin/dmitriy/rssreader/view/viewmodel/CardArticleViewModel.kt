@@ -18,4 +18,6 @@ open class CardArticleViewModel {
   val mPublicationDate = ObservableField<String>()
   val mIsWasRead = ObservableField<Boolean>()
 
+  lateinit var mFeed: FeedViewModel
+
 }

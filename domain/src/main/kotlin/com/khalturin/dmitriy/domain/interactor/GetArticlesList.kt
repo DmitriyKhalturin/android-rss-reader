@@ -14,8 +14,8 @@ class GetArticlesList @Inject constructor(
   private val mRepository: ArticleRepository,
   mThreadExecutor: ThreadExecutor,
   mPostExecutionThread: PostExecutionThread
-) : UseCase<List<Article>, Void>(mThreadExecutor, mPostExecutionThread) {
+) : UseCase<MutableList<Article>, Void?>(mThreadExecutor, mPostExecutionThread) {
 
-  override fun buildUseCaseObservable(params: Void) = mRepository.getArticlesList()
+  override fun buildUseCaseObservable(params: Void?) = mRepository.getArticlesList()
 
 }

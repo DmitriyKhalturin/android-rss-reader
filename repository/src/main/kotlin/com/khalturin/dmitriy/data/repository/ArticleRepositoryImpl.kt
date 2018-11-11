@@ -1,9 +1,14 @@
 package com.khalturin.dmitriy.data.repository
 
 import android.content.Context
+import android.os.Handler
+import android.os.HandlerThread
+import android.os.Process
 import com.khalturin.dmitriy.data.database.SQLiteDatabase
 import com.khalturin.dmitriy.data.dto.mapper.ArticleDataMapper
 import com.khalturin.dmitriy.data.dto.mapper.ArticleEntityMapper
+import com.khalturin.dmitriy.data.exception.FeedParseException
+import com.khalturin.dmitriy.data.exception.NullableArticleListException
 import com.khalturin.dmitriy.domain.repository.ArticleRepository
 import com.khalturin.dmitriy.domain.vo.Article
 import com.khalturin.dmitriy.library.rx.MyObserverCompose
@@ -23,7 +28,7 @@ class ArticleRepositoryImpl @Inject constructor(mContext: Context) : ArticleRepo
   private val articleDao = database.articleDao()
   private val settingsDao = database.settingsDao()
 
-  override fun getArticlesList() = Observable.create<List<Article>> { emitter ->
+  override fun getArticlesList() = Observable.create<MutableList<Article>> { emitter ->
     settingsDao.getObservableFeedId()
       .subscribe(
         { feedId ->
@@ -39,6 +44,7 @@ class ArticleRepositoryImpl @Inject constructor(mContext: Context) : ArticleRepo
   } .compose(MyObserverCompose.applyMainThreadScheduler()) !!
 
   override fun updateArticlesList() = Observable.create<Boolean> { emitter ->
+    val handlerThread = HandlerThread(Thread.currentThread().name, Process.THREAD_PRIORITY_BACKGROUND)
     val feedId = settingsDao.getFeedId()
     val feed = feedDao.getFeed(feedId)
     val feedUrl = feed.mUrl
@@ -48,22 +54,30 @@ class ArticleRepositoryImpl @Inject constructor(mContext: Context) : ArticleRepo
 
     parser.onFinish(object : Parser.OnTaskCompleted {
       override fun onTaskCompleted(p0: ArrayList<com.prof.rssparser.Article>?) {
-        try {
-          val data = p0 ?: throw NullPointerException() // TODO: throw null articles exception
+        handlerThread.start()
 
-          feed.mLastUpdateDate = Date()
+        val handler = Handler(handlerThread.looper)
 
-          // TODO: merge with exist articles
-          articleDao.addArticles(ArticleDataMapper.transform(data, feedId))
+        handler.post {
+          try {
+            val data = p0 ?: throw NullableArticleListException()
 
-          emitter.onNext(true)
-          emitter.onComplete()
-        } catch (exception: Exception) {
-          emitter.onError(exception)
+            feed.mLastUpdateDate = Date()
+
+            // TODO: merge with exist articles
+            articleDao.addArticles(ArticleDataMapper.transform(data, feedId))
+
+            emitter.onNext(true)
+            emitter.onComplete()
+          } catch (exception: Exception) {
+            emitter.onError(exception)
+          }
+
+          handlerThread.quitSafely()
         }
       }
 
-      override fun onError() = emitter.onError(NullPointerException()) // TODO: pipe for parser exception
+      override fun onError() = emitter.onError(FeedParseException())
     })
   } .compose(MyObserverCompose.applyMainThreadScheduler()) !!
 

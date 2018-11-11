@@ -17,7 +17,7 @@ class FeedEntityMapper {
       entity.mLastUpdateDate
     )
 
-    fun transform(entities: List<FeedEntity>): List<Feed> {
+    fun transform(entities: MutableList<FeedEntity>): MutableList<Feed> {
       val list = ArrayList<Feed>()
 
       entities.map { item -> list.add(transform(item)) }

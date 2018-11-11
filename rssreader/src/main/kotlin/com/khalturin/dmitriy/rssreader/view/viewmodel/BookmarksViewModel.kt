@@ -3,6 +3,7 @@ package com.khalturin.dmitriy.rssreader.view.viewmodel
 import android.databinding.ObservableField
 import android.view.View
 import com.khalturin.dmitriy.library.recyclerview.RecyclerViewManager
+import io.reactivex.subjects.PublishSubject
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -10,10 +11,32 @@ import com.khalturin.dmitriy.library.recyclerview.RecyclerViewManager
  */
 class BookmarksViewModel {
 
-  val mRecyclerViewManager = ObservableField<RecyclerViewManager>()
+  val mRecyclerViewManager = ObservableField<RecyclerViewManager<CardFeedViewModel>>()
 
   val mRssUrl = ObservableField<String>()
 
-  fun loadRssFeed(view: View) {}
+  private val mSubjectAddRssUrl = PublishSubject.create<String>()
+
+  fun getOnAddRssUrl() = mSubjectAddRssUrl
+
+  fun addRssUrl(view: View) {
+    val rssUrl = mRssUrl.get()
+
+    if(rssUrl is String && rssUrl.isNotBlank()) {
+      mSubjectAddRssUrl.onNext(rssUrl)
+    }
+  }
+
+  private val mSubjectSetRssFeed = PublishSubject.create<Long>()
+
+  fun getOnSetRssFeed() = mSubjectSetRssFeed
+
+  fun setRssFeed(feedId: Long) = mSubjectSetRssFeed.onNext(feedId)
+
+  private val mSubjectFinish = PublishSubject.create<Boolean>()
+
+  fun getOnFinish() = mSubjectFinish
+
+  fun finish() = mSubjectFinish.onNext(true)
 
 }

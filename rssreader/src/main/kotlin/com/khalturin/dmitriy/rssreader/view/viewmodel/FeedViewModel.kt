@@ -2,6 +2,7 @@ package com.khalturin.dmitriy.rssreader.view.viewmodel
 
 import android.databinding.ObservableField
 import com.khalturin.dmitriy.library.recyclerview.RecyclerViewManager
+import io.reactivex.subjects.PublishSubject
 
 /**
  * Created by Dmitriy Khalturin <dmitry.halturin.86@gmail.com>
@@ -9,6 +10,12 @@ import com.khalturin.dmitriy.library.recyclerview.RecyclerViewManager
  */
 class FeedViewModel : CardFeedViewModel() {
 
-  val mRecyclerViewManager = ObservableField<RecyclerViewManager>()
+  val mRecyclerViewManager = ObservableField<RecyclerViewManager<CardArticleViewModel>>()
+
+  private val mSubjectReadArticle = PublishSubject.create<Long>()
+
+  fun getOnReadArticle() = mSubjectReadArticle
+
+  fun readArticle(articleId: Long) = mSubjectReadArticle.onNext(articleId)
 
 }

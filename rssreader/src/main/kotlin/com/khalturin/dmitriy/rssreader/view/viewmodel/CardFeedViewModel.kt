@@ -12,4 +12,6 @@ open class CardFeedViewModel {
   val mUrl = ObservableField<String>()
   val mLastUpdateDate = ObservableField<String>()
 
+  lateinit var mBookmarks: BookmarksViewModel
+
 }

@@ -12,7 +12,7 @@ object RecyclerViewAttribute {
 
   @JvmStatic
   @BindingAdapter("recyclerViewManager")
-  fun bindRecyclerViewManager(recyclerView: RecyclerView, recyclerViewManager: RecyclerViewManager?){
+  fun bindRecyclerViewManager(recyclerView: RecyclerView, recyclerViewManager: RecyclerViewManager<*>?){
     if(recyclerViewManager is RecyclerViewManager){
       recyclerView.layoutManager = recyclerViewManager.mLayoutManager
       recyclerView.itemAnimator = recyclerViewManager.mItemAnimator

@@ -1,11 +1,17 @@
 package com.khalturin.dmitriy.data.repository
 
 import android.content.Context
+import android.os.Handler
+import android.os.HandlerThread
+import android.os.Process.THREAD_PRIORITY_BACKGROUND
 import com.khalturin.dmitriy.data.database.SQLiteDatabase
 import com.khalturin.dmitriy.data.database.entity.FeedEntity
 import com.khalturin.dmitriy.data.database.entity.SettingsEntity
 import com.khalturin.dmitriy.data.dto.mapper.ArticleDataMapper
 import com.khalturin.dmitriy.data.dto.mapper.FeedEntityMapper
+import com.khalturin.dmitriy.data.exception.FeedExistException
+import com.khalturin.dmitriy.data.exception.FeedParseException
+import com.khalturin.dmitriy.data.exception.NullableArticleListException
 import com.khalturin.dmitriy.domain.repository.FeedRepository
 import com.khalturin.dmitriy.domain.vo.Feed
 import com.khalturin.dmitriy.library.rx.MyObserverCompose
@@ -25,7 +31,7 @@ class FeedRepositoryImpl @Inject constructor(mContext: Context) : FeedRepository
   private val articleDao = database.articleDao()
   private val settingsDao = database.settingsDao()
 
-  override fun getFeedsList() = Observable.create<List<Feed>> { emitter ->
+  override fun getFeedsList() = Observable.create<MutableList<Feed>> { emitter ->
     feedDao.getObservableFeedsList()
       .map { list -> FeedEntityMapper.transform(list) }
       .subscribe(
@@ -35,36 +41,51 @@ class FeedRepositoryImpl @Inject constructor(mContext: Context) : FeedRepository
   } .compose(MyObserverCompose.applyMainThreadScheduler()) !!
 
   override fun addFeed(feedUrl: String) = Observable.create<Boolean> { emitter ->
-    val parse = Parser()
+    val count = feedDao.getFeedExist(feedUrl)
 
-    parse.execute(feedUrl)
+    if(count == 0){
+      val handlerThread = HandlerThread(Thread.currentThread().name, THREAD_PRIORITY_BACKGROUND)
+      val parse = Parser()
 
-    parse.onFinish(object : Parser.OnTaskCompleted {
-      override fun onTaskCompleted(p0: ArrayList<com.prof.rssparser.Article>?) {
-        try {
-          val data = p0 ?: throw NullPointerException() // TODO: throw null articles exception
-          val feedId = feedDao.addFeed(FeedEntity(
-            null,
-            feedUrl,
-            Date()
-          ))
+      parse.execute(feedUrl)
 
-          articleDao.addArticles(ArticleDataMapper.transform(data, feedId))
+      parse.onFinish(object : Parser.OnTaskCompleted {
+        override fun onTaskCompleted(p0: ArrayList<com.prof.rssparser.Article>?) {
+          handlerThread.start()
 
-          settingsDao.updateSettings(SettingsEntity(
-            1L,
-            feedId
-          ))
+          val handler = Handler(handlerThread.looper)
 
-          emitter.onNext(true)
-          emitter.onComplete()
-        } catch (exception: Exception) {
-          emitter.onError(exception)
+          handler.post {
+            try {
+              val data = p0 ?: throw NullableArticleListException()
+              val feedId = feedDao.addFeed(FeedEntity(
+                null,
+                feedUrl,
+                Date()
+              ))
+
+              articleDao.addArticles(ArticleDataMapper.transform(data, feedId))
+
+              settingsDao.updateSettings(SettingsEntity(
+                1L,
+                feedId
+              ))
+
+              emitter.onNext(true)
+              emitter.onComplete()
+            } catch (exception: Exception) {
+              emitter.onError(exception)
+            }
+
+            handlerThread.quitSafely()
+          }
         }
-      }
 
-      override fun onError() = emitter.onError(NullPointerException()) // TODO: pipe for parser exception
-    })
+        override fun onError() = emitter.onError(FeedParseException())
+      })
+    }else{
+      emitter.onError(FeedExistException())
+    }
   } .compose(MyObserverCompose.applyMainThreadScheduler()) !!
 
   override fun setFeed(feedId: Long) = Observable.create<Boolean> { emitter ->

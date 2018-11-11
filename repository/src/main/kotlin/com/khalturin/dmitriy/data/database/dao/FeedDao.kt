@@ -14,7 +14,10 @@ import io.reactivex.Flowable
 interface FeedDao {
 
   @Query("SELECT * FROM feeds")
-  fun getObservableFeedsList(): Flowable<List<FeedEntity>>
+  fun getObservableFeedsList(): Flowable<MutableList<FeedEntity>>
+
+  @Query("SELECT COUNT(*) FROM feeds WHERE url = :url")
+  fun getFeedExist(url: String): Int
 
   @Query("SELECT * FROM feeds WHERE id = :feedId")
   fun getFeed(feedId: Long): FeedEntity

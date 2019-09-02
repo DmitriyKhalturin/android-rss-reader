@@ -5,7 +5,7 @@
   <data>
     <variable
       name="cardArticle"
-      type="com.khalturin.dmitriy.rssreader.view.viewmodel.CardArticleViewModel"
+      type="dmitriykhalturin.rssreader.view.viewmodel.CardArticleViewModel"
       />
   </data>
 

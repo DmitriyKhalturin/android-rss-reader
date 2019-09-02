@@ -8,7 +8,7 @@
   <data>
     <variable
       name="bookmarksViewModel"
-      type="com.khalturin.dmitriy.rssreader.view.viewmodel.BookmarksViewModel"
+      type="dmitriykhalturin.rssreader.view.viewmodel.BookmarksViewModel"
       />
   </data>
 

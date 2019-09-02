@@ -8,7 +8,7 @@
   <data>
     <variable
       name="articleViewModel"
-      type="com.khalturin.dmitriy.rssreader.view.viewmodel.ArticleViewModel"
+      type="dmitriykhalturin.rssreader.view.viewmodel.ArticleViewModel"
       />
   </data>
 

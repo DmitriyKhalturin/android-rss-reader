@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
   xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.khalturin.dmitriy.rssreader">
+  package="dmitriykhalturin.rssreader">
 
   <uses-permission android:name="android.permission.INTERNET" />
 
@@ -45,7 +45,5 @@
         android:value=".view.activity.FeedActivity"
         />
     </activity>
-
   </application>
-
 </manifest>
